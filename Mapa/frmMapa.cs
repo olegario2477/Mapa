@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Threading;
 using System.Drawing.Imaging;
+using System.Net.NetworkInformation;
 
 namespace Mapa
 {
@@ -72,6 +73,7 @@ namespace Mapa
         DataTable dtRepartotmp;
 
         private ArrayList lista = new ArrayList();
+        
         private String seleccion = "";
         ConnectedWs connectar;
 
@@ -132,7 +134,7 @@ namespace Mapa
         private List<PointLatLng> _points;
 
         List<Color> colores = new List<Color>();
-
+        List<String> tablets = new List<String>();
 
         public frmMapa()
         {
@@ -154,6 +156,8 @@ namespace Mapa
             tablaCamionTemp();
             tablaListaCamionTemp();
             tablaRepartoTemp();
+
+            llenaTablets();
 
             ip = obtenerConfig(0);
 
@@ -1129,6 +1133,12 @@ namespace Mapa
             chart1.Left = chart2.Left - chart1.Width;
 
 
+
+            panelCamiones.Top = this.Height - 110;
+            panelCamiones.Left = (this.Width / 2) - (panelCamiones.Width / 2);
+
+
+
         }
 
         private void btnSatelital_Click(object sender, EventArgs e)
@@ -1203,6 +1213,8 @@ namespace Mapa
             mostrarDatosWs();
 
             //FlushMemory();
+
+            mostrarCamionesActivos();
             
         }
 
@@ -1223,6 +1235,7 @@ namespace Mapa
                 case 0:
                     mostrarReparto("racion");
                     break;
+
                 default:
                     break;
             }
@@ -3411,6 +3424,192 @@ namespace Mapa
 
         }
 
+
+        private Image numeroImagen(Image imagen, string id) 
+        {
+
+            Bitmap bmpmarker = new Bitmap(imagen);
+
+            SolidBrush drawBrush = new SolidBrush(Color.Black); //color numero 
+
+            Graphics graphicImage = Graphics.FromImage(bmpmarker);
+            graphicImage.SmoothingMode = SmoothingMode.AntiAlias;
+            Point punto = new Point(2, 6);
+            graphicImage.DrawString(id, new Font("Arial", 11, FontStyle.Bold), drawBrush, punto);
+            graphicImage.Dispose();
+
+
+            return bmpmarker;
+
+        }
+
+        private void mostrarCamionesActivos() 
+        {
+
+            //this.Cursor = Cursors.WaitCursor;
+            
+            ArrayList camiones = new ArrayList();
+
+            picCam01.Image = numeroImagen(imageList1.Images[2], "01");
+            picCam02.Image = numeroImagen(imageList1.Images[2], "02");
+            picCam03.Image = numeroImagen(imageList1.Images[2], "03");
+            picCam04.Image = numeroImagen(imageList1.Images[2], "04");
+            picCam05.Image = numeroImagen(imageList1.Images[2], "05");
+            picCam06.Image = numeroImagen(imageList1.Images[2], "06");
+            picCam07.Image = numeroImagen(imageList1.Images[2], "07");
+            picCam08.Image = numeroImagen(imageList1.Images[2], "08");
+            picCam09.Image = numeroImagen(imageList1.Images[2], "09");
+            picCam10.Image = numeroImagen(imageList1.Images[2], "10");
+            picCam11.Image = numeroImagen(imageList1.Images[2], "11");
+            picCam12.Image = numeroImagen(imageList1.Images[2], "12");
+            picCam13.Image = numeroImagen(imageList1.Images[2], "13");
+            picCam14.Image = numeroImagen(imageList1.Images[2], "14");
+            picCam15.Image = numeroImagen(imageList1.Images[2], "15");
+
+            camiones = camionesActivos("numcamion");
+
+            foreach (String camion in camiones)
+            {
+
+
+                switch (camion)
+                {
+                    case "01":
+                        picCam01.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "02":
+                        picCam02.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "03":
+                        picCam03.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "04":
+                        picCam04.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "05":
+                        picCam05.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "06":
+                        picCam06.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "07":
+                        picCam07.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "08":
+                        picCam08.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "09":
+                        picCam09.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "10":
+                        picCam10.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "11":
+                        picCam11.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "12":
+                        picCam12.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "13":
+                        picCam13.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "14":
+                        picCam14.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+                    case "15":
+                        picCam15.Image = numeroImagen(imageList1.Images[0], camion);
+                        break;
+
+
+
+
+
+
+                }
+
+
+            }
+
+
+
+            //this.Cursor = Cursors.Default;
+
+
+        }
+
+        private ArrayList camionesActivos(String columna) 
+        {
+
+     
+            ArrayList camiones = new ArrayList();
+
+
+            camiones.Clear();
+            
+            
+            try
+            {
+
+                DataTable dt = new DataTable();
+
+                obtenerWsdlServidasSap(ref dt);
+
+
+                if (dt.Rows.Count > 0)
+                {
+
+                    dt.DefaultView.Sort = columna + " asc";
+                    dt = dt.DefaultView.ToTable();
+
+                    //if (cmbFiltroVista.Items.Count > 0 && !cmbFiltroVista.Text.Equals(vtodos))
+                    //{
+                    //    dt.DefaultView.RowFilter = columna + " = '" + cmbFiltroVista.Text + "'";
+                    //    dt = dt.DefaultView.ToTable();
+                    //    //vfiltro = true;
+                    //}
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+
+                        String valor = row[columna].ToString();
+
+                        if (!camiones.Contains(valor))
+                        {
+
+                            camiones.Add(valor);
+
+                            //listBoxLey endas.Items.Add(valor);
+
+                            //vcolor = Color.White;
+
+                            //if (indexcolor < cont) { vcolor = colores[indexcolor]; }
+
+                            //indexcolor++;
+
+                        }
+
+                        //if (vfiltro) { vcolor = Color.Green; }
+
+                        //corralActividadMod(row["corral"].ToString(), vcolor);
+
+                    }
+
+                    return camiones;
+
+
+                }
+
+
+            }
+            catch { }
+
+
+            //this.Cursor = Cursors.Default;
+
+            return null;
+
+        }
+
         private void mostrarReparto(String columna)
         {
 
@@ -5078,6 +5277,76 @@ namespace Mapa
             cmbFiltroVista.Visible = true;
             llenaFiltroVista();
         }
+
+        void llenaTablets() 
+        { 
+        
+            tablets.Clear();
+            tablets.Add("tamggcamr01");
+            tablets.Add("tamggcamr02");
+            tablets.Add("tamggcamr03");
+            tablets.Add("tamggcamr04");
+            tablets.Add("tamggcamr05");
+            tablets.Add("tamggcamr06");
+            tablets.Add("tamggcamr07");
+            tablets.Add("tamggcamr08");
+            tablets.Add("tamggcamr09");
+            tablets.Add("tamggcamr10");
+            tablets.Add("tamggcamr11");
+            tablets.Add("tamggcamr12");
+            tablets.Add("tamggcamr13");
+            tablets.Add("tamggcamr14");
+            tablets.Add("tamggcamr15"); 
+            
+        }
+
+        private void timerPing_Tick(object sender, EventArgs e)
+        {
+
+
+
+            foreach (String tbl in tablets) 
+            {  
+                if (PingHost(tbl)) 
+                {
+                    lblPing.Text += tbl;
+                }            
+            
+            }
+
+
+
+
+        }
+
+
+        public static bool PingHost(string nameOrAddress)
+        {
+            bool pingable = false;
+            Ping pinger = null;
+
+            try
+            {
+                pinger = new Ping();
+                PingReply reply = pinger.Send(nameOrAddress);
+                pingable = reply.Status == IPStatus.Success;
+            }
+            catch (PingException)
+            {
+                // Discard PingExceptions and return false;
+            }
+            finally
+            {
+                if (pinger != null)
+                {
+                    pinger.Dispose();
+                }
+            }
+
+            return pingable;
+        }
+
+
     }
 
     internal class Graphic

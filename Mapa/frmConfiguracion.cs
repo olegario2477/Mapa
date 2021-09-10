@@ -10,8 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
-
-
+using System.Configuration;
 
 namespace Mapa
 {
@@ -366,7 +365,57 @@ namespace Mapa
 
         }
 
+        private void btnWS_Click(object sender, EventArgs e)
+        {
 
+            string valor = "";
+
+            try
+            {
+                valor = Properties.Settings.Default.Mapa_getSAPData_zwsdl_map;
+                MessageBox.Show(valor);
+
+                //Properties.Settings.Default.Mapa_getSAPData_zwsdl_map = "http://TAMGGSAPPROD.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/200/zwsdl_map/zwsdl_map";
+                //Properties.Settings.Default.Save();
+
+                
+
+                //SetSetting("Mapa_getSAPData_zwsdl_map", "http://TAMGGSAPDEV.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/200/zwsdl_map/zwsdl_map");
+                SetSetting("Mapa_getSAPData_zwsdl_map", "http://TAMGGSAPPROD.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/400/zwsdl_map/zwsdl_map");
+
+            }
+            catch (Exception em) 
+            {
+                MessageBox.Show(em.Message);
+            }
+
+        }
+
+        internal static bool SetSetting(string Key, string Value)
+        {
+            bool result = false;
+            try
+            {
+                Configuration config =
+                  ConfigurationManager.OpenExeConfiguration(
+                                       ConfigurationUserLevel.None);
+
+                config.AppSettings.Settings.Remove(Key);
+                var kvElem = new KeyValueConfigurationElement(Key, Value);
+                config.AppSettings.Settings.Add(kvElem);
+
+                // Save the configuration file.
+                config.Save(ConfigurationSaveMode.Modified);
+
+                // Force a reload of a changed section.
+                ConfigurationManager.RefreshSection("appSettings");
+
+                result = true;
+            }
+            finally
+            { }
+            return result;
+        } // function
 
 
     }

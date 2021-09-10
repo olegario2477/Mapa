@@ -136,6 +136,8 @@
             this.lblErrores = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.lblCtrl = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblPing = new System.Windows.Forms.ToolStripLabel();
             this.webBClima = new System.Windows.Forms.WebBrowser();
             this.panelLeyenda = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -172,6 +174,23 @@
             this.panelLeyendas = new System.Windows.Forms.Panel();
             this.dataGridVista = new System.Windows.Forms.DataGridView();
             this.labelLeyendas = new System.Windows.Forms.Label();
+            this.timerPing = new System.Windows.Forms.Timer(this.components);
+            this.panelCamiones = new System.Windows.Forms.Panel();
+            this.picCam14 = new System.Windows.Forms.PictureBox();
+            this.picCam15 = new System.Windows.Forms.PictureBox();
+            this.picCam13 = new System.Windows.Forms.PictureBox();
+            this.picCam11 = new System.Windows.Forms.PictureBox();
+            this.picCam12 = new System.Windows.Forms.PictureBox();
+            this.picCam10 = new System.Windows.Forms.PictureBox();
+            this.picCam08 = new System.Windows.Forms.PictureBox();
+            this.picCam09 = new System.Windows.Forms.PictureBox();
+            this.picCam07 = new System.Windows.Forms.PictureBox();
+            this.picCam04 = new System.Windows.Forms.PictureBox();
+            this.picCam06 = new System.Windows.Forms.PictureBox();
+            this.picCam02 = new System.Windows.Forms.PictureBox();
+            this.picCam03 = new System.Windows.Forms.PictureBox();
+            this.picCam05 = new System.Windows.Forms.PictureBox();
+            this.picCam01 = new System.Windows.Forms.PictureBox();
             this.contextMenuStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -192,6 +211,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panelLeyendas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVista)).BeginInit();
+            this.panelCamiones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam08)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam09)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam07)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam04)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam06)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam02)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam03)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam05)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam01)).BeginInit();
             this.SuspendLayout();
             // 
             // gMapControl1
@@ -219,7 +254,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(1202, 428);
+            this.gMapControl1.Size = new System.Drawing.Size(1202, 488);
             this.gMapControl1.TabIndex = 0;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.cambioZoomMapa);
@@ -584,33 +619,33 @@
             // servidasToolStripMenuItem
             // 
             this.servidasToolStripMenuItem.Name = "servidasToolStripMenuItem";
-            this.servidasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.servidasToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.servidasToolStripMenuItem.Text = "Servido Alimento";
             this.servidasToolStripMenuItem.Click += new System.EventHandler(this.servidasToolStripMenuItem_Click);
             // 
             // racionToolStripMenuItem
             // 
             this.racionToolStripMenuItem.Name = "racionToolStripMenuItem";
-            this.racionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.racionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.racionToolStripMenuItem.Text = "Racion Servida";
             this.racionToolStripMenuItem.Click += new System.EventHandler(this.racionToolStripMenuItem_Click);
             // 
             // camionToolStripMenuItem
             // 
             this.camionToolStripMenuItem.Name = "camionToolStripMenuItem";
-            this.camionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.camionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.camionToolStripMenuItem.Text = "Camion Sirvio";
             this.camionToolStripMenuItem.Click += new System.EventHandler(this.camionToolStripMenuItem_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(162, 6);
             // 
             // planeadoToolStripMenuItem
             // 
             this.planeadoToolStripMenuItem.Name = "planeadoToolStripMenuItem";
-            this.planeadoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.planeadoToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.planeadoToolStripMenuItem.Text = "Planeado Racion";
             this.planeadoToolStripMenuItem.Click += new System.EventHandler(this.planeadoToolStripMenuItem_Click);
             // 
@@ -750,14 +785,14 @@
             this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
             this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton7.Size = new System.Drawing.Size(24, 29);
             this.toolStripButton7.Text = "toolStripButton7";
             this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(49, 15);
+            this.toolStripLabel2.Size = new System.Drawing.Size(49, 29);
             this.toolStripLabel2.Text = "Camion";
             this.toolStripLabel2.Visible = false;
             // 
@@ -765,7 +800,7 @@
             // 
             this.cmbCamiones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCamiones.Name = "cmbCamiones";
-            this.cmbCamiones.Size = new System.Drawing.Size(75, 23);
+            this.cmbCamiones.Size = new System.Drawing.Size(75, 32);
             this.cmbCamiones.Visible = false;
             // 
             // toolStripSeparator3
@@ -778,7 +813,7 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(62, 24);
+            this.toolStripButton4.Size = new System.Drawing.Size(62, 29);
             this.toolStripButton4.Text = "Clima";
             this.toolStripButton4.Visible = false;
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
@@ -786,14 +821,14 @@
             // lblcmbCamionRuta
             // 
             this.lblcmbCamionRuta.Name = "lblcmbCamionRuta";
-            this.lblcmbCamionRuta.Size = new System.Drawing.Size(49, 15);
+            this.lblcmbCamionRuta.Size = new System.Drawing.Size(49, 29);
             this.lblcmbCamionRuta.Text = "Camion";
             // 
             // cmbCamionRuta
             // 
             this.cmbCamionRuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCamionRuta.Name = "cmbCamionRuta";
-            this.cmbCamionRuta.Size = new System.Drawing.Size(75, 23);
+            this.cmbCamionRuta.Size = new System.Drawing.Size(75, 32);
             // 
             // btnBuscarcamionruta
             // 
@@ -801,7 +836,7 @@
             this.btnBuscarcamionruta.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarcamionruta.Image")));
             this.btnBuscarcamionruta.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnBuscarcamionruta.Name = "btnBuscarcamionruta";
-            this.btnBuscarcamionruta.Size = new System.Drawing.Size(24, 24);
+            this.btnBuscarcamionruta.Size = new System.Drawing.Size(24, 29);
             this.btnBuscarcamionruta.Text = "Buscar Camion";
             this.btnBuscarcamionruta.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
@@ -811,7 +846,7 @@
             this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
             this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton9.Name = "toolStripButton9";
-            this.toolStripButton9.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton9.Size = new System.Drawing.Size(24, 29);
             this.toolStripButton9.Text = "Recorridos";
             this.toolStripButton9.ToolTipText = "Recorridos";
             this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
@@ -822,7 +857,7 @@
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton8.Size = new System.Drawing.Size(24, 29);
             this.toolStripButton8.Text = "Cerrra Rutas";
             this.toolStripButton8.ToolTipText = "Cerrar Rutas";
             this.toolStripButton8.Click += new System.EventHandler(this.toolStripButton8_Click);
@@ -832,7 +867,7 @@
             this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
             this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(73, 24);
+            this.toolStripButton11.Size = new System.Drawing.Size(73, 29);
             this.toolStripButton11.Text = "Guardar";
             this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
             // 
@@ -847,7 +882,7 @@
             this.toolStripButton12.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton12.Image")));
             this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton12.Name = "toolStripButton12";
-            this.toolStripButton12.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton12.Size = new System.Drawing.Size(24, 29);
             this.toolStripButton12.Text = "toolStripButton12";
             this.toolStripButton12.Visible = false;
             this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
@@ -887,8 +922,10 @@
             this.toolStripSeparator16,
             this.lblErrores,
             this.toolStripSeparator17,
-            this.lblCtrl});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 403);
+            this.lblCtrl,
+            this.toolStripSeparator20,
+            this.lblPing});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 463);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1202, 25);
             this.toolStrip2.TabIndex = 70;
@@ -1045,6 +1082,17 @@
             this.lblCtrl.Name = "lblCtrl";
             this.lblCtrl.Size = new System.Drawing.Size(24, 22);
             this.lblCtrl.Text = "ctrl";
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(6, 25);
+            // 
+            // lblPing
+            // 
+            this.lblPing.Name = "lblPing";
+            this.lblPing.Size = new System.Drawing.Size(10, 22);
+            this.lblPing.Text = ":";
             // 
             // webBClima
             // 
@@ -1483,11 +1531,190 @@
             this.labelLeyendas.TabIndex = 88;
             this.labelLeyendas.Text = "Servido Alimento";
             // 
+            // timerPing
+            // 
+            this.timerPing.Interval = 1000;
+            this.timerPing.Tick += new System.EventHandler(this.timerPing_Tick);
+            // 
+            // panelCamiones
+            // 
+            this.panelCamiones.BackColor = System.Drawing.Color.Transparent;
+            this.panelCamiones.Controls.Add(this.picCam14);
+            this.panelCamiones.Controls.Add(this.picCam15);
+            this.panelCamiones.Controls.Add(this.picCam13);
+            this.panelCamiones.Controls.Add(this.picCam11);
+            this.panelCamiones.Controls.Add(this.picCam12);
+            this.panelCamiones.Controls.Add(this.picCam10);
+            this.panelCamiones.Controls.Add(this.picCam08);
+            this.panelCamiones.Controls.Add(this.picCam09);
+            this.panelCamiones.Controls.Add(this.picCam07);
+            this.panelCamiones.Controls.Add(this.picCam04);
+            this.panelCamiones.Controls.Add(this.picCam06);
+            this.panelCamiones.Controls.Add(this.picCam02);
+            this.panelCamiones.Controls.Add(this.picCam03);
+            this.panelCamiones.Controls.Add(this.picCam05);
+            this.panelCamiones.Controls.Add(this.picCam01);
+            this.panelCamiones.Location = new System.Drawing.Point(246, 381);
+            this.panelCamiones.Name = "panelCamiones";
+            this.panelCamiones.Size = new System.Drawing.Size(664, 37);
+            this.panelCamiones.TabIndex = 89;
+            // 
+            // picCam14
+            // 
+            this.picCam14.Image = ((System.Drawing.Image)(resources.GetObject("picCam14.Image")));
+            this.picCam14.Location = new System.Drawing.Point(577, 0);
+            this.picCam14.Name = "picCam14";
+            this.picCam14.Size = new System.Drawing.Size(38, 36);
+            this.picCam14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam14.TabIndex = 14;
+            this.picCam14.TabStop = false;
+            // 
+            // picCam15
+            // 
+            this.picCam15.Image = ((System.Drawing.Image)(resources.GetObject("picCam15.Image")));
+            this.picCam15.Location = new System.Drawing.Point(621, 0);
+            this.picCam15.Name = "picCam15";
+            this.picCam15.Size = new System.Drawing.Size(38, 36);
+            this.picCam15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam15.TabIndex = 13;
+            this.picCam15.TabStop = false;
+            // 
+            // picCam13
+            // 
+            this.picCam13.Image = ((System.Drawing.Image)(resources.GetObject("picCam13.Image")));
+            this.picCam13.Location = new System.Drawing.Point(533, 0);
+            this.picCam13.Name = "picCam13";
+            this.picCam13.Size = new System.Drawing.Size(38, 36);
+            this.picCam13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam13.TabIndex = 12;
+            this.picCam13.TabStop = false;
+            // 
+            // picCam11
+            // 
+            this.picCam11.Image = ((System.Drawing.Image)(resources.GetObject("picCam11.Image")));
+            this.picCam11.Location = new System.Drawing.Point(444, 0);
+            this.picCam11.Name = "picCam11";
+            this.picCam11.Size = new System.Drawing.Size(38, 36);
+            this.picCam11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam11.TabIndex = 11;
+            this.picCam11.TabStop = false;
+            // 
+            // picCam12
+            // 
+            this.picCam12.Image = ((System.Drawing.Image)(resources.GetObject("picCam12.Image")));
+            this.picCam12.Location = new System.Drawing.Point(488, 0);
+            this.picCam12.Name = "picCam12";
+            this.picCam12.Size = new System.Drawing.Size(38, 36);
+            this.picCam12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam12.TabIndex = 10;
+            this.picCam12.TabStop = false;
+            // 
+            // picCam10
+            // 
+            this.picCam10.Image = ((System.Drawing.Image)(resources.GetObject("picCam10.Image")));
+            this.picCam10.Location = new System.Drawing.Point(400, 0);
+            this.picCam10.Name = "picCam10";
+            this.picCam10.Size = new System.Drawing.Size(38, 36);
+            this.picCam10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam10.TabIndex = 9;
+            this.picCam10.TabStop = false;
+            // 
+            // picCam08
+            // 
+            this.picCam08.Image = ((System.Drawing.Image)(resources.GetObject("picCam08.Image")));
+            this.picCam08.Location = new System.Drawing.Point(312, 0);
+            this.picCam08.Name = "picCam08";
+            this.picCam08.Size = new System.Drawing.Size(38, 36);
+            this.picCam08.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam08.TabIndex = 8;
+            this.picCam08.TabStop = false;
+            // 
+            // picCam09
+            // 
+            this.picCam09.Image = ((System.Drawing.Image)(resources.GetObject("picCam09.Image")));
+            this.picCam09.Location = new System.Drawing.Point(356, 0);
+            this.picCam09.Name = "picCam09";
+            this.picCam09.Size = new System.Drawing.Size(38, 36);
+            this.picCam09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam09.TabIndex = 7;
+            this.picCam09.TabStop = false;
+            // 
+            // picCam07
+            // 
+            this.picCam07.Image = ((System.Drawing.Image)(resources.GetObject("picCam07.Image")));
+            this.picCam07.Location = new System.Drawing.Point(268, 0);
+            this.picCam07.Name = "picCam07";
+            this.picCam07.Size = new System.Drawing.Size(38, 36);
+            this.picCam07.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam07.TabIndex = 6;
+            this.picCam07.TabStop = false;
+            // 
+            // picCam04
+            // 
+            this.picCam04.Image = ((System.Drawing.Image)(resources.GetObject("picCam04.Image")));
+            this.picCam04.Location = new System.Drawing.Point(136, 0);
+            this.picCam04.Name = "picCam04";
+            this.picCam04.Size = new System.Drawing.Size(38, 36);
+            this.picCam04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam04.TabIndex = 5;
+            this.picCam04.TabStop = false;
+            // 
+            // picCam06
+            // 
+            this.picCam06.Image = ((System.Drawing.Image)(resources.GetObject("picCam06.Image")));
+            this.picCam06.Location = new System.Drawing.Point(224, 0);
+            this.picCam06.Name = "picCam06";
+            this.picCam06.Size = new System.Drawing.Size(38, 36);
+            this.picCam06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam06.TabIndex = 4;
+            this.picCam06.TabStop = false;
+            // 
+            // picCam02
+            // 
+            this.picCam02.Image = ((System.Drawing.Image)(resources.GetObject("picCam02.Image")));
+            this.picCam02.Location = new System.Drawing.Point(47, 0);
+            this.picCam02.Name = "picCam02";
+            this.picCam02.Size = new System.Drawing.Size(38, 36);
+            this.picCam02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam02.TabIndex = 3;
+            this.picCam02.TabStop = false;
+            // 
+            // picCam03
+            // 
+            this.picCam03.Image = ((System.Drawing.Image)(resources.GetObject("picCam03.Image")));
+            this.picCam03.Location = new System.Drawing.Point(91, 0);
+            this.picCam03.Name = "picCam03";
+            this.picCam03.Size = new System.Drawing.Size(38, 36);
+            this.picCam03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam03.TabIndex = 2;
+            this.picCam03.TabStop = false;
+            // 
+            // picCam05
+            // 
+            this.picCam05.Image = ((System.Drawing.Image)(resources.GetObject("picCam05.Image")));
+            this.picCam05.Location = new System.Drawing.Point(180, 0);
+            this.picCam05.Name = "picCam05";
+            this.picCam05.Size = new System.Drawing.Size(38, 36);
+            this.picCam05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam05.TabIndex = 1;
+            this.picCam05.TabStop = false;
+            // 
+            // picCam01
+            // 
+            this.picCam01.Image = ((System.Drawing.Image)(resources.GetObject("picCam01.Image")));
+            this.picCam01.Location = new System.Drawing.Point(3, 0);
+            this.picCam01.Name = "picCam01";
+            this.picCam01.Size = new System.Drawing.Size(38, 36);
+            this.picCam01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam01.TabIndex = 0;
+            this.picCam01.TabStop = false;
+            // 
             // frmMapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1202, 428);
+            this.ClientSize = new System.Drawing.Size(1202, 488);
+            this.Controls.Add(this.panelCamiones);
             this.Controls.Add(this.panelLeyendas);
             this.Controls.Add(this.btnRotarIzq);
             this.Controls.Add(this.btnRotarDer);
@@ -1534,6 +1761,22 @@
             this.panelLeyendas.ResumeLayout(false);
             this.panelLeyendas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVista)).EndInit();
+            this.panelCamiones.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picCam14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam08)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam09)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam07)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam04)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam06)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam02)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam03)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam05)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCam01)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1675,6 +1918,25 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem planeadoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.Timer timerPing;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
+        private System.Windows.Forms.ToolStripLabel lblPing;
+        private System.Windows.Forms.Panel panelCamiones;
+        private System.Windows.Forms.PictureBox picCam01;
+        private System.Windows.Forms.PictureBox picCam03;
+        private System.Windows.Forms.PictureBox picCam05;
+        private System.Windows.Forms.PictureBox picCam14;
+        private System.Windows.Forms.PictureBox picCam15;
+        private System.Windows.Forms.PictureBox picCam13;
+        private System.Windows.Forms.PictureBox picCam11;
+        private System.Windows.Forms.PictureBox picCam12;
+        private System.Windows.Forms.PictureBox picCam10;
+        private System.Windows.Forms.PictureBox picCam08;
+        private System.Windows.Forms.PictureBox picCam09;
+        private System.Windows.Forms.PictureBox picCam07;
+        private System.Windows.Forms.PictureBox picCam04;
+        private System.Windows.Forms.PictureBox picCam06;
+        private System.Windows.Forms.PictureBox picCam02;
     }
 }
 

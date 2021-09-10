@@ -46,6 +46,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnUbicaciones = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnWS = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.txtLatencia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInactividad)).BeginInit();
             this.SuspendLayout();
@@ -256,11 +257,23 @@
             this.label6.TabIndex = 98;
             this.label6.Text = "Ubicaciones";
             // 
+            // btnWS
+            // 
+            this.btnWS.Location = new System.Drawing.Point(137, 294);
+            this.btnWS.Name = "btnWS";
+            this.btnWS.Size = new System.Drawing.Size(80, 33);
+            this.btnWS.TabIndex = 99;
+            this.btnWS.Text = "WS";
+            this.btnWS.UseVisualStyleBackColor = true;
+            this.btnWS.Visible = false;
+            this.btnWS.Click += new System.EventHandler(this.btnWS_Click);
+            // 
             // frmConfiguracion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(365, 415);
+            this.Controls.Add(this.btnWS);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnUbicaciones);
             this.Controls.Add(this.label4);
@@ -313,5 +326,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnUbicaciones;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnWS;
     }
 }
