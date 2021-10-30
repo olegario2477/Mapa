@@ -79,6 +79,7 @@ namespace Mapa
 
             return valor;
         }
+
         private void abrirConfiguracion()
         {
      
@@ -145,6 +146,11 @@ namespace Mapa
         private void verticalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

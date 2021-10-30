@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comun.cs" />
     <Compile Include="ConnectedWs.cs" />
     <Compile Include="ConnectWs.cs" />
     <Compile Include="Constants.cs" />

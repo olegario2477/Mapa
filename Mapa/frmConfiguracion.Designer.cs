@@ -45,8 +45,10 @@
             this.txtInactividad = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.btnUbicaciones = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
             this.btnWS = new System.Windows.Forms.Button();
+            this.btnActualizar = new System.Windows.Forms.Button();
+            this.txtRutaRed = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.txtLatencia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInactividad)).BeginInit();
             this.SuspendLayout();
@@ -75,7 +77,7 @@
             // btnCerrar
             // 
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCerrar.Location = new System.Drawing.Point(280, 371);
+            this.btnCerrar.Location = new System.Drawing.Point(382, 429);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(73, 32);
             this.btnCerrar.TabIndex = 78;
@@ -86,7 +88,7 @@
             // btnGuardar
             // 
             this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.Location = new System.Drawing.Point(201, 371);
+            this.btnGuardar.Location = new System.Drawing.Point(303, 429);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(73, 32);
             this.btnGuardar.TabIndex = 77;
@@ -98,7 +100,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(249, 114);
+            this.label21.Location = new System.Drawing.Point(249, 142);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(72, 17);
             this.label21.TabIndex = 83;
@@ -106,7 +108,7 @@
             // 
             // txtLatencia
             // 
-            this.txtLatencia.Location = new System.Drawing.Point(137, 111);
+            this.txtLatencia.Location = new System.Drawing.Point(137, 139);
             this.txtLatencia.Maximum = new decimal(new int[] {
             59,
             0,
@@ -131,7 +133,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(21, 112);
+            this.label22.Location = new System.Drawing.Point(21, 140);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(62, 17);
             this.label22.TabIndex = 81;
@@ -141,7 +143,7 @@
             // 
             this.cmbInstancia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbInstancia.FormattingEnabled = true;
-            this.cmbInstancia.Location = new System.Drawing.Point(137, 137);
+            this.cmbInstancia.Location = new System.Drawing.Point(137, 165);
             this.cmbInstancia.Name = "cmbInstancia";
             this.cmbInstancia.Size = new System.Drawing.Size(121, 21);
             this.cmbInstancia.TabIndex = 88;
@@ -150,7 +152,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(21, 137);
+            this.label1.Location = new System.Drawing.Point(21, 165);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 89;
@@ -197,7 +199,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(249, 167);
+            this.label4.Location = new System.Drawing.Point(249, 195);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 17);
             this.label4.TabIndex = 96;
@@ -205,7 +207,7 @@
             // 
             // txtInactividad
             // 
-            this.txtInactividad.Location = new System.Drawing.Point(137, 164);
+            this.txtInactividad.Location = new System.Drawing.Point(137, 192);
             this.txtInactividad.Maximum = new decimal(new int[] {
             59,
             0,
@@ -230,7 +232,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(21, 165);
+            this.label5.Location = new System.Drawing.Point(21, 193);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 17);
             this.label5.TabIndex = 94;
@@ -239,27 +241,17 @@
             // btnUbicaciones
             // 
             this.btnUbicaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUbicaciones.Location = new System.Drawing.Point(137, 190);
+            this.btnUbicaciones.Location = new System.Drawing.Point(24, 253);
             this.btnUbicaciones.Name = "btnUbicaciones";
-            this.btnUbicaciones.Size = new System.Drawing.Size(80, 33);
+            this.btnUbicaciones.Size = new System.Drawing.Size(113, 116);
             this.btnUbicaciones.TabIndex = 97;
-            this.btnUbicaciones.Text = "Actualizar";
+            this.btnUbicaciones.Text = "Traer Ubicaciones";
             this.btnUbicaciones.UseVisualStyleBackColor = true;
             this.btnUbicaciones.Click += new System.EventHandler(this.btnUbicaciones_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(21, 198);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(85, 17);
-            this.label6.TabIndex = 98;
-            this.label6.Text = "Ubicaciones";
-            // 
             // btnWS
             // 
-            this.btnWS.Location = new System.Drawing.Point(137, 294);
+            this.btnWS.Location = new System.Drawing.Point(137, 428);
             this.btnWS.Name = "btnWS";
             this.btnWS.Size = new System.Drawing.Size(80, 33);
             this.btnWS.TabIndex = 99;
@@ -268,13 +260,44 @@
             this.btnWS.Visible = false;
             this.btnWS.Click += new System.EventHandler(this.btnWS_Click);
             // 
+            // btnActualizar
+            // 
+            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizar.Location = new System.Drawing.Point(303, 253);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(200, 116);
+            this.btnActualizar.TabIndex = 100;
+            this.btnActualizar.Text = "Actualizacion App";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            // 
+            // txtRutaRed
+            // 
+            this.txtRutaRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRutaRed.Location = new System.Drawing.Point(137, 110);
+            this.txtRutaRed.Name = "txtRutaRed";
+            this.txtRutaRed.Size = new System.Drawing.Size(366, 23);
+            this.txtRutaRed.TabIndex = 101;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(21, 114);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(68, 17);
+            this.label7.TabIndex = 102;
+            this.label7.Text = "Ruta Red";
+            // 
             // frmConfiguracion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 415);
+            this.ClientSize = new System.Drawing.Size(534, 473);
+            this.Controls.Add(this.txtRutaRed);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnWS);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnUbicaciones);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtInactividad);
@@ -325,7 +348,9 @@
         private System.Windows.Forms.NumericUpDown txtInactividad;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnUbicaciones;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnWS;
+        private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.TextBox txtRutaRed;
+        private System.Windows.Forms.Label label7;
     }
 }

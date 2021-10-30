@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace Mapa
 {
@@ -23,6 +24,11 @@ namespace Mapa
 
         String usuario = "";
         String contrasena = "";
+
+        private string nameruta = "\\senga_archivos";
+        private string nameapp = "\\app";
+        private string nameappnom = "\\mapa";
+        private string vrutared;
 
         public frmConfiguracion()
         {
@@ -83,7 +89,8 @@ namespace Mapa
                 cmbInstancia.SelectedIndex + "|" +
                 txtUsuario.Text + "|" +
                 txtContrasena.Text + "|" +
-                txtInactividad.Value;
+                txtInactividad.Value + "|" +
+                txtRutaRed.Text;
 
                 objWriter.WriteLine(lv_cadena);
 
@@ -130,6 +137,7 @@ namespace Mapa
                 txtUsuario.Text = lines[3].Trim();
                 txtContrasena.Text = lines[4].Trim();
                 txtInactividad.Text = lines[5].Trim();
+                txtRutaRed.Text = lines[6].Trim();
 
                 objReader.Close();
 
@@ -417,6 +425,154 @@ namespace Mapa
             return result;
         } // function
 
+        private Boolean redConectado()
+        {
+            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        }
 
+        public void Rename(string filePath, string newFileName)
+        {
+
+            var newFilePath = Path.Combine(Path.GetDirectoryName(filePath), newFileName + Path.GetExtension(filePath));
+
+            if (!File.Exists(newFilePath))
+            {
+                File.Move(filePath, newFilePath);
+            }
+
+        }
+
+        private string rutared()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            string valor = "";
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    valor = row["RutaRed"].ToString();
+                }
+            }
+
+            return valor;
+
+        }
+
+        private String bitModo()
+        {
+
+            String valor = "";
+
+            if (IntPtr.Size == 8)
+            {
+                valor = "64";
+            }
+            else if (IntPtr.Size == 4)
+            {
+                valor = "32";
+            }
+
+            return valor;
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+
+
+            if (!redConectado())
+            {
+                MessageBox.Show("Sin red disponible.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                //Comun.mensajeVer("Sin red disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+             
+            }
+            else
+            {
+
+                //if (Comun.mensajeVer("¿ Desea actualizar version ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                //{
+
+                try
+                {
+
+                    vrutared = txtRutaRed.Text;
+
+                    string sourcePath = vrutared + nameruta + nameapp + nameappnom + "\\" + bitModo() + "\\Mapa.exe";
+                    string actualPath = Directory.GetCurrentDirectory() + "\\Mapa.exe"; ;
+                    string targetPath = Directory.GetCurrentDirectory() + "\\Mapa_nva_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".exe";
+
+                    FileVersionInfo sourcePathFileVersionInfo = FileVersionInfo.GetVersionInfo(sourcePath);
+                    DateTime sourcedt = File.GetLastWriteTime(sourcePath);
+                    FileVersionInfo actualPathFileVersionInfo = FileVersionInfo.GetVersionInfo(actualPath);
+                    DateTime actualdt = File.GetLastWriteTime(actualPath);
+
+                    string vsourcePath = sourcePathFileVersionInfo.FileVersion;
+                    string vactualPath = actualPathFileVersionInfo.FileVersion;
+
+
+                    //foreach (String srcPath in Directory.GetFiles(Directory.GetCurrentDirectory()))
+                    //{
+                    //    if (srcPath.Contains("Senga_nva")) 
+                    //    {
+                    //       string a = "";
+                    //    }
+                    //}
+
+                    //if (sourcedt == actualdt)
+                    if (vsourcePath == vactualPath)
+                    {
+                        //Comun.mensajeVer("No hay actualizaciones a una nueva version de la App", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                        MessageBox.Show("No hay actualizaciones a una nueva version de la App", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+
+                    }
+                    else
+                    {
+                        //if (Comun.mensajeVer("¿ Desea actualizar nueva version " + vsourcePath + " ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                        if (MessageBox.Show("¿ Desea actualizar nueva version " + vsourcePath + " ?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+
+                            //pictureBox1.Visible = false;
+                            this.Refresh();
+
+
+
+                            File.Copy(sourcePath, targetPath, true);
+
+                            Rename(actualPath, "Mapa_" + vactualPath + "_" + DateTime.Now.ToString("ddMMyyHHmmss"));
+
+                            Rename(targetPath, "Mapa");
+
+                            File.Copy(sourcePath, targetPath, true);
+
+                            Application.Restart();
+
+                            //Comun.mensajeVer("Listo reinciar aplicacion", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+
+                        }
+                    }
+
+
+                }
+                catch (Exception ec)
+                {
+                    MessageBox.Show(ec.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                }
+
+                //}
+
+            }
+
+
+
+        }
     }
 }
