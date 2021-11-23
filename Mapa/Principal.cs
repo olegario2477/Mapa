@@ -20,9 +20,8 @@ namespace Mapa
         
         private void Principal_Load(object sender, EventArgs e)
         {
-
             this.Text = Application.ProductName + " - Sistema Reparto Gusi - v" + Application.ProductVersion + " - " + bitModo();
-            abrirMapa();
+            //abrirMapa(1);
         }
 
         private void cerrarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -32,16 +31,12 @@ namespace Mapa
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
-            abrirMapa();
-
-
+            abrirMapa(1);
         }
 
-
-        private void abrirMapa()
+        private void abrirMapa(int opc)
         {
-            Form frm = new frmMapa();
+            Form frm = new frmMapa(opc);
             frm.MdiParent = this;
             frm.StartPosition = FormStartPosition.WindowsDefaultLocation;
             frm.Show();
@@ -151,6 +146,11 @@ namespace Mapa
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void cabezasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrirMapa(2);
         }
     }
 }

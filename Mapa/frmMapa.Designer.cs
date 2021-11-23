@@ -43,12 +43,12 @@
             this.guardarCoordenadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verCoordenadasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCopiar = new System.Windows.Forms.ToolStripMenuItem();
+            this.buscarCoordenadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.ubicacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.marcadoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,13 +57,15 @@
             this.modifcarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajustarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alinearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buscarCoordenadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verOcultarCoordenadasCamionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.timerCamion = new System.Windows.Forms.Timer(this.components);
             this.btnRotarIzq = new System.Windows.Forms.Button();
             this.btnRotarDer = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton13 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.satelitalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,12 +84,12 @@
             this.camionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.planeadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cabezasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbFiltroVista = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.cmbColorCapas = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSplitButton4 = new System.Windows.Forms.ToolStripSplitButton();
             this.hoyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,8 +121,10 @@
             this.cmbCamion = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.cmbRaciones = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButton15 = new System.Windows.Forms.ToolStripButton();
             this.imageListColor = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.lblProveedor = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
@@ -204,6 +208,9 @@
             this.picCam03 = new System.Windows.Forms.PictureBox();
             this.picCam05 = new System.Windows.Forms.PictureBox();
             this.picCam01 = new System.Windows.Forms.PictureBox();
+            this.panelDetalles = new System.Windows.Forms.Panel();
+            this.labelDetalles = new System.Windows.Forms.Label();
+            this.lblDetalles = new System.Windows.Forms.Label();
             this.contextMenuStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -240,6 +247,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picCam03)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam05)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam01)).BeginInit();
+            this.panelDetalles.SuspendLayout();
             this.SuspendLayout();
             // 
             // gMapControl1
@@ -285,46 +293,53 @@
             this.guardarCoordenadaToolStripMenuItem,
             this.verCoordenadasToolStripMenuItem,
             this.toolStripMenuItemCopiar,
+            this.buscarCoordenadaToolStripMenuItem,
             this.toolStripSeparator7,
             this.ubicacionToolStripMenuItem,
             this.zoomToolStripMenuItem,
             this.zoomToolStripMenuItem1,
-            this.toolStripMenuItem2,
             this.marcadoresToolStripMenuItem,
             this.modifcarToolStripMenuItem,
             this.ajustarToolStripMenuItem,
             this.alinearToolStripMenuItem,
-            this.buscarCoordenadaToolStripMenuItem});
+            this.verOcultarCoordenadasCamionToolStripMenuItem});
             this.contextMenuStripMenu.Name = "contextMenuStripMenu";
-            this.contextMenuStripMenu.Size = new System.Drawing.Size(253, 258);
+            this.contextMenuStripMenu.Size = new System.Drawing.Size(297, 296);
             // 
             // guardarCoordenadaToolStripMenuItem
             // 
             this.guardarCoordenadaToolStripMenuItem.Name = "guardarCoordenadaToolStripMenuItem";
-            this.guardarCoordenadaToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
-            this.guardarCoordenadaToolStripMenuItem.Text = "Guardar Coordenada Camion";
+            this.guardarCoordenadaToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.guardarCoordenadaToolStripMenuItem.Text = "Guardar Coordenada Corral";
             this.guardarCoordenadaToolStripMenuItem.Visible = false;
             this.guardarCoordenadaToolStripMenuItem.Click += new System.EventHandler(this.guardarCoordenadaToolStripMenuItem_Click);
             // 
             // verCoordenadasToolStripMenuItem
             // 
             this.verCoordenadasToolStripMenuItem.Name = "verCoordenadasToolStripMenuItem";
-            this.verCoordenadasToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
-            this.verCoordenadasToolStripMenuItem.Text = "Ver/Ocultar Coordenadas Camion";
+            this.verCoordenadasToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.verCoordenadasToolStripMenuItem.Text = "Ver/Ocultar Coordenadas Corral";
             this.verCoordenadasToolStripMenuItem.Visible = false;
             this.verCoordenadasToolStripMenuItem.Click += new System.EventHandler(this.verCoordenadasToolStripMenuItem_Click);
             // 
             // toolStripMenuItemCopiar
             // 
             this.toolStripMenuItemCopiar.Name = "toolStripMenuItemCopiar";
-            this.toolStripMenuItemCopiar.Size = new System.Drawing.Size(252, 22);
+            this.toolStripMenuItemCopiar.Size = new System.Drawing.Size(296, 22);
             this.toolStripMenuItemCopiar.Text = "Copiar Coordenada";
             this.toolStripMenuItemCopiar.Click += new System.EventHandler(this.toolStripMenuItemCopiar_Click);
+            // 
+            // buscarCoordenadaToolStripMenuItem
+            // 
+            this.buscarCoordenadaToolStripMenuItem.Name = "buscarCoordenadaToolStripMenuItem";
+            this.buscarCoordenadaToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.buscarCoordenadaToolStripMenuItem.Text = "Buscar Coordenada";
+            this.buscarCoordenadaToolStripMenuItem.Click += new System.EventHandler(this.buscarCoordenadaToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(249, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(293, 6);
             this.toolStripSeparator7.Visible = false;
             // 
             // ubicacionToolStripMenuItem
@@ -332,7 +347,7 @@
             this.ubicacionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.moverToolStripMenuItem});
             this.ubicacionToolStripMenuItem.Name = "ubicacionToolStripMenuItem";
-            this.ubicacionToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
+            this.ubicacionToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.ubicacionToolStripMenuItem.Text = "Ubicacion";
             this.ubicacionToolStripMenuItem.Visible = false;
             // 
@@ -346,7 +361,7 @@
             // zoomToolStripMenuItem
             // 
             this.zoomToolStripMenuItem.Name = "zoomToolStripMenuItem";
-            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
+            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.zoomToolStripMenuItem.Text = "Zoom +";
             this.zoomToolStripMenuItem.Visible = false;
             this.zoomToolStripMenuItem.Click += new System.EventHandler(this.zoomToolStripMenuItem_Click);
@@ -354,15 +369,10 @@
             // zoomToolStripMenuItem1
             // 
             this.zoomToolStripMenuItem1.Name = "zoomToolStripMenuItem1";
-            this.zoomToolStripMenuItem1.Size = new System.Drawing.Size(252, 22);
+            this.zoomToolStripMenuItem1.Size = new System.Drawing.Size(296, 22);
             this.zoomToolStripMenuItem1.Text = "Zoom -";
             this.zoomToolStripMenuItem1.Visible = false;
             this.zoomToolStripMenuItem1.Click += new System.EventHandler(this.zoomToolStripMenuItem1_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(249, 6);
             // 
             // marcadoresToolStripMenuItem
             // 
@@ -372,7 +382,7 @@
             this.toolStripMenuItem6,
             this.toolStripMenuItem7});
             this.marcadoresToolStripMenuItem.Name = "marcadoresToolStripMenuItem";
-            this.marcadoresToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
+            this.marcadoresToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.marcadoresToolStripMenuItem.Text = "Marcar";
             this.marcadoresToolStripMenuItem.Visible = false;
             this.marcadoresToolStripMenuItem.Click += new System.EventHandler(this.marcadoresToolStripMenuItem_Click);
@@ -408,15 +418,15 @@
             // modifcarToolStripMenuItem
             // 
             this.modifcarToolStripMenuItem.Name = "modifcarToolStripMenuItem";
-            this.modifcarToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
-            this.modifcarToolStripMenuItem.Text = "Modificar";
+            this.modifcarToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.modifcarToolStripMenuItem.Text = "Ver esquinas, Modificar  ";
             this.modifcarToolStripMenuItem.Visible = false;
             this.modifcarToolStripMenuItem.Click += new System.EventHandler(this.modifcarToolStripMenuItem_Click);
             // 
             // ajustarToolStripMenuItem
             // 
             this.ajustarToolStripMenuItem.Name = "ajustarToolStripMenuItem";
-            this.ajustarToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
+            this.ajustarToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.ajustarToolStripMenuItem.Text = "Ajustar";
             this.ajustarToolStripMenuItem.Visible = false;
             this.ajustarToolStripMenuItem.Click += new System.EventHandler(this.ajustarToolStripMenuItem_Click);
@@ -424,27 +434,28 @@
             // alinearToolStripMenuItem
             // 
             this.alinearToolStripMenuItem.Name = "alinearToolStripMenuItem";
-            this.alinearToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
+            this.alinearToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.alinearToolStripMenuItem.Text = "Alinear";
             this.alinearToolStripMenuItem.Visible = false;
             this.alinearToolStripMenuItem.Click += new System.EventHandler(this.alinearToolStripMenuItem_Click);
             // 
-            // buscarCoordenadaToolStripMenuItem
+            // verOcultarCoordenadasCamionToolStripMenuItem
             // 
-            this.buscarCoordenadaToolStripMenuItem.Name = "buscarCoordenadaToolStripMenuItem";
-            this.buscarCoordenadaToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
-            this.buscarCoordenadaToolStripMenuItem.Text = "Buscar Coordenada";
-            this.buscarCoordenadaToolStripMenuItem.Click += new System.EventHandler(this.buscarCoordenadaToolStripMenuItem_Click);
+            this.verOcultarCoordenadasCamionToolStripMenuItem.Name = "verOcultarCoordenadasCamionToolStripMenuItem";
+            this.verOcultarCoordenadasCamionToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.verOcultarCoordenadasCamionToolStripMenuItem.Text = "Ver/Ocultar Coordenadas Reparto Camion";
+            this.verOcultarCoordenadasCamionToolStripMenuItem.Visible = false;
+            this.verOcultarCoordenadasCamionToolStripMenuItem.Click += new System.EventHandler(this.verOcultarCoordenadasCamionToolStripMenuItem_Click);
             // 
             // trackBar1
             // 
             this.trackBar1.BackColor = System.Drawing.Color.White;
-            this.trackBar1.Location = new System.Drawing.Point(0, 15);
+            this.trackBar1.Location = new System.Drawing.Point(0, 9);
             this.trackBar1.Maximum = 20;
             this.trackBar1.Minimum = 15;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 177);
+            this.trackBar1.Size = new System.Drawing.Size(45, 188);
             this.trackBar1.TabIndex = 4;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar1.Value = 16;
@@ -453,7 +464,7 @@
             // timerCamion
             // 
             this.timerCamion.Interval = 3000;
-            this.timerCamion.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerCamion.Tick += new System.EventHandler(this.timerCamion_Tick);
             // 
             // btnRotarIzq
             // 
@@ -499,6 +510,8 @@
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton11,
+            this.toolStripSeparator22,
             this.toolStripButton13,
             this.toolStripSplitButton1,
             this.toolStripLabel6,
@@ -510,7 +523,6 @@
             this.toolStripButton1,
             this.toolStripButton5,
             this.cmbColorCapas,
-            this.toolStripButton11,
             this.toolStripSeparator1,
             this.toolStripSplitButton4,
             this.txtFecha,
@@ -539,13 +551,27 @@
             this.toolStripLabel7,
             this.cmbCamion,
             this.toolStripLabel4,
-            this.cmbRaciones});
+            this.cmbRaciones,
+            this.toolStripButton15});
             this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1170, 33);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
+            // 
+            // toolStripButton11
+            // 
+            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
+            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton11.Name = "toolStripButton11";
+            this.toolStripButton11.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
+            // 
+            // toolStripSeparator22
+            // 
+            this.toolStripSeparator22.Name = "toolStripSeparator22";
+            this.toolStripSeparator22.Size = new System.Drawing.Size(6, 33);
             // 
             // toolStripButton13
             // 
@@ -659,7 +685,8 @@
             this.racionToolStripMenuItem,
             this.camionToolStripMenuItem,
             this.toolStripSeparator13,
-            this.planeadoToolStripMenuItem});
+            this.planeadoToolStripMenuItem,
+            this.cabezasToolStripMenuItem});
             this.toolStripSplitButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton3.Image")));
             this.toolStripSplitButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton3.Name = "toolStripSplitButton3";
@@ -701,6 +728,13 @@
             this.planeadoToolStripMenuItem.Text = "Planeado";
             this.planeadoToolStripMenuItem.Click += new System.EventHandler(this.planeadoToolStripMenuItem_Click);
             // 
+            // cabezasToolStripMenuItem
+            // 
+            this.cabezasToolStripMenuItem.Name = "cabezasToolStripMenuItem";
+            this.cabezasToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.cabezasToolStripMenuItem.Text = "Cabezas";
+            this.cabezasToolStripMenuItem.Click += new System.EventHandler(this.cabezasToolStripMenuItem_Click);
+            // 
             // cmbFiltroVista
             // 
             this.cmbFiltroVista.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -740,15 +774,7 @@
             this.cmbColorCapas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbColorCapas.Name = "cmbColorCapas";
             this.cmbColorCapas.Size = new System.Drawing.Size(80, 33);
-            // 
-            // toolStripButton11
-            // 
-            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
-            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(55, 30);
-            this.toolStripButton11.Text = "Foto";
-            this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
+            this.cmbColorCapas.Visible = false;
             // 
             // toolStripSeparator1
             // 
@@ -824,8 +850,9 @@
             // 
             // txtBuscarUbicacion
             // 
+            this.txtBuscarUbicacion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBuscarUbicacion.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtBuscarUbicacion.MaxLength = 6;
+            this.txtBuscarUbicacion.MaxLength = 4;
             this.txtBuscarUbicacion.Name = "txtBuscarUbicacion";
             this.txtBuscarUbicacion.Size = new System.Drawing.Size(50, 33);
             this.txtBuscarUbicacion.Click += new System.EventHandler(this.txtBuscarUbicacion_Click);
@@ -1000,7 +1027,18 @@
             // 
             this.cmbRaciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRaciones.Name = "cmbRaciones";
-            this.cmbRaciones.Size = new System.Drawing.Size(75, 23);
+            this.cmbRaciones.Size = new System.Drawing.Size(75, 33);
+            // 
+            // toolStripButton15
+            // 
+            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton15.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton15.Image")));
+            this.toolStripButton15.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton15.Name = "toolStripButton15";
+            this.toolStripButton15.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton15.Text = "Refrescar";
+            this.toolStripButton15.Visible = false;
+            this.toolStripButton15.Click += new System.EventHandler(this.toolStripButton15_Click);
             // 
             // imageListColor
             // 
@@ -1013,6 +1051,7 @@
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblConectadoF,
             this.toolStripSeparator5,
             this.lblProveedor,
             this.toolStripSeparator19,
@@ -1048,6 +1087,14 @@
             this.toolStrip2.Size = new System.Drawing.Size(1202, 25);
             this.toolStrip2.TabIndex = 70;
             this.toolStrip2.Text = "toolStrip2";
+            // 
+            // lblConectadoF
+            // 
+            this.lblConectadoF.MarqueeAnimationSpeed = 1;
+            this.lblConectadoF.Maximum = 1;
+            this.lblConectadoF.Name = "lblConectadoF";
+            this.lblConectadoF.Size = new System.Drawing.Size(10, 31);
+            this.lblConectadoF.Visible = false;
             // 
             // toolStripSeparator5
             // 
@@ -1094,7 +1141,6 @@
             this.lblGiro.Name = "lblGiro";
             this.lblGiro.Size = new System.Drawing.Size(29, 22);
             this.lblGiro.Text = "Giro";
-            this.lblGiro.Visible = false;
             // 
             // lblLatencia
             // 
@@ -1260,7 +1306,7 @@
             this.panelLeyenda.Controls.Add(this.pictureBox711);
             this.panelLeyenda.Controls.Add(this.label13);
             this.panelLeyenda.Controls.Add(this.pictureBox710);
-            this.panelLeyenda.Location = new System.Drawing.Point(853, 116);
+            this.panelLeyenda.Location = new System.Drawing.Point(1016, 110);
             this.panelLeyenda.Name = "panelLeyenda";
             this.panelLeyenda.Size = new System.Drawing.Size(136, 234);
             this.panelLeyenda.TabIndex = 78;
@@ -1441,14 +1487,14 @@
             this.panelTrack.Controls.Add(this.trackBar1);
             this.panelTrack.Location = new System.Drawing.Point(12, 101);
             this.panelTrack.Name = "panelTrack";
-            this.panelTrack.Size = new System.Drawing.Size(37, 207);
+            this.panelTrack.Size = new System.Drawing.Size(32, 207);
             this.panelTrack.TabIndex = 79;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(15, 185);
+            this.label15.Location = new System.Drawing.Point(3, 184);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(10, 13);
             this.label15.TabIndex = 7;
@@ -1703,6 +1749,7 @@
             this.picCam14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam14.TabIndex = 14;
             this.picCam14.TabStop = false;
+            this.picCam14.Click += new System.EventHandler(this.picCam14_Click);
             // 
             // picCam15
             // 
@@ -1713,6 +1760,7 @@
             this.picCam15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam15.TabIndex = 13;
             this.picCam15.TabStop = false;
+            this.picCam15.Click += new System.EventHandler(this.picCam15_Click);
             // 
             // picCam13
             // 
@@ -1723,6 +1771,7 @@
             this.picCam13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam13.TabIndex = 12;
             this.picCam13.TabStop = false;
+            this.picCam13.Click += new System.EventHandler(this.picCam13_Click);
             // 
             // picCam11
             // 
@@ -1733,6 +1782,7 @@
             this.picCam11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam11.TabIndex = 11;
             this.picCam11.TabStop = false;
+            this.picCam11.Click += new System.EventHandler(this.picCam11_Click);
             // 
             // picCam12
             // 
@@ -1743,6 +1793,7 @@
             this.picCam12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam12.TabIndex = 10;
             this.picCam12.TabStop = false;
+            this.picCam12.Click += new System.EventHandler(this.picCam12_Click);
             // 
             // picCam10
             // 
@@ -1753,6 +1804,7 @@
             this.picCam10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam10.TabIndex = 9;
             this.picCam10.TabStop = false;
+            this.picCam10.Click += new System.EventHandler(this.picCam10_Click);
             // 
             // picCam08
             // 
@@ -1763,6 +1815,7 @@
             this.picCam08.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam08.TabIndex = 8;
             this.picCam08.TabStop = false;
+            this.picCam08.Click += new System.EventHandler(this.picCam08_Click);
             // 
             // picCam09
             // 
@@ -1773,6 +1826,7 @@
             this.picCam09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam09.TabIndex = 7;
             this.picCam09.TabStop = false;
+            this.picCam09.Click += new System.EventHandler(this.picCam09_Click);
             // 
             // picCam07
             // 
@@ -1783,6 +1837,7 @@
             this.picCam07.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam07.TabIndex = 6;
             this.picCam07.TabStop = false;
+            this.picCam07.Click += new System.EventHandler(this.picCam07_Click);
             // 
             // picCam04
             // 
@@ -1793,6 +1848,7 @@
             this.picCam04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam04.TabIndex = 5;
             this.picCam04.TabStop = false;
+            this.picCam04.Click += new System.EventHandler(this.picCam04_Click);
             // 
             // picCam06
             // 
@@ -1803,6 +1859,7 @@
             this.picCam06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam06.TabIndex = 4;
             this.picCam06.TabStop = false;
+            this.picCam06.Click += new System.EventHandler(this.picCam06_Click);
             // 
             // picCam02
             // 
@@ -1813,6 +1870,7 @@
             this.picCam02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam02.TabIndex = 3;
             this.picCam02.TabStop = false;
+            this.picCam02.Click += new System.EventHandler(this.picCam02_Click);
             // 
             // picCam03
             // 
@@ -1823,6 +1881,7 @@
             this.picCam03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam03.TabIndex = 2;
             this.picCam03.TabStop = false;
+            this.picCam03.Click += new System.EventHandler(this.picCam03_Click);
             // 
             // picCam05
             // 
@@ -1833,6 +1892,7 @@
             this.picCam05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam05.TabIndex = 1;
             this.picCam05.TabStop = false;
+            this.picCam05.Click += new System.EventHandler(this.picCam05_Click);
             // 
             // picCam01
             // 
@@ -1843,12 +1903,45 @@
             this.picCam01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCam01.TabIndex = 0;
             this.picCam01.TabStop = false;
+            this.picCam01.Click += new System.EventHandler(this.picCam01_Click);
+            // 
+            // panelDetalles
+            // 
+            this.panelDetalles.Controls.Add(this.labelDetalles);
+            this.panelDetalles.Controls.Add(this.lblDetalles);
+            this.panelDetalles.Location = new System.Drawing.Point(836, 138);
+            this.panelDetalles.Name = "panelDetalles";
+            this.panelDetalles.Size = new System.Drawing.Size(137, 206);
+            this.panelDetalles.TabIndex = 90;
+            this.panelDetalles.Visible = false;
+            // 
+            // labelDetalles
+            // 
+            this.labelDetalles.AutoSize = true;
+            this.labelDetalles.BackColor = System.Drawing.Color.Transparent;
+            this.labelDetalles.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDetalles.Location = new System.Drawing.Point(0, 0);
+            this.labelDetalles.Name = "labelDetalles";
+            this.labelDetalles.Size = new System.Drawing.Size(82, 25);
+            this.labelDetalles.TabIndex = 89;
+            this.labelDetalles.Text = "Detalles";
+            // 
+            // lblDetalles
+            // 
+            this.lblDetalles.AutoSize = true;
+            this.lblDetalles.Location = new System.Drawing.Point(3, 40);
+            this.lblDetalles.Name = "lblDetalles";
+            this.lblDetalles.Size = new System.Drawing.Size(69, 13);
+            this.lblDetalles.TabIndex = 0;
+            this.lblDetalles.Text = "Cantidades...";
             // 
             // frmMapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1202, 488);
+            this.Controls.Add(this.panelDetalles);
             this.Controls.Add(this.panelCamiones);
             this.Controls.Add(this.panelLeyendas);
             this.Controls.Add(this.btnRotarIzq);
@@ -1912,6 +2005,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picCam03)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam05)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam01)).EndInit();
+            this.panelDetalles.ResumeLayout(false);
+            this.panelDetalles.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2039,7 +2134,6 @@
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton4;
         private System.Windows.Forms.ToolStripMenuItem hoyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fechaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
@@ -2085,6 +2179,14 @@
         private System.Windows.Forms.ToolStripMenuItem buscarCoordenadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem guardarCoordenadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verCoordenadasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cabezasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator22;
+        private System.Windows.Forms.Panel panelDetalles;
+        private System.Windows.Forms.Label lblDetalles;
+        private System.Windows.Forms.Label labelDetalles;
+        private System.Windows.Forms.ToolStripButton toolStripButton15;
+        public System.Windows.Forms.ToolStripProgressBar lblConectadoF;
+        private System.Windows.Forms.ToolStripMenuItem verOcultarCoordenadasCamionToolStripMenuItem;
     }
 }
 

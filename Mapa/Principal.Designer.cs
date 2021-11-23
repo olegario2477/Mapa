@@ -44,6 +44,7 @@
             this.horizontalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cabezasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +65,7 @@
             // 
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
+            this.cabezasToolStripMenuItem,
             this.monitorToolStripMenuItem1,
             this.toolStripSeparator1,
             this.cerrarToolStripMenuItem});
@@ -75,7 +77,7 @@
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem1.Text = "Mapa";
+            this.toolStripMenuItem1.Text = "Mapa Alimento";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // monitorToolStripMenuItem1
@@ -126,7 +128,7 @@
             // configuracionToolStripMenuItem1
             // 
             this.configuracionToolStripMenuItem1.Name = "configuracionToolStripMenuItem1";
-            this.configuracionToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.configuracionToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
             this.configuracionToolStripMenuItem1.Text = "Configuracion";
             this.configuracionToolStripMenuItem1.Click += new System.EventHandler(this.configuracionToolStripMenuItem1_Click);
             // 
@@ -144,21 +146,21 @@
             // cascadaToolStripMenuItem
             // 
             this.cascadaToolStripMenuItem.Name = "cascadaToolStripMenuItem";
-            this.cascadaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cascadaToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.cascadaToolStripMenuItem.Text = "Cascada";
             this.cascadaToolStripMenuItem.Click += new System.EventHandler(this.cascadaToolStripMenuItem_Click);
             // 
             // horizontalToolStripMenuItem1
             // 
             this.horizontalToolStripMenuItem1.Name = "horizontalToolStripMenuItem1";
-            this.horizontalToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.horizontalToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
             this.horizontalToolStripMenuItem1.Text = "Horizontal";
             this.horizontalToolStripMenuItem1.Click += new System.EventHandler(this.horizontalToolStripMenuItem1_Click);
             // 
             // verticalToolStripMenuItem1
             // 
             this.verticalToolStripMenuItem1.Name = "verticalToolStripMenuItem1";
-            this.verticalToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.verticalToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
             this.verticalToolStripMenuItem1.Text = "Vertical";
             this.verticalToolStripMenuItem1.Click += new System.EventHandler(this.verticalToolStripMenuItem1_Click);
             // 
@@ -169,6 +171,13 @@
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Visible = false;
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // cabezasToolStripMenuItem
+            // 
+            this.cabezasToolStripMenuItem.Name = "cabezasToolStripMenuItem";
+            this.cabezasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cabezasToolStripMenuItem.Text = "Cabezas";
+            this.cabezasToolStripMenuItem.Click += new System.EventHandler(this.cabezasToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -207,5 +216,6 @@
         private System.Windows.Forms.ToolStripMenuItem horizontalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem verticalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cabezasToolStripMenuItem;
     }
 }
