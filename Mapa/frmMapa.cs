@@ -98,7 +98,7 @@ namespace Mapa
 
         double LatInicial = 21.911191;
         double LngInicial = -98.738904;
-        double gmindist = 0.04;//0.05//0.02;//0.004;
+        double gmindist = 0.035;//0.05//0.02;//0.004;
 
         double LatActual = 0;
         double LngActual = 0;
@@ -271,7 +271,7 @@ namespace Mapa
 
             cmbServidas.SelectedIndex = 0;
             
-            agregarZona();
+            //agregarZona();
             //agregarRecepciones();
             
             lineasComederos();
@@ -299,6 +299,7 @@ namespace Mapa
             }
 
             opcionMouseMenu();
+            iniciaNumeroCamion();
 
 
             //corralActividad("1076", Color.White);
@@ -327,6 +328,9 @@ namespace Mapa
             //GDirections ss;
             //var xx = GMapProviders.GoogleMap.GetDirections(out ss, start, end, false, false, false, false, false);
             //GMapRoute r = new GMapRoute(ss.Route, "My route");
+            
+            this.Refresh();
+            tim();
 
         }
         
@@ -1099,10 +1103,12 @@ namespace Mapa
             if (demora.TotalMinutes <= Convert.ToDouble(inactividad))
             {
                 vimg = this.imageList1.Images[6];
+                mostrarCamionActivo(id, false);
             }
             else
             {
                 vimg = this.imageList1.Images[2];
+                mostrarCamionActivo(id, true);
             }
 
             Bitmap bmpmarker = new Bitmap(vimg); //imagen camion
@@ -1118,7 +1124,7 @@ namespace Mapa
             markerCamion = new GMarkerGoogle(new PointLatLng(lat, lng), bmpmarker);
             markerCamion.ToolTipMode = MarkerTooltipMode.OnMouseOver;//.Always;
 
-            markerCamion.ToolTipText = string.Format("{2}\nServida {3}\n HORA:{1}", name, hora, racion, servida);
+            markerCamion.ToolTipText = string.Format("CAM {4}, {2}, SERV {3}, HR {1}", name, hora, racion, servida, id);
             //markerCamion.ToolTipText = string.Format("{0} \n VELOCIDAD: {1} \n HORA:{2}", name, velocidad, hora);
 
             overlayCamiones.Markers.Add(markerCamion);
@@ -1376,6 +1382,18 @@ namespace Mapa
             overlayRecorridos.Markers.Add(markerRecorrido);
         }
 
+        private void agregaractualizarMarcadorRepartos(string id, string fecha, string hora, double lat, double lng)
+        {
+            Bitmap bmpmarker = new Bitmap(this.imageList1.Images[3]);
+
+            //markerRecorrido = new GMarkerGoogle(new PointLatLng(lat, lng), bmpmarker); // GMarkerGoogleType.blue);// .purple_small);
+            markerRecorrido = new GMarkerGoogle(new PointLatLng(lat, lng), bmpmarker);// .purple_small);
+            markerRecorrido.ToolTipMode = MarkerTooltipMode.Always;
+            markerRecorrido.ToolTipText = string.Format("{0} {1}", id, hora);
+            //markerRecorrido.ToolTipText = string.Format("{0} \n VELOCIDAD: {1} \n HORA:{2}", name, velocidad, hora);
+            overlayRecorridos.Markers.Add(markerRecorrido);
+        }
+
         private void agregaractualizarMarcadorRecorridoCamion(string id, string fecha, string hora, int numero, double lat, double lng, Boolean textos)
         {
             Bitmap bmpmarker = new Bitmap(this.imageList1.Images[4]);
@@ -1581,8 +1599,13 @@ namespace Mapa
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
+            trackMover();
+        }
+
+        private void trackMover() 
+        { 
             gMapControl1.Zoom = trackBar1.Value;
-            lblZomm.Text = valorPorcZomm() + "%";
+            lblZomm.Text = valorPorcZomm() + "%";       
         }
 
         private string valorPorcZomm()
@@ -1622,6 +1645,14 @@ namespace Mapa
                
         private void timerCamion_Tick(object sender, EventArgs e)
         {
+
+            tim();
+
+        }
+
+        private void tim() 
+        { 
+
             if (indiceBotonFecha == 1)
             {
                 txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
@@ -1637,7 +1668,7 @@ namespace Mapa
 
             //FlushMemory();
 
-            mostrarCamionesActivos();
+            //mostrarCamionesActivos();
 
 
             //Convert.ToInt32()
@@ -1649,8 +1680,7 @@ namespace Mapa
             else 
             {
                 lblConectadoF.Value = 0;
-            }
-
+            }      
 
         }
 
@@ -2148,6 +2178,96 @@ namespace Mapa
             this.Cursor = Cursors.Default;
 
         }
+
+        private void repartosBoton()
+        {
+            //if (txtCantP.Text.Equals("")) {
+            //    txtCantP.Text = "0";
+            //}
+
+            //int cantp = Convert.ToInt32(txtCantP.Text);
+            int i = 1;
+
+            this.Cursor = Cursors.WaitCursor;
+
+            //////////
+            //GMapOverlay Ruta = new GMapOverlay("Rutas");
+            List<PointLatLng> puntos = new List<PointLatLng>();
+            /////////
+
+            //if (datFecha.Visible)
+            //{
+            DataTable dt = new DataTable();
+
+            //leerWsRecorrido(ref dt);
+            //leerWsdlRecorrido(ref dt);
+            leerWsdlRepartos(ref dt);
+
+
+            dt.DefaultView.Sort = "hora asc";
+            dt = dt.DefaultView.ToTable();
+
+            DataRow[] rows = dt.Select("lat = '0.0000000000'");
+            foreach (DataRow row in rows) dt.Rows.Remove(row);
+
+
+            quitarMarcadorRecorridos();
+            quitarMarcadorRutas();
+
+            foreach (DataRow row in dt.Rows)
+            {
+
+                agregaractualizarMarcadorRepartos(
+                    row["corral"].ToString(),
+                    row["fecha"].ToString(),
+                    row["hora"].ToString(),
+                    Convert.ToDouble(row["lat"]),
+                    Convert.ToDouble(row["lng"]));
+
+
+                puntos.Add(new PointLatLng(Convert.ToDouble(row["lat"]), Convert.ToDouble(row["lng"])));
+
+                //if (cantp == i)
+                //{
+                //    break;
+                //}
+
+                i++;
+            }
+
+            ///////////// linea une puntos
+
+            GMapRoute PuntoRuta = new GMapRoute(puntos, "Ruta");
+            overlayRutas.Routes.Add(PuntoRuta);
+
+            //PuntoRuta.Stroke.Color = Color.Blue;
+            PuntoRuta.Stroke.Color = Color.Transparent;
+
+
+
+            double distance = PuntoRuta.Distance;
+
+            distance = Math.Round(distance, 2);
+
+            lblDistancia.Text = "dist = " + distance.ToString() + " Km";
+            lblDistancia.Visible = true;
+
+            ///////////
+
+            //}
+            //else
+            //{
+            //    quitarMarcadorRecorridos();
+            //    quitarMarcadorRutas();
+
+            //    lblDistancia.Text = "dist = 0 Km";
+            //    lblDistancia.Visible = false;
+            //}
+
+            this.Cursor = Cursors.Default;
+
+        }
+
 
         private void btnRecorridos_Click(object sender, EventArgs e)
         {
@@ -2761,6 +2881,114 @@ namespace Mapa
                         newRow["lng"] = lines[4].Trim();
 
                         dttmp.Rows.Add(newRow);
+                    }
+
+                }
+
+                dt = dttmp;
+
+            }
+            catch (Exception e)
+            {
+                dt.Clear();
+            }
+            //Cursor = Cursors.Default;
+
+            //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            //if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
+
+
+
+        }
+
+        private void leerWsdlRepartos(ref DataTable dt)
+        {
+
+            //DataTable dttmp1 = new DataTable();
+            //DataTable dttmp2 = new DataTable();
+            //DataRow[] foundRows1;
+            DataRow[] foundRows2;
+
+            //Cursor = Cursors.WaitCursor;
+
+            seleccion = "REPARTOS";
+
+            Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
+            t.Name = seleccion;
+            t.IsBackground = true;
+            t.Start();
+
+            Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
+            //while (t.IsAlive)
+            //{
+            //    Thread.Sleep(50);
+            //    Application.DoEvents();
+            //}
+
+            t.Join();
+
+            lista = connectar.getList();
+            String errormsg = connectar.getError();
+            String emsg = connectar.getEmsg();
+
+            try
+            {
+
+                DataTable dttmp = new DataTable();
+                dttmp.Columns.Add("corral");
+                dttmp.Columns.Add("fecha");
+                dttmp.Columns.Add("hora");
+                dttmp.Columns.Add("numcamion");
+                dttmp.Columns.Add("servida");
+                dttmp.Columns.Add("racion");
+                dttmp.Columns.Add("plan");
+                dttmp.Columns.Add("servido");
+                dttmp.Columns.Add("plandia");
+                dttmp.Columns.Add("servidodia");
+
+                dttmp.Columns.Add("corralgps");
+                dttmp.Columns.Add("lat");
+                dttmp.Columns.Add("lng");
+
+                foreach (String listar in lista)
+                {
+
+                    string[] lines = listar.Split('|');
+
+                    if (lines[3].Trim().TrimStart('0').Equals(cmbCamion.Text.TrimStart('0')) || cmbCamion.Text.Equals(""))
+                    {
+                        if (lines[4].Trim().TrimStart('0').Equals(cmbServidas.Text.TrimStart('0')) || cmbServidas.Text.Equals(""))
+                        {
+                            if (lines[5].Trim().TrimStart('0').Equals(cmbRaciones.Text.TrimStart('0')) || cmbRaciones.Text.Equals(""))
+                            {
+                                DataRow newRow = dttmp.NewRow();
+                                newRow["corral"] = lines[0].Trim();
+
+                                lines[1] = lines[1].Insert(4, "-");
+                                lines[1] = lines[1].Insert(7, "-");
+                                newRow["fecha"] = lines[1].Trim();
+
+                                lines[2] = lines[2].Insert(2, ":");
+                                lines[2] = lines[2].Insert(5, ":");
+                                newRow["hora"] = lines[2].Trim();
+
+                                newRow["numcamion"] = lines[3].Trim().PadLeft(2, '0');
+                                newRow["servida"] = lines[4].Trim();
+                                newRow["racion"] = lines[5].Trim();
+                                newRow["plan"] = lines[6].Trim();
+                                newRow["servido"] = lines[7].Trim();
+                                newRow["plandia"] = lines[8].Trim();
+                                newRow["servidodia"] = lines[9].Trim();
+
+                                newRow["corralgps"] = lines[10].Trim();
+                                newRow["lat"] = lines[11].Trim();
+                                newRow["lng"] = lines[12].Trim();
+
+                                dttmp.Rows.Add(newRow);
+                            }
+                        
+                        }
+                    
                     }
 
                 }
@@ -3977,6 +4205,101 @@ namespace Mapa
 
         }
 
+        private void mostrarCamionActivo(String camion, Boolean estado) 
+        {
+
+
+            try
+            {
+
+                Image imagen;
+
+                if (estado)
+                {
+                    imagen = imageList1.Images[2];
+                }
+                else 
+                {
+                    imagen = imageList1.Images[0];
+                }
+
+                camion = cerosIzq(camion);
+                
+                switch (camion)
+                {
+                    case "01":
+                        picCam01.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "02":
+                        picCam02.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "03":
+                        picCam03.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "04":
+                        picCam04.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "05":
+                        picCam05.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "06":
+                        picCam06.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "07":
+                        picCam07.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "08":
+                        picCam08.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "09":
+                        picCam09.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "10":
+                        picCam10.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "11":
+                        picCam11.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "12":
+                        picCam12.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "13":
+                        picCam13.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "14":
+                        picCam14.Image = numeroImagen(imagen, camion);
+                        break;
+                    case "15":
+                        picCam15.Image = numeroImagen(imagen, camion);
+                        break;
+                }
+
+            }
+            catch { }
+
+        }
+
+        private void iniciaNumeroCamion() 
+        {
+
+            picCam01.Image = numeroImagen(imageList1.Images[2], "01");
+            picCam02.Image = numeroImagen(imageList1.Images[2], "02");
+            picCam03.Image = numeroImagen(imageList1.Images[2], "03");
+            picCam04.Image = numeroImagen(imageList1.Images[2], "04");
+            picCam05.Image = numeroImagen(imageList1.Images[2], "05");
+            picCam06.Image = numeroImagen(imageList1.Images[2], "06");
+            picCam07.Image = numeroImagen(imageList1.Images[2], "07");
+            picCam08.Image = numeroImagen(imageList1.Images[2], "08");
+            picCam09.Image = numeroImagen(imageList1.Images[2], "09");
+            picCam10.Image = numeroImagen(imageList1.Images[2], "10");
+            picCam11.Image = numeroImagen(imageList1.Images[2], "11");
+            picCam12.Image = numeroImagen(imageList1.Images[2], "12");
+            picCam13.Image = numeroImagen(imageList1.Images[2], "13");
+            picCam14.Image = numeroImagen(imageList1.Images[2], "14");
+            picCam15.Image = numeroImagen(imageList1.Images[2], "15");
+
+        }
+
         private void mostrarCamionesActivos() 
         {
 
@@ -4433,6 +4756,7 @@ namespace Mapa
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             quitarMarcadorBuscarUbicaciones();
+            txtBuscarUbicacion.Text = "";
         }
 
         private void gMapControl1_Load(object sender, EventArgs e)
@@ -5636,10 +5960,12 @@ namespace Mapa
 
                     mostrarLinea(lat, lng, clatmin, clngmin);
 
+                    lblDistanciaMin.Text = distmin.ToString();
                 }
                 else
                 {
                     corral = "0000";
+                    lblDistanciaMin.Text = "";
                 }
 
             }
@@ -6963,7 +7289,28 @@ namespace Mapa
             }
         }
 
+        private void toolStripButton16_Click(object sender, EventArgs e)
+        {
+            repartosBoton();
+        }
 
+        private void btnMin_Click(object sender, EventArgs e)
+        {
+            if (trackBar1.Value > 15)
+            {
+                trackBar1.Value--;
+                trackMover();
+            }
+        }
+
+        private void btnMax_Click(object sender, EventArgs e)
+        {
+            if (trackBar1.Value<20) 
+            {
+                trackBar1.Value++;
+                trackMover();
+            }
+        } 
     }
 
     internal class Graphic

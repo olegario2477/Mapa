@@ -110,9 +110,11 @@
             this.cmbCamionRuta = new System.Windows.Forms.ToolStripComboBox();
             this.btnBuscarcamionruta = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton16 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton14 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
@@ -155,6 +157,7 @@
             this.btnPing = new System.Windows.Forms.ToolStripButton();
             this.lblPing = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblDistanciaMin = new System.Windows.Forms.ToolStripLabel();
             this.webBClima = new System.Windows.Forms.WebBrowser();
             this.panelLeyenda = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -175,6 +178,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.pictureBox710 = new System.Windows.Forms.PictureBox();
             this.panelTrack = new System.Windows.Forms.Panel();
+            this.btnMax = new System.Windows.Forms.Button();
+            this.btnMin = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -304,7 +309,7 @@
             this.alinearToolStripMenuItem,
             this.verOcultarCoordenadasCamionToolStripMenuItem});
             this.contextMenuStripMenu.Name = "contextMenuStripMenu";
-            this.contextMenuStripMenu.Size = new System.Drawing.Size(297, 296);
+            this.contextMenuStripMenu.Size = new System.Drawing.Size(297, 274);
             // 
             // guardarCoordenadaToolStripMenuItem
             // 
@@ -450,12 +455,12 @@
             // trackBar1
             // 
             this.trackBar1.BackColor = System.Drawing.Color.White;
-            this.trackBar1.Location = new System.Drawing.Point(0, 9);
+            this.trackBar1.Location = new System.Drawing.Point(0, 20);
             this.trackBar1.Maximum = 20;
             this.trackBar1.Minimum = 15;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 188);
+            this.trackBar1.Size = new System.Drawing.Size(45, 185);
             this.trackBar1.TabIndex = 4;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.trackBar1.Value = 16;
@@ -541,9 +546,11 @@
             this.cmbCamionRuta,
             this.btnBuscarcamionruta,
             this.toolStripSeparator15,
-            this.toolStripButton9,
-            this.toolStripButton12,
             this.toolStripButton6,
+            this.toolStripLabel8,
+            this.toolStripButton9,
+            this.toolStripButton16,
+            this.toolStripButton12,
             this.toolStripButton14,
             this.toolStripButton8,
             this.toolStripLabel3,
@@ -933,6 +940,23 @@
             this.toolStripSeparator15.Name = "toolStripSeparator15";
             this.toolStripSeparator15.Size = new System.Drawing.Size(6, 33);
             // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton6.Text = "Reparto";
+            this.toolStripButton6.ToolTipText = "Recorrido";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click_1);
+            // 
+            // toolStripLabel8
+            // 
+            this.toolStripLabel8.Name = "toolStripLabel8";
+            this.toolStripLabel8.Size = new System.Drawing.Size(28, 30);
+            this.toolStripLabel8.Text = "GPS";
+            // 
             // toolStripButton9
             // 
             this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -943,6 +967,16 @@
             this.toolStripButton9.Text = "Recorridos";
             this.toolStripButton9.ToolTipText = "Recorridos";
             this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
+            // 
+            // toolStripButton16
+            // 
+            this.toolStripButton16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton16.Image")));
+            this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton16.Name = "toolStripButton16";
+            this.toolStripButton16.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton16.Text = "Repartos";
+            this.toolStripButton16.Click += new System.EventHandler(this.toolStripButton16_Click);
             // 
             // toolStripButton12
             // 
@@ -955,17 +989,6 @@
             this.toolStripButton12.Visible = false;
             this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
             // 
-            // toolStripButton6
-            // 
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(24, 30);
-            this.toolStripButton6.Text = "toolStripButton6";
-            this.toolStripButton6.ToolTipText = "Recorrido";
-            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click_1);
-            // 
             // toolStripButton14
             // 
             this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -975,6 +998,7 @@
             this.toolStripButton14.Size = new System.Drawing.Size(24, 30);
             this.toolStripButton14.Text = "toolStripButton14";
             this.toolStripButton14.ToolTipText = "Recorrido";
+            this.toolStripButton14.Visible = false;
             this.toolStripButton14.Click += new System.EventHandler(this.toolStripButton14_Click);
             // 
             // toolStripButton8
@@ -984,7 +1008,7 @@
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
             this.toolStripButton8.Size = new System.Drawing.Size(24, 30);
-            this.toolStripButton8.Text = "Cerrra Rutas";
+            this.toolStripButton8.Text = "Cerrar";
             this.toolStripButton8.ToolTipText = "Cerrar Rutas";
             this.toolStripButton8.Click += new System.EventHandler(this.toolStripButton8_Click);
             // 
@@ -997,6 +1021,7 @@
             // cmbServidas
             // 
             this.cmbServidas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbServidas.DropDownWidth = 50;
             this.cmbServidas.Items.AddRange(new object[] {
             "1",
             "2"});
@@ -1081,7 +1106,8 @@
             this.toolStripSeparator20,
             this.btnPing,
             this.lblPing,
-            this.toolStripSeparator21});
+            this.toolStripSeparator21,
+            this.lblDistanciaMin});
             this.toolStrip2.Location = new System.Drawing.Point(0, 463);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1202, 25);
@@ -1274,6 +1300,12 @@
             // 
             this.toolStripSeparator21.Name = "toolStripSeparator21";
             this.toolStripSeparator21.Size = new System.Drawing.Size(6, 25);
+            // 
+            // lblDistanciaMin
+            // 
+            this.lblDistanciaMin.Name = "lblDistanciaMin";
+            this.lblDistanciaMin.Size = new System.Drawing.Size(13, 22);
+            this.lblDistanciaMin.Text = "0";
             // 
             // webBClima
             // 
@@ -1482,13 +1514,37 @@
             // panelTrack
             // 
             this.panelTrack.BackColor = System.Drawing.Color.White;
+            this.panelTrack.Controls.Add(this.btnMax);
+            this.panelTrack.Controls.Add(this.btnMin);
             this.panelTrack.Controls.Add(this.label15);
             this.panelTrack.Controls.Add(this.label14);
             this.panelTrack.Controls.Add(this.trackBar1);
-            this.panelTrack.Location = new System.Drawing.Point(12, 101);
+            this.panelTrack.Location = new System.Drawing.Point(12, 84);
             this.panelTrack.Name = "panelTrack";
-            this.panelTrack.Size = new System.Drawing.Size(32, 207);
+            this.panelTrack.Size = new System.Drawing.Size(32, 227);
             this.panelTrack.TabIndex = 79;
+            // 
+            // btnMax
+            // 
+            this.btnMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMax.Location = new System.Drawing.Point(0, -2);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(32, 25);
+            this.btnMax.TabIndex = 92;
+            this.btnMax.Text = "+";
+            this.btnMax.UseVisualStyleBackColor = true;
+            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
+            // 
+            // btnMin
+            // 
+            this.btnMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMin.Location = new System.Drawing.Point(-1, 202);
+            this.btnMin.Name = "btnMin";
+            this.btnMin.Size = new System.Drawing.Size(33, 25);
+            this.btnMin.TabIndex = 91;
+            this.btnMin.Text = "-";
+            this.btnMin.UseVisualStyleBackColor = true;
+            this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
             // label15
             // 
@@ -2187,6 +2243,11 @@
         private System.Windows.Forms.ToolStripButton toolStripButton15;
         public System.Windows.Forms.ToolStripProgressBar lblConectadoF;
         private System.Windows.Forms.ToolStripMenuItem verOcultarCoordenadasCamionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton16;
+        private System.Windows.Forms.ToolStripLabel lblDistanciaMin;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel8;
+        private System.Windows.Forms.Button btnMax;
+        private System.Windows.Forms.Button btnMin;
     }
 }
 
