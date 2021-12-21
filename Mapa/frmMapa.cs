@@ -164,6 +164,8 @@ namespace Mapa
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            this.Cursor = Cursors.WaitCursor;
+
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
@@ -172,14 +174,14 @@ namespace Mapa
             tabControl1.Height = 0;
 
             this.Text = "Mapa"; //Application.ProductName + " - Sistema Reparto Gusi - v" + Application.ProductVersion;
-
-            
+                        
             tablaCamionTemp();
             tablaListaCamionTemp();
             tablaRepartoTemp();
             tablaCabezasTemp();
 
             llenaTablets();
+            buscaCamiones2(false);
 
             ip = obtenerConfig(0);
 
@@ -206,9 +208,7 @@ namespace Mapa
 
             lblip.Text = ip;
             lblLatencia.Text = latencia.ToString() + "seg";
-
             
-
             posicionBTN();
 
             cargaMapa();
@@ -217,14 +217,11 @@ namespace Mapa
 
             variablesMapa();
 
-
-
             LatInicial = 21.911191;
             LngInicial = -98.738904;
 
             LatActual = LatInicial;
             LngActual = LngInicial;
-
 
             timerCamion.Enabled = true;
 
@@ -269,6 +266,45 @@ namespace Mapa
 
             mostrarDatosWs();
 
+            switch (gopc) 
+            {
+                case 1:
+
+                    tim();
+
+
+
+                    break;
+                case 2:
+                    indiceBotonVista = 0;
+
+                    toolStripButton15.Visible = true; //refresca cabezas
+                    toolStripSplitButton3.Visible = false;
+                    toolStripButton5.Visible = false;
+                    toolStripLabel8.Visible = false;
+                    toolStripButton16.Visible = false;
+                    this.Refresh();
+
+                    timerCamion.Stop();                    
+                    cabezasToolStripMenuItem_Click(sender, e);
+                    //menuBasico();
+
+                    menuBuscarCamion(false);
+                    menuRutas(false);
+                   
+                    
+
+                    break;
+                default:
+                    break;
+            }
+
+
+
+
+            //mostrarDatosWs();
+  
+
             cmbServidas.SelectedIndex = 0;
             
             //agregarZona();
@@ -277,26 +313,7 @@ namespace Mapa
             lineasComederos();
 
 
-            switch (gopc) 
-            {
-                case 1:
 
-
-                    break;
-                case 2:
-                    indiceBotonVista = 0;
-                    timerCamion.Stop();                    
-                    cabezasToolStripMenuItem_Click(sender, e);
-                    //menuBasico();
-                    toolStripButton15.Visible = true; //refresca cabezas
-                    toolStripSplitButton3.Visible = false;
-                    toolStripButton5.Visible = false;
-                    menuBuscarCamion(false);
-                    menuRutas(false);
-                    break;
-                default:
-                    break;
-            }
 
             opcionMouseMenu();
             iniciaNumeroCamion();
@@ -328,9 +345,13 @@ namespace Mapa
             //GDirections ss;
             //var xx = GMapProviders.GoogleMap.GetDirections(out ss, start, end, false, false, false, false, false);
             //GMapRoute r = new GMapRoute(ss.Route, "My route");
-            
+
             this.Refresh();
-            tim();
+           
+
+            //this.WindowState = FormWindowState.Maximized;
+            this.Cursor = Cursors.Default;
+
 
         }
         
@@ -1520,13 +1541,13 @@ namespace Mapa
             //txtDistancia.Top = btnEmpacadora.Top + txtDistancia.Height + 5;
             //txtDistancia.Left = (this.Width / 2) - (txtDistancia.Width / 2);
 
-            panelTrack.Top = 60;
+            panelTrack.Top = 70;
             panelTrack.Left = 10;
 
-            btnRotarDer.Top = panelTrack.Top + panelTrack.Height + 10;
+            btnRotarDer.Top = panelTrack.Top + panelTrack.Height + 40;
             btnRotarDer.Left = panelTrack.Left;
 
-            btnRotarIzq.Top = btnRotarDer.Top + btnRotarDer.Height + 10;
+            btnRotarIzq.Top = btnRotarDer.Top;
             btnRotarIzq.Left = btnRotarDer.Left;
 
             //panelRuta.Top = 60;
@@ -1568,15 +1589,18 @@ namespace Mapa
             chart1.Top = chart2.Top;
             chart1.Left = chart2.Left - chart1.Width;
 
-
-
-            panelCamiones.Top = this.Height - 110;
-            panelCamiones.Left = (this.Width / 2) - (panelCamiones.Width / 2);
-
             panelDetalles.Top = panelLeyendas.Top;
             panelDetalles.Left = panelLeyendas.Left;
             panelDetalles.Height = panelLeyendas.Height;
             panelDetalles.Width = panelLeyendas.Width;
+
+            //panelCamiones.Top = this.Height - 110;
+            //panelCamiones.Left = (this.Width / 2) - (panelCamiones.Width / 2);
+
+            panelCamiones.Top = this.Height - 63;
+            panelCamiones.Left = this.Width - panelCamiones.Width - 10;
+
+
 
 
 
@@ -3713,15 +3737,16 @@ namespace Mapa
 
         private void Form1_Resize(object sender, System.EventArgs e)
         {
-            posicionBTN();
+
 
             toolStrip1.Refresh();
+            toolStrip2.Refresh();
             btnRotarDer.Refresh();
             btnRotarIzq.Refresh();
             panelTrack.Refresh();
             trackBar1.Refresh();
 
-
+            posicionBTN();
 
         }
 
@@ -4094,12 +4119,11 @@ namespace Mapa
         //{
         //    e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         //}
-               
-                       
+                                      
         private void mostrarRepartoCorral()
         {
 
-            string[] valores = { "VACIO", "0-20%", "20-40%", "40-75%", "75-95%", "95-105%", "EXCEDIO" };
+            string[] valores = { "VACIO", "0 - 20%", "20 - 40%", "40 - 75%", "75 - 95%", "95 - 105%", "EXCEDIO"  };//, "ERROR" };
 
             listBoxLeyendas.Items.Clear();
 
@@ -4130,6 +4154,22 @@ namespace Mapa
                         double valor = Convert.ToDouble(row["servidodia"]) / Convert.ToDouble(row["plandia"]) * 100;
                         //valor = -1;
                         corralActividadMod(row["corral"].ToString(), colorLeyenda(valor));
+
+                        //if (txtFecha.Text.Equals(DateTime.Now.ToString("dd/MM/yyyy")))
+                        //{
+                        //    if (row["corral"].ToString() != row["corralgps"].ToString()
+                        //        && row["corralgps"].ToString() != "0000"
+                        //        //&& (
+                        //        //   row["numcamion"].ToString() == "05"
+                        //        //|| row["numcamion"].ToString() == "03"
+                        //        //|| row["numcamion"].ToString() == "12"
+                        //        //)
+                        //        )
+                        //    {
+                        //        corralActividadMod(row["corral"].ToString(), Color.Red);
+                        //    }
+                        //}
+
                     }
                 }
 
@@ -4654,12 +4694,12 @@ namespace Mapa
 
             if (valor == -1) { color = Color.Transparent; }
             if (valor == 0) { color = Color.White; }
-            if (valor > 0 && valor <= 20) { color = Color.Gray; }
+            if (valor > 0 && valor <= 20) { color = Color.Silver; }
             if (valor > 20 && valor <= 40) { color = Color.Orange; }
             if (valor > 40 && valor <= 75) { color = Color.Yellow; }
-            if (valor > 75 && valor <= 95) { color = Color.Blue; }
-            if (valor > 95 && valor <= 105) { color = Color.Green; }
-            if (valor >= 105) { color = Color.Purple; }
+            if (valor > 75 && valor <= 95) { color = Color.Cyan; }
+            if (valor > 95 && valor <= 105) { color = Color.LimeGreen; }
+            if (valor >= 105) { color = Color.DarkViolet; }
 
             return color;
 
@@ -4835,6 +4875,8 @@ namespace Mapa
             dttmp.Columns.Add("plandia");
             dttmp.Columns.Add("servidodia");
 
+            dttmp.Columns.Add("corralgps");
+
 
             foreach (String listar in lista)
             {
@@ -4860,7 +4902,12 @@ namespace Mapa
                 newRow["servido"] = lines[7].Trim();
                 newRow["plandia"] = lines[8].Trim();
                 newRow["servidodia"] = lines[9].Trim();
-
+                
+                if (seleccion == "REPARTO") 
+                {
+                    newRow["corralgps"] = lines[10].Trim();
+                }
+                
                 dttmp.Rows.Add(newRow);
 
             }
@@ -5297,9 +5344,10 @@ namespace Mapa
             {
                 case 0:
                     desdesap = "0";
-                    cmbCamiones.Visible = true;
-                    toolStripLabel2.Visible = true;
-                    btnBuscarcamionruta.Visible = true;
+                    //cmbCamiones.Visible = true;
+                    //toolStripLabel2.Visible = true;
+                    //btnBuscarcamionruta.Visible = true;
+                    buscaCamiones(true);
                     txtFecha.Visible = true;
                     //toolStripLabel4.Visible = true;
                     toolStripButton10.Visible = true;
@@ -5309,9 +5357,10 @@ namespace Mapa
                     break;
                 case 1:
                     desdesap = "1";
-                    cmbCamiones.Visible = true;
-                    toolStripLabel2.Visible = true;
-                    btnBuscarcamionruta.Visible = true;
+                    //cmbCamiones.Visible = true;
+                    //toolStripLabel2.Visible = true;
+                    //btnBuscarcamionruta.Visible = true;
+                    buscaCamiones(true);
                     txtFecha.Visible = true;
                     //toolStripLabel4.Visible = true;
                     toolStripButton10.Visible = false;
@@ -5321,9 +5370,10 @@ namespace Mapa
                     break;
                 case 2:
                     desdesap = "1";
-                    cmbCamiones.Visible = false;
-                    toolStripLabel2.Visible = false;
-                    btnBuscarcamionruta.Visible = false;
+                    //cmbCamiones.Visible = false;
+                    //toolStripLabel2.Visible = false;
+                    //btnBuscarcamionruta.Visible = false;
+                    buscaCamiones(false);
                     txtFecha.Visible = true;
                     //toolStripLabel4.Visible = true;
                     toolStripButton10.Visible = true;
@@ -5341,6 +5391,22 @@ namespace Mapa
             
             quitarRecorrido();
             quitarMarcadorCamiones();
+        }
+
+        private void buscaCamiones(Boolean valor) 
+        {
+
+            cmbCamiones.Visible = valor;
+            toolStripLabel2.Visible = valor;
+            btnBuscarcamionruta.Visible = valor;
+
+        }
+
+        private void buscaCamiones2(Boolean valor)
+        {
+            lblcmbCamionRuta.Visible = valor;
+            cmbCamionRuta.Visible = valor;
+            btnBuscarcamionruta.Visible = valor;
         }
 
         private void toolStripButton9_Click(object sender, EventArgs e)
@@ -5522,12 +5588,12 @@ namespace Mapa
 
             Color[] colores = {
                      Color.White,
-                     Color.Gray,
+                     Color.Silver,
                      Color.Orange,
                      Color.Yellow,
-                     Color.Blue,
-                     Color.Green,
-                     Color.Purple,
+                     Color.Cyan,
+                     Color.LimeGreen,
+                     Color.DarkViolet,
                      Color.Red,
             };
 
@@ -5840,12 +5906,12 @@ namespace Mapa
                 colores.Add(Color.White);
             }
 
-            colores.Add(Color.Gray);
+            colores.Add(Color.Silver);
             colores.Add(Color.Orange);
             colores.Add(Color.Yellow);
-            colores.Add(Color.Blue);   
-            colores.Add(Color.Green);
-            colores.Add(Color.Purple);
+            colores.Add(Color.Cyan);   
+            colores.Add(Color.LimeGreen);
+            colores.Add(Color.DarkViolet);
             colores.Add(Color.Red);
 
             colores.Add(Color.MediumTurquoise);
@@ -5856,7 +5922,7 @@ namespace Mapa
             colores.Add(Color.DarkRed);
             colores.Add(Color.Fuchsia);
             colores.Add(Color.Brown);
-            colores.Add(Color.Cyan);
+            colores.Add(Color.Blue);
             colores.Add(Color.DarkViolet);
 
         }
@@ -6358,9 +6424,10 @@ namespace Mapa
             }
             panelFecha.Visible = false;
 
-            lblcmbCamionRuta.Visible = true;
-            cmbCamionRuta.Visible = true;
-            btnBuscarcamionruta.Visible = true;
+            //lblcmbCamionRuta.Visible = true;
+            //cmbCamionRuta.Visible = true;
+            //btnBuscarcamionruta.Visible = true;
+            buscaCamiones2(false);
 
             //llenarCabezasCorral();
             //nombresCorral();
@@ -6375,9 +6442,10 @@ namespace Mapa
             quitarMarcadorCamiones();
             timerCamion.Enabled = false;
 
-            lblcmbCamionRuta.Visible = false;
-            cmbCamionRuta.Visible = false;
-            btnBuscarcamionruta.Visible = false;
+            //lblcmbCamionRuta.Visible = false;
+            //cmbCamionRuta.Visible = false;
+            //btnBuscarcamionruta.Visible = false;
+            buscaCamiones2(false);
 
         }
 

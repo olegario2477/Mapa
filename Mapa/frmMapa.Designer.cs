@@ -128,6 +128,10 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblServer = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblMandante = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.lblProveedor = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.lblDistancia = new System.Windows.Forms.ToolStripLabel();
@@ -146,10 +150,6 @@
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.lblCoordenadas = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.lblServer = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.lblMandante = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.lblErrores = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.lblCtrl = new System.Windows.Forms.ToolStripLabel();
@@ -454,7 +454,7 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.BackColor = System.Drawing.Color.White;
+            this.trackBar1.BackColor = System.Drawing.Color.Gray;
             this.trackBar1.Location = new System.Drawing.Point(0, 20);
             this.trackBar1.Maximum = 20;
             this.trackBar1.Minimum = 15;
@@ -1078,6 +1078,10 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblConectadoF,
             this.toolStripSeparator5,
+            this.lblServer,
+            this.toolStripSeparator16,
+            this.lblMandante,
+            this.toolStripSeparator14,
             this.lblProveedor,
             this.toolStripSeparator19,
             this.lblDistancia,
@@ -1096,10 +1100,6 @@
             this.toolStripSeparator18,
             this.lblCoordenadas,
             this.toolStripSeparator8,
-            this.lblServer,
-            this.toolStripSeparator14,
-            this.lblMandante,
-            this.toolStripSeparator16,
             this.lblErrores,
             this.toolStripSeparator17,
             this.lblCtrl,
@@ -1127,6 +1127,28 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             this.toolStripSeparator5.Visible = false;
+            // 
+            // lblServer
+            // 
+            this.lblServer.Name = "lblServer";
+            this.lblServer.Size = new System.Drawing.Size(39, 22);
+            this.lblServer.Text = "Server";
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(6, 25);
+            // 
+            // lblMandante
+            // 
+            this.lblMandante.Name = "lblMandante";
+            this.lblMandante.Size = new System.Drawing.Size(61, 22);
+            this.lblMandante.Text = "Mandante";
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(6, 25);
             // 
             // lblProveedor
             // 
@@ -1233,33 +1255,12 @@
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
             // 
-            // lblServer
-            // 
-            this.lblServer.Name = "lblServer";
-            this.lblServer.Size = new System.Drawing.Size(39, 22);
-            this.lblServer.Text = "Server";
-            // 
-            // toolStripSeparator14
-            // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(6, 25);
-            // 
-            // lblMandante
-            // 
-            this.lblMandante.Name = "lblMandante";
-            this.lblMandante.Size = new System.Drawing.Size(61, 22);
-            this.lblMandante.Text = "Mandante";
-            // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(6, 25);
-            // 
             // lblErrores
             // 
             this.lblErrores.Name = "lblErrores";
             this.lblErrores.Size = new System.Drawing.Size(43, 22);
             this.lblErrores.Text = "Errores";
+            this.lblErrores.Visible = false;
             this.lblErrores.Click += new System.EventHandler(this.lblErrores_Click);
             // 
             // toolStripSeparator17
@@ -1295,6 +1296,7 @@
             this.lblPing.Name = "lblPing";
             this.lblPing.Size = new System.Drawing.Size(10, 22);
             this.lblPing.Text = ":";
+            this.lblPing.Visible = false;
             // 
             // toolStripSeparator21
             // 
@@ -1306,6 +1308,7 @@
             this.lblDistanciaMin.Name = "lblDistanciaMin";
             this.lblDistanciaMin.Size = new System.Drawing.Size(13, 22);
             this.lblDistanciaMin.Text = "0";
+            this.lblDistanciaMin.Visible = false;
             // 
             // webBClima
             // 
@@ -1389,7 +1392,7 @@
             // 
             // pictureBox716
             // 
-            this.pictureBox716.BackColor = System.Drawing.Color.Purple;
+            this.pictureBox716.BackColor = System.Drawing.Color.DarkViolet;
             this.pictureBox716.Location = new System.Drawing.Point(11, 181);
             this.pictureBox716.Name = "pictureBox716";
             this.pictureBox716.Size = new System.Drawing.Size(16, 20);
@@ -1408,7 +1411,7 @@
             // 
             // pictureBox715
             // 
-            this.pictureBox715.BackColor = System.Drawing.Color.Green;
+            this.pictureBox715.BackColor = System.Drawing.Color.LimeGreen;
             this.pictureBox715.Location = new System.Drawing.Point(11, 159);
             this.pictureBox715.Name = "pictureBox715";
             this.pictureBox715.Size = new System.Drawing.Size(16, 20);
@@ -1427,7 +1430,7 @@
             // 
             // pictureBox714
             // 
-            this.pictureBox714.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox714.BackColor = System.Drawing.Color.Cyan;
             this.pictureBox714.Location = new System.Drawing.Point(11, 137);
             this.pictureBox714.Name = "pictureBox714";
             this.pictureBox714.Size = new System.Drawing.Size(16, 20);
@@ -1484,7 +1487,7 @@
             // 
             // pictureBox711
             // 
-            this.pictureBox711.BackColor = System.Drawing.Color.Gray;
+            this.pictureBox711.BackColor = System.Drawing.Color.Silver;
             this.pictureBox711.Location = new System.Drawing.Point(11, 68);
             this.pictureBox711.Name = "pictureBox711";
             this.pictureBox711.Size = new System.Drawing.Size(16, 20);
@@ -1555,6 +1558,7 @@
             this.label15.Size = new System.Drawing.Size(10, 13);
             this.label15.TabIndex = 7;
             this.label15.Text = "-";
+            this.label15.Visible = false;
             // 
             // label14
             // 
@@ -1791,18 +1795,18 @@
             this.panelCamiones.Controls.Add(this.picCam03);
             this.panelCamiones.Controls.Add(this.picCam05);
             this.panelCamiones.Controls.Add(this.picCam01);
-            this.panelCamiones.Location = new System.Drawing.Point(246, 381);
+            this.panelCamiones.Location = new System.Drawing.Point(254, 402);
             this.panelCamiones.Name = "panelCamiones";
-            this.panelCamiones.Size = new System.Drawing.Size(664, 36);
+            this.panelCamiones.Size = new System.Drawing.Size(458, 26);
             this.panelCamiones.TabIndex = 89;
             // 
             // picCam14
             // 
             this.picCam14.Image = ((System.Drawing.Image)(resources.GetObject("picCam14.Image")));
-            this.picCam14.Location = new System.Drawing.Point(577, 0);
+            this.picCam14.Location = new System.Drawing.Point(393, 0);
             this.picCam14.Name = "picCam14";
-            this.picCam14.Size = new System.Drawing.Size(38, 36);
-            this.picCam14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam14.Size = new System.Drawing.Size(31, 24);
+            this.picCam14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam14.TabIndex = 14;
             this.picCam14.TabStop = false;
             this.picCam14.Click += new System.EventHandler(this.picCam14_Click);
@@ -1810,10 +1814,10 @@
             // picCam15
             // 
             this.picCam15.Image = ((System.Drawing.Image)(resources.GetObject("picCam15.Image")));
-            this.picCam15.Location = new System.Drawing.Point(621, 0);
+            this.picCam15.Location = new System.Drawing.Point(423, 0);
             this.picCam15.Name = "picCam15";
-            this.picCam15.Size = new System.Drawing.Size(38, 36);
-            this.picCam15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam15.Size = new System.Drawing.Size(31, 24);
+            this.picCam15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam15.TabIndex = 13;
             this.picCam15.TabStop = false;
             this.picCam15.Click += new System.EventHandler(this.picCam15_Click);
@@ -1821,10 +1825,10 @@
             // picCam13
             // 
             this.picCam13.Image = ((System.Drawing.Image)(resources.GetObject("picCam13.Image")));
-            this.picCam13.Location = new System.Drawing.Point(533, 0);
+            this.picCam13.Location = new System.Drawing.Point(363, 0);
             this.picCam13.Name = "picCam13";
-            this.picCam13.Size = new System.Drawing.Size(38, 36);
-            this.picCam13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam13.Size = new System.Drawing.Size(31, 24);
+            this.picCam13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam13.TabIndex = 12;
             this.picCam13.TabStop = false;
             this.picCam13.Click += new System.EventHandler(this.picCam13_Click);
@@ -1832,10 +1836,10 @@
             // picCam11
             // 
             this.picCam11.Image = ((System.Drawing.Image)(resources.GetObject("picCam11.Image")));
-            this.picCam11.Location = new System.Drawing.Point(444, 0);
+            this.picCam11.Location = new System.Drawing.Point(303, 0);
             this.picCam11.Name = "picCam11";
-            this.picCam11.Size = new System.Drawing.Size(38, 36);
-            this.picCam11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam11.Size = new System.Drawing.Size(31, 24);
+            this.picCam11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam11.TabIndex = 11;
             this.picCam11.TabStop = false;
             this.picCam11.Click += new System.EventHandler(this.picCam11_Click);
@@ -1843,10 +1847,10 @@
             // picCam12
             // 
             this.picCam12.Image = ((System.Drawing.Image)(resources.GetObject("picCam12.Image")));
-            this.picCam12.Location = new System.Drawing.Point(488, 0);
+            this.picCam12.Location = new System.Drawing.Point(333, 0);
             this.picCam12.Name = "picCam12";
-            this.picCam12.Size = new System.Drawing.Size(38, 36);
-            this.picCam12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam12.Size = new System.Drawing.Size(31, 24);
+            this.picCam12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam12.TabIndex = 10;
             this.picCam12.TabStop = false;
             this.picCam12.Click += new System.EventHandler(this.picCam12_Click);
@@ -1854,10 +1858,10 @@
             // picCam10
             // 
             this.picCam10.Image = ((System.Drawing.Image)(resources.GetObject("picCam10.Image")));
-            this.picCam10.Location = new System.Drawing.Point(400, 0);
+            this.picCam10.Location = new System.Drawing.Point(273, 0);
             this.picCam10.Name = "picCam10";
-            this.picCam10.Size = new System.Drawing.Size(38, 36);
-            this.picCam10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam10.Size = new System.Drawing.Size(31, 24);
+            this.picCam10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam10.TabIndex = 9;
             this.picCam10.TabStop = false;
             this.picCam10.Click += new System.EventHandler(this.picCam10_Click);
@@ -1865,10 +1869,10 @@
             // picCam08
             // 
             this.picCam08.Image = ((System.Drawing.Image)(resources.GetObject("picCam08.Image")));
-            this.picCam08.Location = new System.Drawing.Point(312, 0);
+            this.picCam08.Location = new System.Drawing.Point(213, 0);
             this.picCam08.Name = "picCam08";
-            this.picCam08.Size = new System.Drawing.Size(38, 36);
-            this.picCam08.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam08.Size = new System.Drawing.Size(31, 24);
+            this.picCam08.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam08.TabIndex = 8;
             this.picCam08.TabStop = false;
             this.picCam08.Click += new System.EventHandler(this.picCam08_Click);
@@ -1876,10 +1880,10 @@
             // picCam09
             // 
             this.picCam09.Image = ((System.Drawing.Image)(resources.GetObject("picCam09.Image")));
-            this.picCam09.Location = new System.Drawing.Point(356, 0);
+            this.picCam09.Location = new System.Drawing.Point(243, 0);
             this.picCam09.Name = "picCam09";
-            this.picCam09.Size = new System.Drawing.Size(38, 36);
-            this.picCam09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam09.Size = new System.Drawing.Size(31, 24);
+            this.picCam09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam09.TabIndex = 7;
             this.picCam09.TabStop = false;
             this.picCam09.Click += new System.EventHandler(this.picCam09_Click);
@@ -1887,10 +1891,10 @@
             // picCam07
             // 
             this.picCam07.Image = ((System.Drawing.Image)(resources.GetObject("picCam07.Image")));
-            this.picCam07.Location = new System.Drawing.Point(268, 0);
+            this.picCam07.Location = new System.Drawing.Point(183, 0);
             this.picCam07.Name = "picCam07";
-            this.picCam07.Size = new System.Drawing.Size(38, 36);
-            this.picCam07.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam07.Size = new System.Drawing.Size(31, 24);
+            this.picCam07.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam07.TabIndex = 6;
             this.picCam07.TabStop = false;
             this.picCam07.Click += new System.EventHandler(this.picCam07_Click);
@@ -1898,10 +1902,10 @@
             // picCam04
             // 
             this.picCam04.Image = ((System.Drawing.Image)(resources.GetObject("picCam04.Image")));
-            this.picCam04.Location = new System.Drawing.Point(136, 0);
+            this.picCam04.Location = new System.Drawing.Point(93, 0);
             this.picCam04.Name = "picCam04";
-            this.picCam04.Size = new System.Drawing.Size(38, 36);
-            this.picCam04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam04.Size = new System.Drawing.Size(31, 24);
+            this.picCam04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam04.TabIndex = 5;
             this.picCam04.TabStop = false;
             this.picCam04.Click += new System.EventHandler(this.picCam04_Click);
@@ -1909,10 +1913,10 @@
             // picCam06
             // 
             this.picCam06.Image = ((System.Drawing.Image)(resources.GetObject("picCam06.Image")));
-            this.picCam06.Location = new System.Drawing.Point(224, 0);
+            this.picCam06.Location = new System.Drawing.Point(153, 0);
             this.picCam06.Name = "picCam06";
-            this.picCam06.Size = new System.Drawing.Size(38, 36);
-            this.picCam06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam06.Size = new System.Drawing.Size(31, 24);
+            this.picCam06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam06.TabIndex = 4;
             this.picCam06.TabStop = false;
             this.picCam06.Click += new System.EventHandler(this.picCam06_Click);
@@ -1920,10 +1924,10 @@
             // picCam02
             // 
             this.picCam02.Image = ((System.Drawing.Image)(resources.GetObject("picCam02.Image")));
-            this.picCam02.Location = new System.Drawing.Point(47, 0);
+            this.picCam02.Location = new System.Drawing.Point(33, 0);
             this.picCam02.Name = "picCam02";
-            this.picCam02.Size = new System.Drawing.Size(38, 36);
-            this.picCam02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam02.Size = new System.Drawing.Size(31, 24);
+            this.picCam02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam02.TabIndex = 3;
             this.picCam02.TabStop = false;
             this.picCam02.Click += new System.EventHandler(this.picCam02_Click);
@@ -1931,10 +1935,10 @@
             // picCam03
             // 
             this.picCam03.Image = ((System.Drawing.Image)(resources.GetObject("picCam03.Image")));
-            this.picCam03.Location = new System.Drawing.Point(91, 0);
+            this.picCam03.Location = new System.Drawing.Point(63, 0);
             this.picCam03.Name = "picCam03";
-            this.picCam03.Size = new System.Drawing.Size(38, 36);
-            this.picCam03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam03.Size = new System.Drawing.Size(31, 24);
+            this.picCam03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam03.TabIndex = 2;
             this.picCam03.TabStop = false;
             this.picCam03.Click += new System.EventHandler(this.picCam03_Click);
@@ -1942,10 +1946,10 @@
             // picCam05
             // 
             this.picCam05.Image = ((System.Drawing.Image)(resources.GetObject("picCam05.Image")));
-            this.picCam05.Location = new System.Drawing.Point(180, 0);
+            this.picCam05.Location = new System.Drawing.Point(123, 0);
             this.picCam05.Name = "picCam05";
-            this.picCam05.Size = new System.Drawing.Size(38, 36);
-            this.picCam05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam05.Size = new System.Drawing.Size(31, 24);
+            this.picCam05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam05.TabIndex = 1;
             this.picCam05.TabStop = false;
             this.picCam05.Click += new System.EventHandler(this.picCam05_Click);
@@ -1955,8 +1959,8 @@
             this.picCam01.Image = ((System.Drawing.Image)(resources.GetObject("picCam01.Image")));
             this.picCam01.Location = new System.Drawing.Point(3, 0);
             this.picCam01.Name = "picCam01";
-            this.picCam01.Size = new System.Drawing.Size(38, 36);
-            this.picCam01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCam01.Size = new System.Drawing.Size(31, 24);
+            this.picCam01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picCam01.TabIndex = 0;
             this.picCam01.TabStop = false;
             this.picCam01.Click += new System.EventHandler(this.picCam01_Click);
