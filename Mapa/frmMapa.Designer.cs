@@ -508,6 +508,8 @@
             this.imageList1.Images.SetKeyName(4, "final-state.png");
             this.imageList1.Images.SetKeyName(5, "target.png");
             this.imageList1.Images.SetKeyName(6, "truck3.png");
+            this.imageList1.Images.SetKeyName(7, "pina.png");
+            this.imageList1.Images.SetKeyName(8, "pinv.png");
             // 
             // toolStrip1
             // 

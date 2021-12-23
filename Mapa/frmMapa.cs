@@ -33,6 +33,9 @@ namespace Mapa
         [DllImportAttribute("kernel32.dll", EntryPoint = "SetProcessWorkingSetSize", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
         private static extern int SetProcessWorkingSetSize(IntPtr process, int minimumWorkingSetSize, int maximumWorkingSetSize);
 
+        GMapPolygon polygonCircles;
+        GMapOverlay overlayCircles;
+
         GMarkerGoogle markerUbicacion;
         GMapOverlay overlayUbicaciones;
 
@@ -397,6 +400,9 @@ namespace Mapa
             overlayDrags = new GMapOverlay("drags");
             gMapControl1.Overlays.Add(overlayDrags);
 
+            overlayCircles = new GMapOverlay("ciculos");
+            gMapControl1.Overlays.Add(overlayCircles);
+
             /*
             overlaytextCeldas = new GMapOverlay("textceldas");
             gMapControl1.Overlays.Add(overlaytextCeldas);
@@ -625,6 +631,8 @@ namespace Mapa
             dtUbictmp.Columns.Add("lng4a");
             dtUbictmp.Columns.Add("lat4b");
             dtUbictmp.Columns.Add("lng4b");
+            
+            dtUbictmp.Columns.Add("distancia");
 
 
         }
@@ -1403,9 +1411,26 @@ namespace Mapa
             overlayRecorridos.Markers.Add(markerRecorrido);
         }
 
-        private void agregaractualizarMarcadorRepartos(string id, string fecha, string hora, double lat, double lng)
+        private void agregaractualizarMarcadorRepartos(string id, int opc, string fecha, string hora, double lat, double lng)
         {
-            Bitmap bmpmarker = new Bitmap(this.imageList1.Images[3]);
+
+            int indice = 3;
+
+            switch (opc)
+            {
+                case 1:
+                    indice = 3;
+                    break;
+                case 2:
+                    indice = 7;
+                    break;
+                case 3:
+                    indice = 8;
+                    break;
+
+            } 
+
+            Bitmap bmpmarker = new Bitmap(this.imageList1.Images[indice]);
 
             //markerRecorrido = new GMarkerGoogle(new PointLatLng(lat, lng), bmpmarker); // GMarkerGoogleType.blue);// .purple_small);
             markerRecorrido = new GMarkerGoogle(new PointLatLng(lat, lng), bmpmarker);// .purple_small);
@@ -2211,6 +2236,7 @@ namespace Mapa
 
             //int cantp = Convert.ToInt32(txtCantP.Text);
             int i = 1;
+            int opc;
 
             this.Cursor = Cursors.WaitCursor;
 
@@ -2240,9 +2266,26 @@ namespace Mapa
 
             foreach (DataRow row in dt.Rows)
             {
+                string corral = "";
+                if (row["corral"].ToString() == row["corralgps"].ToString())
+                {
+                    corral = row["corralgps"].ToString();
+                    opc = 3;
+                }
+                else
+                {
+                    corral = row["corralgps"].ToString() + " [" + row["corral"].ToString()+"]";
+                    opc = 1;
+                }
+                
+                if (row["corralgps"].ToString() == "0000") 
+                {
+                    opc = 2;
+                }
 
                 agregaractualizarMarcadorRepartos(
-                    row["corral"].ToString(),
+                    corral,
+                    opc,
                     row["fecha"].ToString(),
                     row["hora"].ToString(),
                     Convert.ToDouble(row["lat"]),
@@ -3625,6 +3668,8 @@ namespace Mapa
             //ladocorral
             //lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
 
+            //overlayCircles.Polygons.Clear();
+            //CreateCircle(new PointLatLng(lat, lng), 0.0002, 30);
 
             /*
             txtDistancia.Text = e.X.ToString() + "-" + e.Y.ToString();
@@ -3633,31 +3678,31 @@ namespace Mapa
             //if (ActivoCtrl)
             //{
 
-                /*
-                lv_pos = lv_pos + 1;
+            /*
+            lv_pos = lv_pos + 1;
 
-                if (lv_pos == 2)
-                {
-                    lv_pos = 0;
-                }
+            if (lv_pos == 2)
+            {
+                lv_pos = 0;
+            }
 
-                posMouseX[lv_pos] = e.X.ToString();
-                posMouseY[lv_pos] = e.Y.ToString();
+            posMouseX[lv_pos] = e.X.ToString();
+            posMouseY[lv_pos] = e.Y.ToString();
 
-                lblpos.Text = e.X.ToString() + "-" + e.Y.ToString() + posMouseX[0].ToString() + " " + posMouseX[1].ToString();
+            lblpos.Text = e.X.ToString() + "-" + e.Y.ToString() + posMouseX[0].ToString() + " " + posMouseX[1].ToString();
 
-                //estable[0] == estable[1]
+            //estable[0] == estable[1]
 
-                if (Convert.ToInt32(posMouseX[0].ToString()) < Convert.ToInt32(posMouseX[1].ToString()) && Convert.ToInt32(posMouseY[0].ToString()) < Convert.ToInt32(posMouseY[1].ToString()))
-                {
-                    gMapControl1.Bearing -= 1;
-                }
-                else
-                {
-                    gMapControl1.Bearing += 1;
-                }
+            if (Convert.ToInt32(posMouseX[0].ToString()) < Convert.ToInt32(posMouseX[1].ToString()) && Convert.ToInt32(posMouseY[0].ToString()) < Convert.ToInt32(posMouseY[1].ToString()))
+            {
+                gMapControl1.Bearing -= 1;
+            }
+            else
+            {
+                gMapControl1.Bearing += 1;
+            }
 
-                */
+            */
 
 
             //}
@@ -4155,20 +4200,22 @@ namespace Mapa
                         //valor = -1;
                         corralActividadMod(row["corral"].ToString(), colorLeyenda(valor));
 
-                        //if (txtFecha.Text.Equals(DateTime.Now.ToString("dd/MM/yyyy")))
-                        //{
-                        //    if (row["corral"].ToString() != row["corralgps"].ToString()
-                        //        && row["corralgps"].ToString() != "0000"
-                        //        //&& (
-                        //        //   row["numcamion"].ToString() == "05"
-                        //        //|| row["numcamion"].ToString() == "03"
-                        //        //|| row["numcamion"].ToString() == "12"
-                        //        //)
-                        //        )
-                        //    {
-                        //        corralActividadMod(row["corral"].ToString(), Color.Red);
-                        //    }
-                        //}
+                        if (txtFecha.Text.Equals(DateTime.Now.ToString("dd/MM/yyyy")))
+                        {
+                            if (row["corral"].ToString() != row["corralgps"].ToString()
+                                && row["corralgps"].ToString() != "0000"
+                                && (
+                                   row["numcamion"].ToString() == "05"
+                                || row["numcamion"].ToString() == "03"
+                                || row["numcamion"].ToString() == "12"
+                                || row["numcamion"].ToString() == "01"
+                                || row["numcamion"].ToString() == "02"
+                                )
+                                )
+                            {
+                                corralActividadMod(row["corral"].ToString(), Color.Red);
+                            }
+                        }
 
                     }
                 }
@@ -5982,57 +6029,168 @@ namespace Mapa
 
         private string corralUbicacion(DataTable dt, double lat, double lng, double distancia)
         {
-
             double clat = 0;
             double clng = 0;
+            double clat0 = 0; 
+            double clng0 = 0;
+            double clat1 = 0;
+            double clng1 = 0;
+            double clat2 = 0;
+            double clng2 = 0;
+            double clat3 = 0;
+            double clng3 = 0;
 
-            double clatmin = 0;
-            double clngmin = 0;
+            double clatmin0 = 0;
+            double clngmin0 = 0;
+            double clatmin1 = 0;
+            double clngmin1 = 0;
+            double clatmin2 = 0;
+            double clngmin2 = 0;
+            double clatmin3 = 0;
+            double clngmin3 = 0;
 
-            double dist = 0;
+            double dist0 = 0;
+            double dist1 = 0;
+            double dist2 = 0;
+            double dist3 = 0;
+
             double distmin = 9999999;
 
             string corral = "0000";
-            string corralmin = "0";
+
+            string corralmin0 = "0";
+            string corralmin1 = "0";
+            string corralmin2 = "0";
+            string corralmin3 = "0";
+
+            DataTable vdt = new DataTable();
+            vdt = dt;
 
             try
             {
 
-                foreach (DataRow row in dt.Rows)
+                foreach (DataRow row in vdt.Rows)
                 {
 
                     clat = Convert.ToDouble(row["lat"].ToString());
                     clng = Convert.ToDouble(row["lng"].ToString());
+                    
+                    vdt.Rows[vdt.Rows.IndexOf(row)]["distancia"] = getDistancia(lat, lng, clat, clng);
 
-                    dist = getDistancia(lat, lng, clat, clng);
+                    //if (dist0 < distmin)
+                    //{
+                    //    distmin = dist0;
+                    //    corralmin0 = row["corral"].ToString();
 
-                    if (dist < distmin)
+                    //    clatmin0 = clat0;
+                    //    clngmin0 = clng0;
+
+                    //}
+
+                }
+
+
+                //------------------------------------------------------------------
+                vdt.DefaultView.Sort = "distancia asc";
+                vdt = vdt.DefaultView.ToTable();
+
+                overlayLinea.Routes.Clear();
+
+                if (vdt.Rows.Count >= 1)
+                {
+                    DataRow row = vdt.Rows[0];
+                    clatmin0 = Convert.ToDouble(row["lat"].ToString());
+                    clngmin0 = Convert.ToDouble(row["lng"].ToString());
+                    corralmin0 = row["corral"].ToString();
+                    distmin = Convert.ToDouble(row["distancia"].ToString());
+                    if (distmin <= distancia)
                     {
-                        distmin = dist;
-                        corralmin = row["corral"].ToString();
+                        mostrarLinea(lat, lng, clatmin0, clngmin0);
+                        corral = corralmin0;
+                        lblDistanciaMin.Text = distmin.ToString();
 
-                        clatmin = clat;
-                        clngmin = clng;
-
+                        overlayCircles.Polygons.Clear();
+                        CreateCircle(new PointLatLng(lat, lng), 0.0001, 30);
                     }
-
+                    else
+                    {
+                        overlayLinea.Routes.Clear();
+                        overlayCircles.Polygons.Clear();
+                        corral = "0000";
+                        lblDistanciaMin.Text = "";
+                    }
                 }
-
-
-                //if (dist >= 0.5 && dist <= 1)
-                if (distmin <= distancia)//0.05)
+                if (vdt.Rows.Count >= 2)
                 {
-                    corral = corralmin;
-
-                    mostrarLinea(lat, lng, clatmin, clngmin);
-
-                    lblDistanciaMin.Text = distmin.ToString();
+                    DataRow row = vdt.Rows[1];
+                    clatmin1 = Convert.ToDouble(row["lat"].ToString());
+                    clngmin1 = Convert.ToDouble(row["lng"].ToString());
+                    corralmin1 = row["corral"].ToString();
+                    distmin = Convert.ToDouble(row["distancia"].ToString());
+                    if (distmin <= distancia)
+                    {
+                        mostrarLinea(lat, lng, clatmin1, clngmin1);
+                    }
                 }
-                else
+                if (vdt.Rows.Count >= 3)
                 {
-                    corral = "0000";
-                    lblDistanciaMin.Text = "";
+                    DataRow row = vdt.Rows[2];
+                    clatmin2 = Convert.ToDouble(row["lat"].ToString());
+                    clngmin2 = Convert.ToDouble(row["lng"].ToString());
+                    corralmin2 = row["corral"].ToString();
+                    distmin = Convert.ToDouble(row["distancia"].ToString());
+                    if (distmin <= distancia)
+                    {
+                        mostrarLinea(lat, lng, clatmin2, clngmin2);
+                    }
                 }
+                if (vdt.Rows.Count >= 4)
+                {
+                    DataRow row = vdt.Rows[3];
+                    clatmin3 = Convert.ToDouble(row["lat"].ToString());
+                    clngmin3 = Convert.ToDouble(row["lng"].ToString());
+                    corralmin3 = row["corral"].ToString();
+                    distmin = Convert.ToDouble(row["distancia"].ToString());
+                    if (distmin <= distancia)
+                    {
+                        mostrarLinea(lat, lng, clatmin3, clngmin3);
+                    }
+                }
+                //------------------------------------------------------------------
+
+
+                ////if (dist >= 0.5 && dist <= 1)
+                //if (distmin <= distancia)//0.05)
+                //{                    
+                //    corral = corralmin0;
+
+                //    overlayLinea.Routes.Clear();
+
+                //    mostrarLinea(lat, lng, clatmin0, clngmin0);
+
+                //    lblDistanciaMin.Text = distmin.ToString();
+
+                //    //-------------------------------------------
+
+                //    mostrarLinea(lat, lng, clatmin1, clngmin1);
+                //    mostrarLinea(lat, lng, clatmin2, clngmin2);
+                //    mostrarLinea(lat, lng, clatmin3, clngmin3);
+
+                //    //-------------------------------------------
+
+                //}
+                //else
+                //{
+                //    overlayLinea.Routes.Clear();
+                //    corral = "0000";
+                //    lblDistanciaMin.Text = "";
+                //}
+
+
+
+
+
+
 
             }
             catch (Exception e)
@@ -6178,6 +6336,8 @@ namespace Mapa
                 {
                     corral = corralmin;
 
+                    overlayLinea.Routes.Clear();
+
                     mostrarLinea(lat, lng, clatmin, clngmin);
 
                 }
@@ -6206,7 +6366,7 @@ namespace Mapa
 
                 List<PointLatLng> puntos = new List<PointLatLng>();
 
-                overlayLinea.Routes.Clear();
+                //overlayLinea.Routes.Clear();
 
                 puntos.Add(new PointLatLng(lat1, lng1));
                 puntos.Add(new PointLatLng(lat2, lng2));
@@ -7378,7 +7538,43 @@ namespace Mapa
                 trackBar1.Value++;
                 trackMover();
             }
-        } 
+        }
+
+
+        private void CreateCircle(PointLatLng point, double radius, int segments)
+        {
+
+            List<PointLatLng> gpollist = new List<PointLatLng>();
+
+            double seg = Math.PI * 2 / segments;
+
+            //PointLatLng gpoi1 = new PointLatLng(point.Lat, point.Lng);
+            //gpollist.Add(gpoi1);
+
+            for (int i = 0; i < segments; i++)
+            {
+                double theta = seg * i;
+                double a = point.Lat + Math.Cos(theta) * radius;
+                double b = point.Lng + Math.Sin(theta) * radius;
+
+                PointLatLng gpoi = new PointLatLng(a, b);
+
+                gpollist.Add(gpoi);
+            }
+
+            polygonCircles = new GMapPolygon(gpollist, "circulo")
+            {
+                Stroke = new Pen(Color.Lime, 4),
+                Fill = new SolidBrush(Color.Transparent), 
+                Tag = "circulo",
+            };
+            overlayCircles.Polygons.Add(polygonCircles);
+
+
+
+
+        }
+
     }
 
     internal class Graphic
