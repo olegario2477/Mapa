@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cabezasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monitorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +45,6 @@
             this.horizontalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cabezasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +80,13 @@
             this.toolStripMenuItem1.Text = "Mapa Alimento";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // cabezasToolStripMenuItem
+            // 
+            this.cabezasToolStripMenuItem.Name = "cabezasToolStripMenuItem";
+            this.cabezasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cabezasToolStripMenuItem.Text = "Cabezas";
+            this.cabezasToolStripMenuItem.Click += new System.EventHandler(this.cabezasToolStripMenuItem_Click);
+            // 
             // monitorToolStripMenuItem1
             // 
             this.monitorToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -94,14 +101,14 @@
             // verticalToolStripMenuItem
             // 
             this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
-            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.verticalToolStripMenuItem.Text = "Vertical";
             this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
             // 
             // horizontalToolStripMenuItem
             // 
             this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
-            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.horizontalToolStripMenuItem.Text = "Horizontal";
             this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
             // 
@@ -128,7 +135,7 @@
             // configuracionToolStripMenuItem1
             // 
             this.configuracionToolStripMenuItem1.Name = "configuracionToolStripMenuItem1";
-            this.configuracionToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.configuracionToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.configuracionToolStripMenuItem1.Text = "Configuracion";
             this.configuracionToolStripMenuItem1.Click += new System.EventHandler(this.configuracionToolStripMenuItem1_Click);
             // 
@@ -171,13 +178,6 @@
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Visible = false;
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
-            // 
-            // cabezasToolStripMenuItem
-            // 
-            this.cabezasToolStripMenuItem.Name = "cabezasToolStripMenuItem";
-            this.cabezasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.cabezasToolStripMenuItem.Text = "Cabezas";
-            this.cabezasToolStripMenuItem.Click += new System.EventHandler(this.cabezasToolStripMenuItem_Click);
             // 
             // Principal
             // 

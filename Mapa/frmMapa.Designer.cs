@@ -126,6 +126,7 @@
             this.toolStripButton15 = new System.Windows.Forms.ToolStripButton();
             this.imageListColor = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.lblHora = new System.Windows.Forms.ToolStripLabel();
             this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.lblServer = new System.Windows.Forms.ToolStripLabel();
@@ -158,6 +159,11 @@
             this.lblPing = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
             this.lblDistanciaMin = new System.Windows.Forms.ToolStripLabel();
+            this.lblOrientacion = new System.Windows.Forms.ToolStripLabel();
+            this.lblAngulo = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblTimer = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.webBClima = new System.Windows.Forms.WebBrowser();
             this.panelLeyenda = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -198,6 +204,21 @@
             this.labelLeyendas = new System.Windows.Forms.Label();
             this.timerPing = new System.Windows.Forms.Timer(this.components);
             this.panelCamiones = new System.Windows.Forms.Panel();
+            this.picRepCam15 = new System.Windows.Forms.PictureBox();
+            this.picRepCam14 = new System.Windows.Forms.PictureBox();
+            this.picRepCam13 = new System.Windows.Forms.PictureBox();
+            this.picRepCam12 = new System.Windows.Forms.PictureBox();
+            this.picRepCam11 = new System.Windows.Forms.PictureBox();
+            this.picRepCam08 = new System.Windows.Forms.PictureBox();
+            this.picRepCam10 = new System.Windows.Forms.PictureBox();
+            this.picRepCam07 = new System.Windows.Forms.PictureBox();
+            this.picRepCam09 = new System.Windows.Forms.PictureBox();
+            this.picRepCam06 = new System.Windows.Forms.PictureBox();
+            this.picRepCam05 = new System.Windows.Forms.PictureBox();
+            this.picRepCam04 = new System.Windows.Forms.PictureBox();
+            this.picRepCam03 = new System.Windows.Forms.PictureBox();
+            this.picRepCam02 = new System.Windows.Forms.PictureBox();
+            this.picRepCam01 = new System.Windows.Forms.PictureBox();
             this.picCam14 = new System.Windows.Forms.PictureBox();
             this.picCam15 = new System.Windows.Forms.PictureBox();
             this.picCam13 = new System.Windows.Forms.PictureBox();
@@ -216,6 +237,7 @@
             this.panelDetalles = new System.Windows.Forms.Panel();
             this.labelDetalles = new System.Windows.Forms.Label();
             this.lblDetalles = new System.Windows.Forms.Label();
+            this.timerReloj = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -237,6 +259,21 @@
             this.panelLeyendas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVista)).BeginInit();
             this.panelCamiones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam08)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam07)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam09)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam06)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam05)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam04)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam03)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam02)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam01)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam13)).BeginInit();
@@ -257,7 +294,9 @@
             // 
             // gMapControl1
             // 
+            this.gMapControl1.BackColor = System.Drawing.Color.Transparent;
             this.gMapControl1.Bearing = 0F;
+            this.gMapControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gMapControl1.CanDragMap = true;
             this.gMapControl1.ContextMenuStrip = this.contextMenuStripMenu;
             this.gMapControl1.Cursor = System.Windows.Forms.Cursors.Cross;
@@ -591,7 +630,6 @@
             this.toolStripButton13.Size = new System.Drawing.Size(24, 30);
             this.toolStripButton13.Text = "toolStripButton13";
             this.toolStripButton13.ToolTipText = "Compass";
-            this.toolStripButton13.Visible = false;
             this.toolStripButton13.Click += new System.EventHandler(this.toolStripButton13_Click);
             // 
             // toolStripSplitButton1
@@ -1062,7 +1100,7 @@
             this.toolStripButton15.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton15.Image")));
             this.toolStripButton15.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton15.Name = "toolStripButton15";
-            this.toolStripButton15.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton15.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton15.Text = "Refrescar";
             this.toolStripButton15.Visible = false;
             this.toolStripButton15.Click += new System.EventHandler(this.toolStripButton15_Click);
@@ -1078,6 +1116,7 @@
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblHora,
             this.lblConectadoF,
             this.toolStripSeparator5,
             this.lblServer,
@@ -1109,12 +1148,24 @@
             this.btnPing,
             this.lblPing,
             this.toolStripSeparator21,
-            this.lblDistanciaMin});
+            this.lblDistanciaMin,
+            this.lblOrientacion,
+            this.lblAngulo,
+            this.toolStripSeparator24,
+            this.lblTimer,
+            this.toolStripSeparator23});
             this.toolStrip2.Location = new System.Drawing.Point(0, 463);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1202, 25);
             this.toolStrip2.TabIndex = 70;
             this.toolStrip2.Text = "toolStrip2";
+            // 
+            // lblHora
+            // 
+            this.lblHora.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblHora.Name = "lblHora";
+            this.lblHora.Size = new System.Drawing.Size(33, 22);
+            this.lblHora.Text = "Hora";
             // 
             // lblConectadoF
             // 
@@ -1128,40 +1179,45 @@
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            this.toolStripSeparator5.Visible = false;
             // 
             // lblServer
             // 
             this.lblServer.Name = "lblServer";
             this.lblServer.Size = new System.Drawing.Size(39, 22);
             this.lblServer.Text = "Server";
+            this.lblServer.Visible = false;
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
             this.toolStripSeparator16.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator16.Visible = false;
             // 
             // lblMandante
             // 
             this.lblMandante.Name = "lblMandante";
             this.lblMandante.Size = new System.Drawing.Size(61, 22);
             this.lblMandante.Text = "Mandante";
+            this.lblMandante.Visible = false;
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
             this.toolStripSeparator14.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator14.Visible = false;
             // 
             // lblProveedor
             // 
             this.lblProveedor.Name = "lblProveedor";
             this.lblProveedor.Size = new System.Drawing.Size(86, 22);
             this.lblProveedor.Text = "toolStripLabel3";
+            this.lblProveedor.Visible = false;
             // 
             // toolStripSeparator19
             // 
             this.toolStripSeparator19.Name = "toolStripSeparator19";
             this.toolStripSeparator19.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator19.Visible = false;
             // 
             // lblDistancia
             // 
@@ -1174,6 +1230,7 @@
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator6.Visible = false;
             // 
             // lblZomm
             // 
@@ -1185,12 +1242,14 @@
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
             this.toolStripSeparator12.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator12.Visible = false;
             // 
             // lblGiro
             // 
             this.lblGiro.Name = "lblGiro";
             this.lblGiro.Size = new System.Drawing.Size(29, 22);
             this.lblGiro.Text = "Giro";
+            this.lblGiro.Visible = false;
             // 
             // lblLatencia
             // 
@@ -1217,18 +1276,21 @@
             this.lblInstancia.Name = "lblInstancia";
             this.lblInstancia.Size = new System.Drawing.Size(54, 22);
             this.lblInstancia.Text = "Instancia";
+            this.lblInstancia.Visible = false;
             this.lblInstancia.Click += new System.EventHandler(this.lblInstancia_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator10.Visible = false;
             // 
             // lblOrigenDatos
             // 
             this.lblOrigenDatos.Name = "lblOrigenDatos";
             this.lblOrigenDatos.Size = new System.Drawing.Size(71, 22);
             this.lblOrigenDatos.Text = "origenDatos";
+            this.lblOrigenDatos.Visible = false;
             // 
             // toolStripSeparator11
             // 
@@ -1269,6 +1331,7 @@
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
             this.toolStripSeparator17.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator17.Visible = false;
             // 
             // lblCtrl
             // 
@@ -1280,6 +1343,7 @@
             // 
             this.toolStripSeparator20.Name = "toolStripSeparator20";
             this.toolStripSeparator20.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator20.Visible = false;
             // 
             // btnPing
             // 
@@ -1304,6 +1368,7 @@
             // 
             this.toolStripSeparator21.Name = "toolStripSeparator21";
             this.toolStripSeparator21.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator21.Visible = false;
             // 
             // lblDistanciaMin
             // 
@@ -1311,6 +1376,35 @@
             this.lblDistanciaMin.Size = new System.Drawing.Size(13, 22);
             this.lblDistanciaMin.Text = "0";
             this.lblDistanciaMin.Visible = false;
+            // 
+            // lblOrientacion
+            // 
+            this.lblOrientacion.Name = "lblOrientacion";
+            this.lblOrientacion.Size = new System.Drawing.Size(13, 22);
+            this.lblOrientacion.Text = "0";
+            // 
+            // lblAngulo
+            // 
+            this.lblAngulo.Name = "lblAngulo";
+            this.lblAngulo.Size = new System.Drawing.Size(13, 22);
+            this.lblAngulo.Text = "0";
+            this.lblAngulo.Visible = false;
+            // 
+            // toolStripSeparator24
+            // 
+            this.toolStripSeparator24.Name = "toolStripSeparator24";
+            this.toolStripSeparator24.Size = new System.Drawing.Size(6, 25);
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(13, 22);
+            this.lblTimer.Text = "0";
+            // 
+            // toolStripSeparator23
+            // 
+            this.toolStripSeparator23.Name = "toolStripSeparator23";
+            this.toolStripSeparator23.Size = new System.Drawing.Size(6, 25);
             // 
             // webBClima
             // 
@@ -1728,7 +1822,7 @@
             this.panelLeyendas.Controls.Add(this.listBoxLeyendas);
             this.panelLeyendas.Location = new System.Drawing.Point(657, 110);
             this.panelLeyendas.Name = "panelLeyendas";
-            this.panelLeyendas.Size = new System.Drawing.Size(160, 234);
+            this.panelLeyendas.Size = new System.Drawing.Size(134, 188);
             this.panelLeyendas.TabIndex = 88;
             // 
             // dataGridVista
@@ -1751,7 +1845,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridVista.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridVista.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridVista.Location = new System.Drawing.Point(0, 28);
+            this.dataGridVista.Location = new System.Drawing.Point(0, 33);
             this.dataGridVista.MultiSelect = false;
             this.dataGridVista.Name = "dataGridVista";
             this.dataGridVista.ReadOnly = true;
@@ -1759,20 +1853,19 @@
             this.dataGridVista.RowHeadersWidth = 70;
             this.dataGridVista.RowTemplate.Height = 35;
             this.dataGridVista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridVista.Size = new System.Drawing.Size(160, 206);
+            this.dataGridVista.Size = new System.Drawing.Size(134, 155);
             this.dataGridVista.TabIndex = 89;
             // 
             // labelLeyendas
             // 
-            this.labelLeyendas.AutoSize = true;
             this.labelLeyendas.BackColor = System.Drawing.Color.Transparent;
             this.labelLeyendas.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelLeyendas.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLeyendas.Location = new System.Drawing.Point(0, 0);
             this.labelLeyendas.Name = "labelLeyendas";
-            this.labelLeyendas.Size = new System.Drawing.Size(160, 25);
+            this.labelLeyendas.Size = new System.Drawing.Size(134, 25);
             this.labelLeyendas.TabIndex = 88;
-            this.labelLeyendas.Text = "Servido Alimento";
+            this.labelLeyendas.Text = "Servido";
             // 
             // timerPing
             // 
@@ -1782,6 +1875,21 @@
             // panelCamiones
             // 
             this.panelCamiones.BackColor = System.Drawing.Color.Transparent;
+            this.panelCamiones.Controls.Add(this.picRepCam15);
+            this.panelCamiones.Controls.Add(this.picRepCam14);
+            this.panelCamiones.Controls.Add(this.picRepCam13);
+            this.panelCamiones.Controls.Add(this.picRepCam12);
+            this.panelCamiones.Controls.Add(this.picRepCam11);
+            this.panelCamiones.Controls.Add(this.picRepCam08);
+            this.panelCamiones.Controls.Add(this.picRepCam10);
+            this.panelCamiones.Controls.Add(this.picRepCam07);
+            this.panelCamiones.Controls.Add(this.picRepCam09);
+            this.panelCamiones.Controls.Add(this.picRepCam06);
+            this.panelCamiones.Controls.Add(this.picRepCam05);
+            this.panelCamiones.Controls.Add(this.picRepCam04);
+            this.panelCamiones.Controls.Add(this.picRepCam03);
+            this.panelCamiones.Controls.Add(this.picRepCam02);
+            this.panelCamiones.Controls.Add(this.picRepCam01);
             this.panelCamiones.Controls.Add(this.picCam14);
             this.panelCamiones.Controls.Add(this.picCam15);
             this.panelCamiones.Controls.Add(this.picCam13);
@@ -1797,15 +1905,181 @@
             this.panelCamiones.Controls.Add(this.picCam03);
             this.panelCamiones.Controls.Add(this.picCam05);
             this.panelCamiones.Controls.Add(this.picCam01);
-            this.panelCamiones.Location = new System.Drawing.Point(254, 402);
+            this.panelCamiones.Location = new System.Drawing.Point(345, 385);
             this.panelCamiones.Name = "panelCamiones";
-            this.panelCamiones.Size = new System.Drawing.Size(458, 26);
+            this.panelCamiones.Size = new System.Drawing.Size(469, 30);
             this.panelCamiones.TabIndex = 89;
+            // 
+            // picRepCam15
+            // 
+            this.picRepCam15.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam15.Location = new System.Drawing.Point(429, 0);
+            this.picRepCam15.Name = "picRepCam15";
+            this.picRepCam15.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam15.TabIndex = 101;
+            this.picRepCam15.TabStop = false;
+            // 
+            // picRepCam14
+            // 
+            this.picRepCam14.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam14.Location = new System.Drawing.Point(399, 0);
+            this.picRepCam14.Name = "picRepCam14";
+            this.picRepCam14.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam14.TabIndex = 100;
+            this.picRepCam14.TabStop = false;
+            // 
+            // picRepCam13
+            // 
+            this.picRepCam13.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam13.Location = new System.Drawing.Point(369, 0);
+            this.picRepCam13.Name = "picRepCam13";
+            this.picRepCam13.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam13.TabIndex = 99;
+            this.picRepCam13.TabStop = false;
+            // 
+            // picRepCam12
+            // 
+            this.picRepCam12.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam12.Location = new System.Drawing.Point(339, 0);
+            this.picRepCam12.Name = "picRepCam12";
+            this.picRepCam12.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam12.TabIndex = 98;
+            this.picRepCam12.TabStop = false;
+            // 
+            // picRepCam11
+            // 
+            this.picRepCam11.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam11.Location = new System.Drawing.Point(309, 0);
+            this.picRepCam11.Name = "picRepCam11";
+            this.picRepCam11.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam11.TabIndex = 97;
+            this.picRepCam11.TabStop = false;
+            // 
+            // picRepCam08
+            // 
+            this.picRepCam08.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam08.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam08.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam08.Location = new System.Drawing.Point(219, 0);
+            this.picRepCam08.Name = "picRepCam08";
+            this.picRepCam08.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam08.TabIndex = 98;
+            this.picRepCam08.TabStop = false;
+            // 
+            // picRepCam10
+            // 
+            this.picRepCam10.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam10.Location = new System.Drawing.Point(279, 0);
+            this.picRepCam10.Name = "picRepCam10";
+            this.picRepCam10.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam10.TabIndex = 96;
+            this.picRepCam10.TabStop = false;
+            // 
+            // picRepCam07
+            // 
+            this.picRepCam07.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam07.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam07.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam07.Location = new System.Drawing.Point(189, 0);
+            this.picRepCam07.Name = "picRepCam07";
+            this.picRepCam07.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam07.TabIndex = 97;
+            this.picRepCam07.TabStop = false;
+            // 
+            // picRepCam09
+            // 
+            this.picRepCam09.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam09.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam09.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam09.Location = new System.Drawing.Point(249, 0);
+            this.picRepCam09.Name = "picRepCam09";
+            this.picRepCam09.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam09.TabIndex = 95;
+            this.picRepCam09.TabStop = false;
+            // 
+            // picRepCam06
+            // 
+            this.picRepCam06.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam06.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam06.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam06.Location = new System.Drawing.Point(159, 0);
+            this.picRepCam06.Name = "picRepCam06";
+            this.picRepCam06.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam06.TabIndex = 96;
+            this.picRepCam06.TabStop = false;
+            // 
+            // picRepCam05
+            // 
+            this.picRepCam05.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam05.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam05.Location = new System.Drawing.Point(129, 0);
+            this.picRepCam05.Name = "picRepCam05";
+            this.picRepCam05.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam05.TabIndex = 95;
+            this.picRepCam05.TabStop = false;
+            // 
+            // picRepCam04
+            // 
+            this.picRepCam04.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam04.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam04.Location = new System.Drawing.Point(99, 0);
+            this.picRepCam04.Name = "picRepCam04";
+            this.picRepCam04.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam04.TabIndex = 94;
+            this.picRepCam04.TabStop = false;
+            // 
+            // picRepCam03
+            // 
+            this.picRepCam03.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam03.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam03.Location = new System.Drawing.Point(69, 0);
+            this.picRepCam03.Name = "picRepCam03";
+            this.picRepCam03.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam03.TabIndex = 93;
+            this.picRepCam03.TabStop = false;
+            // 
+            // picRepCam02
+            // 
+            this.picRepCam02.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam02.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam02.Location = new System.Drawing.Point(39, 0);
+            this.picRepCam02.Name = "picRepCam02";
+            this.picRepCam02.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam02.TabIndex = 92;
+            this.picRepCam02.TabStop = false;
+            // 
+            // picRepCam01
+            // 
+            this.picRepCam01.BackColor = System.Drawing.Color.Transparent;
+            this.picRepCam01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepCam01.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picRepCam01.Location = new System.Drawing.Point(9, 0);
+            this.picRepCam01.Name = "picRepCam01";
+            this.picRepCam01.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam01.TabIndex = 91;
+            this.picRepCam01.TabStop = false;
             // 
             // picCam14
             // 
+            this.picCam14.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam14.Image = ((System.Drawing.Image)(resources.GetObject("picCam14.Image")));
-            this.picCam14.Location = new System.Drawing.Point(393, 0);
+            this.picCam14.Location = new System.Drawing.Point(397, 4);
             this.picCam14.Name = "picCam14";
             this.picCam14.Size = new System.Drawing.Size(31, 24);
             this.picCam14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1815,8 +2089,9 @@
             // 
             // picCam15
             // 
+            this.picCam15.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam15.Image = ((System.Drawing.Image)(resources.GetObject("picCam15.Image")));
-            this.picCam15.Location = new System.Drawing.Point(423, 0);
+            this.picCam15.Location = new System.Drawing.Point(427, 4);
             this.picCam15.Name = "picCam15";
             this.picCam15.Size = new System.Drawing.Size(31, 24);
             this.picCam15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1826,8 +2101,9 @@
             // 
             // picCam13
             // 
+            this.picCam13.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam13.Image = ((System.Drawing.Image)(resources.GetObject("picCam13.Image")));
-            this.picCam13.Location = new System.Drawing.Point(363, 0);
+            this.picCam13.Location = new System.Drawing.Point(367, 4);
             this.picCam13.Name = "picCam13";
             this.picCam13.Size = new System.Drawing.Size(31, 24);
             this.picCam13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1837,8 +2113,9 @@
             // 
             // picCam11
             // 
+            this.picCam11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam11.Image = ((System.Drawing.Image)(resources.GetObject("picCam11.Image")));
-            this.picCam11.Location = new System.Drawing.Point(303, 0);
+            this.picCam11.Location = new System.Drawing.Point(307, 4);
             this.picCam11.Name = "picCam11";
             this.picCam11.Size = new System.Drawing.Size(31, 24);
             this.picCam11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1848,8 +2125,9 @@
             // 
             // picCam12
             // 
+            this.picCam12.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam12.Image = ((System.Drawing.Image)(resources.GetObject("picCam12.Image")));
-            this.picCam12.Location = new System.Drawing.Point(333, 0);
+            this.picCam12.Location = new System.Drawing.Point(337, 4);
             this.picCam12.Name = "picCam12";
             this.picCam12.Size = new System.Drawing.Size(31, 24);
             this.picCam12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1859,8 +2137,9 @@
             // 
             // picCam10
             // 
+            this.picCam10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam10.Image = ((System.Drawing.Image)(resources.GetObject("picCam10.Image")));
-            this.picCam10.Location = new System.Drawing.Point(273, 0);
+            this.picCam10.Location = new System.Drawing.Point(277, 4);
             this.picCam10.Name = "picCam10";
             this.picCam10.Size = new System.Drawing.Size(31, 24);
             this.picCam10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1870,8 +2149,9 @@
             // 
             // picCam08
             // 
+            this.picCam08.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam08.Image = ((System.Drawing.Image)(resources.GetObject("picCam08.Image")));
-            this.picCam08.Location = new System.Drawing.Point(213, 0);
+            this.picCam08.Location = new System.Drawing.Point(217, 4);
             this.picCam08.Name = "picCam08";
             this.picCam08.Size = new System.Drawing.Size(31, 24);
             this.picCam08.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1881,8 +2161,9 @@
             // 
             // picCam09
             // 
+            this.picCam09.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam09.Image = ((System.Drawing.Image)(resources.GetObject("picCam09.Image")));
-            this.picCam09.Location = new System.Drawing.Point(243, 0);
+            this.picCam09.Location = new System.Drawing.Point(247, 4);
             this.picCam09.Name = "picCam09";
             this.picCam09.Size = new System.Drawing.Size(31, 24);
             this.picCam09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1892,8 +2173,9 @@
             // 
             // picCam07
             // 
+            this.picCam07.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam07.Image = ((System.Drawing.Image)(resources.GetObject("picCam07.Image")));
-            this.picCam07.Location = new System.Drawing.Point(183, 0);
+            this.picCam07.Location = new System.Drawing.Point(187, 4);
             this.picCam07.Name = "picCam07";
             this.picCam07.Size = new System.Drawing.Size(31, 24);
             this.picCam07.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1903,8 +2185,9 @@
             // 
             // picCam04
             // 
+            this.picCam04.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam04.Image = ((System.Drawing.Image)(resources.GetObject("picCam04.Image")));
-            this.picCam04.Location = new System.Drawing.Point(93, 0);
+            this.picCam04.Location = new System.Drawing.Point(97, 4);
             this.picCam04.Name = "picCam04";
             this.picCam04.Size = new System.Drawing.Size(31, 24);
             this.picCam04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1914,8 +2197,9 @@
             // 
             // picCam06
             // 
+            this.picCam06.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam06.Image = ((System.Drawing.Image)(resources.GetObject("picCam06.Image")));
-            this.picCam06.Location = new System.Drawing.Point(153, 0);
+            this.picCam06.Location = new System.Drawing.Point(157, 4);
             this.picCam06.Name = "picCam06";
             this.picCam06.Size = new System.Drawing.Size(31, 24);
             this.picCam06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1925,8 +2209,9 @@
             // 
             // picCam02
             // 
+            this.picCam02.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam02.Image = ((System.Drawing.Image)(resources.GetObject("picCam02.Image")));
-            this.picCam02.Location = new System.Drawing.Point(33, 0);
+            this.picCam02.Location = new System.Drawing.Point(37, 4);
             this.picCam02.Name = "picCam02";
             this.picCam02.Size = new System.Drawing.Size(31, 24);
             this.picCam02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1936,8 +2221,9 @@
             // 
             // picCam03
             // 
+            this.picCam03.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam03.Image = ((System.Drawing.Image)(resources.GetObject("picCam03.Image")));
-            this.picCam03.Location = new System.Drawing.Point(63, 0);
+            this.picCam03.Location = new System.Drawing.Point(67, 4);
             this.picCam03.Name = "picCam03";
             this.picCam03.Size = new System.Drawing.Size(31, 24);
             this.picCam03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1947,8 +2233,9 @@
             // 
             // picCam05
             // 
+            this.picCam05.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam05.Image = ((System.Drawing.Image)(resources.GetObject("picCam05.Image")));
-            this.picCam05.Location = new System.Drawing.Point(123, 0);
+            this.picCam05.Location = new System.Drawing.Point(127, 4);
             this.picCam05.Name = "picCam05";
             this.picCam05.Size = new System.Drawing.Size(31, 24);
             this.picCam05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1958,8 +2245,9 @@
             // 
             // picCam01
             // 
+            this.picCam01.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam01.Image = ((System.Drawing.Image)(resources.GetObject("picCam01.Image")));
-            this.picCam01.Location = new System.Drawing.Point(3, 0);
+            this.picCam01.Location = new System.Drawing.Point(7, 4);
             this.picCam01.Name = "picCam01";
             this.picCam01.Size = new System.Drawing.Size(31, 24);
             this.picCam01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1997,6 +2285,12 @@
             this.lblDetalles.Size = new System.Drawing.Size(69, 13);
             this.lblDetalles.TabIndex = 0;
             this.lblDetalles.Text = "Cantidades...";
+            // 
+            // timerReloj
+            // 
+            this.timerReloj.Enabled = true;
+            this.timerReloj.Interval = 1000;
+            this.timerReloj.Tick += new System.EventHandler(this.timerReloj_Tick);
             // 
             // frmMapa
             // 
@@ -2049,9 +2343,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.panelLeyendas.ResumeLayout(false);
-            this.panelLeyendas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVista)).EndInit();
             this.panelCamiones.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam08)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam07)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam09)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam06)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam05)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam04)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam03)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam02)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepCam01)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam13)).EndInit();
@@ -2254,6 +2562,28 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel8;
         private System.Windows.Forms.Button btnMax;
         private System.Windows.Forms.Button btnMin;
+        private System.Windows.Forms.ToolStripLabel lblOrientacion;
+        private System.Windows.Forms.ToolStripLabel lblAngulo;
+        private System.Windows.Forms.ToolStripLabel lblHora;
+        private System.Windows.Forms.Timer timerReloj;
+        private System.Windows.Forms.ToolStripLabel lblTimer;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator23;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator24;
+        private System.Windows.Forms.PictureBox picRepCam01;
+        private System.Windows.Forms.PictureBox picRepCam02;
+        private System.Windows.Forms.PictureBox picRepCam08;
+        private System.Windows.Forms.PictureBox picRepCam07;
+        private System.Windows.Forms.PictureBox picRepCam06;
+        private System.Windows.Forms.PictureBox picRepCam05;
+        private System.Windows.Forms.PictureBox picRepCam04;
+        private System.Windows.Forms.PictureBox picRepCam03;
+        private System.Windows.Forms.PictureBox picRepCam15;
+        private System.Windows.Forms.PictureBox picRepCam14;
+        private System.Windows.Forms.PictureBox picRepCam13;
+        private System.Windows.Forms.PictureBox picRepCam12;
+        private System.Windows.Forms.PictureBox picRepCam11;
+        private System.Windows.Forms.PictureBox picRepCam10;
+        private System.Windows.Forms.PictureBox picRepCam09;
     }
 }
 
