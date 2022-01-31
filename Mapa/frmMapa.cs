@@ -25,6 +25,7 @@ using System.Threading;
 using System.Drawing.Imaging;
 using System.Net.NetworkInformation;
 
+
 namespace Mapa
 {
     public partial class frmMapa : Form
@@ -149,6 +150,7 @@ namespace Mapa
         string iniFecha = "";
         string finFecha = "";
         int gopc;
+        string gnombre;
 
         private List<PointLatLng> _points;
         private List<PointLatLng> _pointsc;
@@ -157,13 +159,14 @@ namespace Mapa
         List<Color> colores = new List<Color>();
         List<String> tablets = new List<String>();
 
-        public frmMapa(int opc)
+        public frmMapa(int opc, string nombre)
         {
             InitializeComponent();
             _points = new List<PointLatLng>();
             _pointsc = new List<PointLatLng>();
             _pointslc = new List<PointLatLng>();
             gopc = opc;
+            gnombre = nombre;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -178,7 +181,7 @@ namespace Mapa
 
             tabControl1.Height = 0;
 
-            this.Text = "Mapa"; //Application.ProductName + " - Sistema Reparto Gusi - v" + Application.ProductVersion;
+            this.Text = "Mapa " + "[" +gnombre + "]"; //Application.ProductName + " - Sistema Reparto Gusi - v" + Application.ProductVersion;
                         
             tablaCamionTemp();
             tablaListaCamionTemp();
@@ -188,17 +191,23 @@ namespace Mapa
             llenaTablets();
             buscaCamiones2(false);
 
-            ip = obtenerConfig(0);
+            //ip = obtenerConfig(0);
 
             if (ip.Equals("")) { ip = "0.0.0.0"; }
 
             txtFecha.Text = DateTime.Today.ToShortDateString();
 
-            latencia = obtenerConfig(1);
-            usuario = obtenerConfig(3);
-            contrasena = obtenerConfig(4);
-            inactividad = obtenerConfig(5);
-            rutared = obtenerConfig(6);
+            DataRow row = obtenerConfigDB();
+
+            if (row != null)
+            { 
+                latencia = row["Latencia"].ToString(); //obtenerConfigTxt(1);
+                usuario = row["Usuario"].ToString(); //obtenerConfig(3);
+                contrasena = row["contrasena"].ToString(); //obtenerConfig(4);
+                inactividad = row["Inactividad"].ToString(); //obtenerConfig(5);
+                rutared = row["RutaRed"].ToString(); //obtenerConfig(6);
+                instancia = row["Instancia"].ToString(); //obtenerConfig(2);                                 //
+            }
 
             lblTimer.Text = latencia;
 
@@ -208,7 +217,7 @@ namespace Mapa
                 //timerMonitor.Interval = Convert.ToInt32(latencia) * 1000;a
             }
 
-            instancia = obtenerConfig(2);
+
 
             desdesap = "0";
             origenDatos(desdesap);
@@ -271,12 +280,13 @@ namespace Mapa
             lblErrores.Text = "Ok";
             lblCtrl.Text = "";
 
-            mostrarDatosWs();
+
+            //mostrarDatosWs();
 
             switch (gopc) 
             {
                 case 1:
-
+                    mostrarDatosWs();
                     tim();
 
 
@@ -284,6 +294,7 @@ namespace Mapa
                     break;
                 case 2:
                     indiceBotonVista = 0;
+                    mostrarDatosWs();
 
                     toolStripButton15.Visible = true; //refresca cabezas
                     toolStripSplitButton3.Visible = false;
@@ -302,15 +313,39 @@ namespace Mapa
                     
 
                     break;
+
+                case 3:
+                    //corralActividadInicio();
+                    //dtCabezastmp.Rows.Clear();
+
+                    indiceBotonVista = 0;
+                    mostrarDatosWs();
+
+                    toolStripButton15.Visible = true; //refresca cabezas
+                    toolStripSplitButton3.Visible = false;
+                    toolStripButton5.Visible = false;
+                    toolStripLabel8.Visible = false;
+                    toolStripButton16.Visible = false;
+                    this.Refresh();                    
+
+                    timerCamion.Stop();
+                    cabezasToolStripMenuItem_Click(sender, e);
+                    //menuBasico();
+
+
+                    menuBuscarCamion(false);
+                    menuRutas(false);
+
+                    //botonCeldasActividad(1);
+
+                    break;
+
                 default:
                     break;
             }
 
 
-
-
             //mostrarDatosWs();
-  
 
             cmbServidas.SelectedIndex = 0;
             
@@ -319,12 +354,8 @@ namespace Mapa
             
             lineasComederos();
 
-
-
-
             opcionMouseMenu();
             iniciaNumeroCamion();
-
 
             //corralActividad("1076", Color.White);
             //corralActividad("1075", Color.White);
@@ -550,12 +581,12 @@ namespace Mapa
                     else 
                     {
                         valor = "0";
+                    
                     }
 
                     corralActividadNombres(overlayCeldas.Polygons.ElementAt(i), valor, Color.White);
 
                     
-
                 }
 
                 valortc = overlayCeldas.Polygons.Count;
@@ -695,7 +726,11 @@ namespace Mapa
                 Tag = nombre,
             };
 
+  
+
             overlayCeldas.Polygons.Add(polygonCelda);
+
+            
 
             //Bitmap bmpmarker = new Bitmap(40, 23);
             //Graphics graphicImage = Graphics.FromImage(bmpmarker);
@@ -839,7 +874,8 @@ namespace Mapa
             { 
                 markerlabelCelda = new GMarkerGoogle(centerPoint, bmpmarker);            
             }
-            
+
+            markerlabelCelda.Tag = polygon.Name;
             overlaylabelCeldas.Markers.Add(markerlabelCelda);
 
            
@@ -1260,6 +1296,14 @@ namespace Mapa
 
         private void agregarRecepciones()
         {
+
+            if (gopc!=1)
+            {
+                return;
+            }
+                    
+
+
             _pointsc.Clear();
             _pointsc.Add(new PointLatLng(21.916079, -98.747773));
             _pointsc.Add(new PointLatLng(21.916512, -98.748352));
@@ -4068,7 +4112,7 @@ namespace Mapa
 
         //}
 
-        private string obtenerConfig(int indice)
+        private string obtenerConfigTxt(int indice)
         {
 
             string rutaorigen = "";
@@ -4103,7 +4147,30 @@ namespace Mapa
 
         }
 
-        
+        private DataRow obtenerConfigDB()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    return row;
+                }
+            }
+
+            return null;
+
+        }
+
 
         private void btnMostrarRuta_Click(object sender, EventArgs e)
         {
@@ -4337,10 +4404,23 @@ namespace Mapa
                 //    foreach (DataRow row in dt.Rows)
                 //    {
                 //        int valor = Convert.ToInt32(row["cabezas"]);
-               
+
                 //        //corralActividadMod(row["corral"].ToString(), colorLeyenda(valor));
                 //    }
                 //}
+
+                switch (gopc)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        botonCeldasActividad(1);
+                        break;
+                }
+
+
 
             }
             catch (Exception e)
@@ -4362,7 +4442,7 @@ namespace Mapa
             Graphics graphicImage = Graphics.FromImage(bmpmarker);
             graphicImage.SmoothingMode = SmoothingMode.AntiAlias;
             Point punto = new Point(2, 6);
-            graphicImage.DrawString(id, new Font("Arial", 11, FontStyle.Bold), drawBrush, punto);
+            graphicImage.DrawString(id, new Font("Arial", 13, FontStyle.Bold), drawBrush, punto);
             graphicImage.Dispose();
 
 
@@ -4494,8 +4574,8 @@ namespace Mapa
                         break;
                     case "10":
                         picRepCam10.BackColor = color;
-                        ToolTip tt = new ToolTip();
-                        tt.SetToolTip(this.picRepCam10, "Your username");
+                        //ToolTip tt = new ToolTip();
+                        //tt.SetToolTip(this.picRepCam10, "Your username");
                         break;
                     case "11":
                         picRepCam11.BackColor = color;
@@ -5014,17 +5094,18 @@ namespace Mapa
             lblZomm.Text = valorPorcZomm() + "%";
 
         }
+
         private void nombresCorral() 
-        { 
-        
-            if (indiceBotonVistaSel != 5)
-            {   
-                corralesActividadNombre();                
-            }
-            else 
+        {
+            switch (indiceBotonVistaSel) 
             {
-                mostrarCabezasCorral();
-            }    
+                case 5:                    
+                    mostrarCabezasCorral();                  
+                    break;
+                default:                
+                    corralesActividadNombre();    
+                    break;
+            }
 
         }
 
@@ -6921,6 +7002,73 @@ namespace Mapa
 
         }
 
+        private void gMapControl1_OnPolygonClick(GMapPolygon item, MouseEventArgs e)
+        {
+            //Console.WriteLine(String.Format("Polygon {0} with tag {1} was clicked",
+            //item.Name, item.Tag));
+        }
+
+        private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            if (gopc == 3)
+            {
+                menuColor(item.Tag.ToString().Trim());
+            }
+        }
+
+        private void menuColor(string corral) 
+        {
+
+            Color color;
+
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                color = colorDialog1.Color;
+                guardarColor(corral,color);
+            }                  
+        
+        }
+
+        private void guardarColor(string corral, Color color) 
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+
+            datos.p_sql = "SELECT * FROM actividad WHERE corral = '" + corral + "'";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else 
+            {
+
+                if (dt.Rows.Count > 0)
+                {
+                    datos.p_sql = "UPDATE actividad SET colorarete = '" + color.ToArgb().ToString() + "' WHERE corral = '" + corral + "'";
+                }
+                else 
+                {
+                    datos.p_sql = "INSERT INTO actividad (corral, colorarete) VALUES ('" + corral + "','" + color.ToArgb().ToString() + "')";
+                }
+
+                if (!datos.consultaSQL(ref dt, false))
+                {
+                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                else 
+                {
+                    corralActividadMod(corral, color);
+                }
+
+            }
+
+
+
+        }
+
         private void gMapControl1_Click(object sender, EventArgs e)
         {
             if (ActivoCtrl)
@@ -7772,7 +7920,6 @@ namespace Mapa
             }
         }
 
-
         private void CreateCircle(PointLatLng point, double radius, int segments)
         {
 
@@ -7802,9 +7949,6 @@ namespace Mapa
             };
             overlayCircles.Polygons.Add(polygonCircles);
 
-
-
-
         }
 
         private void timerReloj_Tick(object sender, EventArgs e)
@@ -7812,6 +7956,90 @@ namespace Mapa
             lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
             lblTimer.Text = (Int32.Parse(lblTimer.Text) - 1).ToString();
         }
+
+        private void botonCeldasActividad(int opc) 
+        {
+
+            Color vcolor = Color.White;
+                       
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            this.Cursor = Cursors.WaitCursor;
+
+            datos.p_sql = "SELECT * FROM actividad";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje");
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    vcolor = nombreColor(Int32.Parse(row["ColorArete"].ToString()));
+                    //vcolor = nombreColor(row["ColorArete"].ToString());
+                    corralActividadMod(row["Corral"].ToString(), vcolor);
+                }
+            }
+
+            this.Cursor = Cursors.Default;
+
+        }
+
+        private Color nombreColor(int nombre) 
+        {
+            Color resultado = Color.White;
+
+            resultado = Color.FromArgb(nombre);
+
+            //resultado = Color.FromName(nombre);
+
+
+
+            //switch (nombre.ToUpper().Trim())
+            //{
+            //    case "ROJO":
+            //        resultado = Color.Red;
+            //        break;
+            //    case "AZUL":
+            //        resultado = Color.Blue;
+            //        break;
+            //    case "VERDE":
+            //        resultado = Color.Green;
+            //        break;
+            //    case "LIMA":
+            //        resultado = Color.Lime;
+            //        break;
+            //    case "AMARILLO":
+            //        resultado = Color.Yellow;
+            //        break;
+            //    case "CELESTE":
+            //        resultado = Color.LightBlue;
+            //        break;
+            //    case "PLATEADO":
+            //        resultado = Color.Silver;
+            //        break;
+            //    case "ROSA":
+            //        resultado = Color.Pink;
+            //        break;
+            //    case "PURPURA":
+            //        resultado = Color.Purple;
+            //        break;
+            //    case "NARANJA":
+            //        resultado = Color.Orange;
+            //        break;
+
+
+            //}
+
+            return resultado;
+        }
+
+
+
+
+
     }
 
     internal class Graphic

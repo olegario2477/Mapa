@@ -238,6 +238,7 @@
             this.labelDetalles = new System.Windows.Forms.Label();
             this.lblDetalles = new System.Windows.Forms.Label();
             this.timerReloj = new System.Windows.Forms.Timer(this.components);
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.contextMenuStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -322,6 +323,8 @@
             this.gMapControl1.Size = new System.Drawing.Size(1202, 488);
             this.gMapControl1.TabIndex = 0;
             this.gMapControl1.Zoom = 0D;
+            this.gMapControl1.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gMapControl1_OnMarkerClick);
+            this.gMapControl1.OnPolygonClick += new GMap.NET.WindowsForms.PolygonClick(this.gMapControl1_OnPolygonClick);
             this.gMapControl1.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.cambioZoomMapa);
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             this.gMapControl1.Click += new System.EventHandler(this.gMapControl1_Click);
@@ -935,7 +938,7 @@
             // 
             this.cmbCamiones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCamiones.Name = "cmbCamiones";
-            this.cmbCamiones.Size = new System.Drawing.Size(75, 33);
+            this.cmbCamiones.Size = new System.Drawing.Size(75, 23);
             this.cmbCamiones.Visible = false;
             // 
             // toolStripSeparator3
@@ -948,7 +951,7 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(62, 30);
+            this.toolStripButton4.Size = new System.Drawing.Size(62, 24);
             this.toolStripButton4.Text = "Clima";
             this.toolStripButton4.Visible = false;
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
@@ -956,14 +959,14 @@
             // lblcmbCamionRuta
             // 
             this.lblcmbCamionRuta.Name = "lblcmbCamionRuta";
-            this.lblcmbCamionRuta.Size = new System.Drawing.Size(49, 30);
+            this.lblcmbCamionRuta.Size = new System.Drawing.Size(49, 15);
             this.lblcmbCamionRuta.Text = "Camion";
             // 
             // cmbCamionRuta
             // 
             this.cmbCamionRuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCamionRuta.Name = "cmbCamionRuta";
-            this.cmbCamionRuta.Size = new System.Drawing.Size(75, 33);
+            this.cmbCamionRuta.Size = new System.Drawing.Size(75, 23);
             // 
             // btnBuscarcamionruta
             // 
@@ -971,7 +974,7 @@
             this.btnBuscarcamionruta.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarcamionruta.Image")));
             this.btnBuscarcamionruta.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnBuscarcamionruta.Name = "btnBuscarcamionruta";
-            this.btnBuscarcamionruta.Size = new System.Drawing.Size(24, 30);
+            this.btnBuscarcamionruta.Size = new System.Drawing.Size(24, 24);
             this.btnBuscarcamionruta.Text = "Buscar Camion";
             this.btnBuscarcamionruta.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
@@ -986,7 +989,7 @@
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton6.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton6.Text = "Reparto";
             this.toolStripButton6.ToolTipText = "Recorrido";
             this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click_1);
@@ -994,7 +997,7 @@
             // toolStripLabel8
             // 
             this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(28, 30);
+            this.toolStripLabel8.Size = new System.Drawing.Size(28, 15);
             this.toolStripLabel8.Text = "GPS";
             // 
             // toolStripButton9
@@ -1003,7 +1006,7 @@
             this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
             this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton9.Name = "toolStripButton9";
-            this.toolStripButton9.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton9.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton9.Text = "Recorridos";
             this.toolStripButton9.ToolTipText = "Recorridos";
             this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
@@ -1014,7 +1017,7 @@
             this.toolStripButton16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton16.Image")));
             this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton16.Name = "toolStripButton16";
-            this.toolStripButton16.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton16.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton16.Text = "Repartos";
             this.toolStripButton16.Click += new System.EventHandler(this.toolStripButton16_Click);
             // 
@@ -1024,7 +1027,7 @@
             this.toolStripButton12.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton12.Image")));
             this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton12.Name = "toolStripButton12";
-            this.toolStripButton12.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton12.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton12.Text = "toolStripButton12";
             this.toolStripButton12.Visible = false;
             this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
@@ -1035,7 +1038,7 @@
             this.toolStripButton14.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton14.Image")));
             this.toolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton14.Name = "toolStripButton14";
-            this.toolStripButton14.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton14.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton14.Text = "toolStripButton14";
             this.toolStripButton14.ToolTipText = "Recorrido";
             this.toolStripButton14.Visible = false;
@@ -1047,7 +1050,7 @@
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(24, 30);
+            this.toolStripButton8.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton8.Text = "Cerrar";
             this.toolStripButton8.ToolTipText = "Cerrar Rutas";
             this.toolStripButton8.Click += new System.EventHandler(this.toolStripButton8_Click);
@@ -1055,7 +1058,7 @@
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(29, 30);
+            this.toolStripLabel3.Size = new System.Drawing.Size(29, 15);
             this.toolStripLabel3.Text = "Serv";
             // 
             // cmbServidas
@@ -1066,33 +1069,33 @@
             "1",
             "2"});
             this.cmbServidas.Name = "cmbServidas";
-            this.cmbServidas.Size = new System.Drawing.Size(75, 33);
+            this.cmbServidas.Size = new System.Drawing.Size(75, 23);
             // 
             // toolStripLabel7
             // 
             this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(32, 30);
+            this.toolStripLabel7.Size = new System.Drawing.Size(32, 15);
             this.toolStripLabel7.Text = "Cam";
             // 
             // cmbCamion
             // 
             this.cmbCamion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCamion.Name = "cmbCamion";
-            this.cmbCamion.Size = new System.Drawing.Size(75, 33);
+            this.cmbCamion.Size = new System.Drawing.Size(75, 23);
             this.cmbCamion.SelectedIndexChanged += new System.EventHandler(this.cmbCamion_SelectedIndexChanged);
             this.cmbCamion.Click += new System.EventHandler(this.cmbCamion_Click);
             // 
             // toolStripLabel4
             // 
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(26, 30);
+            this.toolStripLabel4.Size = new System.Drawing.Size(26, 15);
             this.toolStripLabel4.Text = "Rac";
             // 
             // cmbRaciones
             // 
             this.cmbRaciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRaciones.Name = "cmbRaciones";
-            this.cmbRaciones.Size = new System.Drawing.Size(75, 33);
+            this.cmbRaciones.Size = new System.Drawing.Size(75, 23);
             // 
             // toolStripButton15
             // 
@@ -2292,6 +2295,10 @@
             this.timerReloj.Interval = 1000;
             this.timerReloj.Tick += new System.EventHandler(this.timerReloj_Tick);
             // 
+            // colorDialog1
+            // 
+            this.colorDialog1.AllowFullOpen = false;
+            // 
             // frmMapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2584,6 +2591,7 @@
         private System.Windows.Forms.PictureBox picRepCam11;
         private System.Windows.Forms.PictureBox picRepCam10;
         private System.Windows.Forms.PictureBox picRepCam09;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }
 

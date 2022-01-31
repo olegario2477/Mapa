@@ -33,6 +33,7 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cabezasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aretesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monitorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,27 +66,35 @@
             // 
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.cabezasToolStripMenuItem,
-            this.monitorToolStripMenuItem1,
             this.toolStripSeparator1,
+            this.cabezasToolStripMenuItem,
+            this.aretesToolStripMenuItem,
+            this.monitorToolStripMenuItem1,
             this.cerrarToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.menuToolStripMenuItem.Text = "Menu";
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.menuToolStripMenuItem.Text = "Mapa";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem1.Text = "Mapa Alimento";
+            this.toolStripMenuItem1.Text = "Alimento";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // cabezasToolStripMenuItem
             // 
             this.cabezasToolStripMenuItem.Name = "cabezasToolStripMenuItem";
             this.cabezasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.cabezasToolStripMenuItem.Text = "Cabezas";
+            this.cabezasToolStripMenuItem.Text = "Auditorias";
             this.cabezasToolStripMenuItem.Click += new System.EventHandler(this.cabezasToolStripMenuItem_Click);
+            // 
+            // aretesToolStripMenuItem
+            // 
+            this.aretesToolStripMenuItem.Name = "aretesToolStripMenuItem";
+            this.aretesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aretesToolStripMenuItem.Text = "Aretes";
+            this.aretesToolStripMenuItem.Click += new System.EventHandler(this.aretesToolStripMenuItem_Click);
             // 
             // monitorToolStripMenuItem1
             // 
@@ -101,14 +110,14 @@
             // verticalToolStripMenuItem
             // 
             this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
-            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.verticalToolStripMenuItem.Text = "Vertical";
             this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
             // 
             // horizontalToolStripMenuItem
             // 
             this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
-            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.horizontalToolStripMenuItem.Text = "Horizontal";
             this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
             // 
@@ -122,6 +131,7 @@
             this.cerrarToolStripMenuItem.Name = "cerrarToolStripMenuItem";
             this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cerrarToolStripMenuItem.Text = "Salir";
+            this.cerrarToolStripMenuItem.Visible = false;
             this.cerrarToolStripMenuItem.Click += new System.EventHandler(this.cerrarToolStripMenuItem_Click);
             // 
             // opcionesToolStripMenuItem
@@ -153,21 +163,21 @@
             // cascadaToolStripMenuItem
             // 
             this.cascadaToolStripMenuItem.Name = "cascadaToolStripMenuItem";
-            this.cascadaToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.cascadaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cascadaToolStripMenuItem.Text = "Cascada";
             this.cascadaToolStripMenuItem.Click += new System.EventHandler(this.cascadaToolStripMenuItem_Click);
             // 
             // horizontalToolStripMenuItem1
             // 
             this.horizontalToolStripMenuItem1.Name = "horizontalToolStripMenuItem1";
-            this.horizontalToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
+            this.horizontalToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.horizontalToolStripMenuItem1.Text = "Horizontal";
             this.horizontalToolStripMenuItem1.Click += new System.EventHandler(this.horizontalToolStripMenuItem1_Click);
             // 
             // verticalToolStripMenuItem1
             // 
             this.verticalToolStripMenuItem1.Name = "verticalToolStripMenuItem1";
-            this.verticalToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
+            this.verticalToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.verticalToolStripMenuItem1.Text = "Vertical";
             this.verticalToolStripMenuItem1.Click += new System.EventHandler(this.verticalToolStripMenuItem1_Click);
             // 
@@ -176,7 +186,6 @@
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.salirToolStripMenuItem.Text = "Salir";
-            this.salirToolStripMenuItem.Visible = false;
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // Principal
@@ -217,5 +226,6 @@
         private System.Windows.Forms.ToolStripMenuItem verticalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cabezasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aretesToolStripMenuItem;
     }
 }

@@ -13,6 +13,8 @@ namespace Mapa
 {
     public partial class Principal : Form
     {
+        string gnombre;
+
         public Principal()
         {
             InitializeComponent();
@@ -31,12 +33,15 @@ namespace Mapa
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            abrirMapa(1);
+            var itemText = (sender as ToolStripMenuItem).Text;
+            abrirMapa(1, itemText);
         }
 
-        private void abrirMapa(int opc)
+        private void abrirMapa(int opc, string nombre)
         {
-            Form frm = new frmMapa(opc);
+            cerrarVentanas();
+
+            Form frm = new frmMapa(opc,nombre);
             frm.MdiParent = this;
             frm.StartPosition = FormStartPosition.WindowsDefaultLocation;
             frm.Show();
@@ -115,6 +120,7 @@ namespace Mapa
 
         private void configuracionToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            cerrarVentanas();
             abrirConfiguracion();            
         }
 
@@ -150,7 +156,25 @@ namespace Mapa
 
         private void cabezasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            abrirMapa(2);
+            var itemText = (sender as ToolStripMenuItem).Text;
+            abrirMapa(2, itemText);
         }
+
+        private void aretesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var itemText = (sender as ToolStripMenuItem).Text;
+            abrirMapa(3, itemText);
+        }
+
+        private void cerrarVentanas() 
+        {
+            for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+            {
+                if (Application.OpenForms[i].Name != "Principal")
+                    Application.OpenForms[i].Close();
+            }
+
+        }
+
     }
 }

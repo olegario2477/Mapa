@@ -41,7 +41,8 @@ namespace Mapa
 
             comboListaIntancia();
 
-            cargarConfig();
+            //cargarConfigTxt();
+            cargarConfigDB();
 
             usuario = obtenerConfig(3);
             contrasena = obtenerConfig(4);
@@ -62,12 +63,40 @@ namespace Mapa
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            guardaConfig();
+            //guardaConfigTxt();
+            guardaConfigDB();
             this.Visible = false;
 
         }
 
-        private void guardaConfig()
+        private void guardaConfigDB() 
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "UPDATE configuracion SET "
+                + " rutared = '" + txtRutaRed.Text
+                + "', instancia = " + cmbInstancia.SelectedIndex
+                + ", inactividad = " + txtInactividad.Text
+                + ", latencia = " + txtLatencia.Text
+                + ", usuario = '" + txtUsuario.Text.Trim()
+                + "', contrasena = '" + txtContrasena.Text.Trim()
+                + "' ";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                MessageBox.Show("Listo, guardo los cambios, se reiniciara la aplicacion.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                Application.Restart();
+            }
+
+        }
+
+        private void guardaConfigTxt()
         {
 
             string rutadestino = "";
@@ -110,8 +139,37 @@ namespace Mapa
 
 
         }
+
+        private void cargarConfigDB()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    //txtIP.Text = row["NumCamion"].ToString();
+                    txtLatencia.Text = row["Latencia"].ToString();
+                    cmbInstancia.SelectedIndex = Convert.ToInt32(row["Instancia"].ToString().Trim());
+                    txtUsuario.Text = row["Usuario"].ToString();
+                    txtContrasena.Text = row["Contrasena"].ToString();
+                    txtInactividad.Text = row["Inactividad"].ToString();
+                    txtRutaRed.Text = row["RutaRed"].ToString();
+                }
+
+            }
         
-        private void cargarConfig()
+        }
+
+        private void cargarConfigTxt()
         {
 
             string rutaorigen = "";
@@ -572,6 +630,95 @@ namespace Mapa
             }
 
 
+
+        }
+
+        private void btnRecursos_Click(object sender, EventArgs e)
+        {
+            string resource_data = Properties.Resources.SQL;
+            string[] words = resource_data.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string lines in words)
+            {
+                txtSQL.Text += lines + '\r' + '\n';
+            }
+        }
+
+        private void btnEjecutar_Click(object sender, EventArgs e)
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+
+            string valor = txtSQL.Text;
+
+
+            if (txtSQL.SelectionLength > 0)
+            {
+                valor = txtSQL.SelectedText;
+            }
+
+
+            //-----------------------------------------------------
+            int vcont = 0;
+            Boolean verror = false;
+            string[] lines = valor.Split(';');
+
+            foreach (String line in lines)
+            {
+                vcont = vcont + 1;
+                string linea = line.Replace("\n", String.Empty).Replace("\t", String.Empty).Replace("\r", String.Empty);
+
+                if (!linea.Equals(""))
+                {
+
+                    datos.p_sql = linea;
+
+                    if (!linea.Substring(0, 2).ToLower().Equals("--"))
+                    {
+
+                        if (linea.ToLower().Contains("select"))
+                        {
+                            if (!datos.consultaSQL(ref dt, true))
+                            {
+                                MessageBox.Show(datos.p_error + " Linea : " + vcont.ToString(), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                //Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                                verror = true;
+                                break;
+                            }
+                            else
+                            {
+                                dataGridSQLResultados.DataSource = dt;
+
+                                lblSQLStatus.Text = "Correcto" + " Total " + dt.Rows.Count.ToString() + " Reg.";
+                            }
+                        }
+                        else
+                        {
+
+                            if (!datos.consultaSQL(ref dt, false))
+                            {
+                                MessageBox.Show(datos.p_error + " Linea : " + vcont.ToString(), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                //Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                                verror = true;
+                                break;
+                            }
+                            else
+                            {
+                                lblSQLStatus.Text = "Correcto";
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
 
         }
     }
