@@ -82,7 +82,8 @@ namespace Mapa
                 + ", latencia = " + txtLatencia.Text
                 + ", usuario = '" + txtUsuario.Text.Trim()
                 + "', contrasena = '" + txtContrasena.Text.Trim()
-                + "' ";
+                + "', servidas = " + chkServidas.Checked
+                + "";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -143,30 +144,39 @@ namespace Mapa
         private void cargarConfigDB()
         {
 
-            Datos datos = new Datos();
-            DataTable dt = new DataTable();
-
-            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
-
-            if (!datos.consultaSQL(ref dt, true))
+            try
             {
-                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            else
-            {
-                foreach (DataRow row in dt.Rows)
+
+                Datos datos = new Datos();
+                DataTable dt = new DataTable();
+
+                datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+                if (!datos.consultaSQL(ref dt, true))
                 {
-                    //txtIP.Text = row["NumCamion"].ToString();
-                    txtLatencia.Text = row["Latencia"].ToString();
-                    cmbInstancia.SelectedIndex = Convert.ToInt32(row["Instancia"].ToString().Trim());
-                    txtUsuario.Text = row["Usuario"].ToString();
-                    txtContrasena.Text = row["Contrasena"].ToString();
-                    txtInactividad.Text = row["Inactividad"].ToString();
-                    txtRutaRed.Text = row["RutaRed"].ToString();
+                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
+                else
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        //txtIP.Text = row["NumCamion"].ToString();
+                        txtLatencia.Text = row["Latencia"].ToString();
+                        cmbInstancia.SelectedIndex = Convert.ToInt32(row["Instancia"].ToString().Trim());
+                        txtUsuario.Text = row["Usuario"].ToString();
+                        txtContrasena.Text = row["Contrasena"].ToString();
+                        txtInactividad.Text = row["Inactividad"].ToString();
+                        txtRutaRed.Text = row["RutaRed"].ToString();
+                        chkServidas.Checked = (Boolean)row["Servidas"];
+                    }
 
+                }
             }
-        
+            catch (Exception ex) 
+            {
+                
+            }
+
         }
 
         private void cargarConfigTxt()

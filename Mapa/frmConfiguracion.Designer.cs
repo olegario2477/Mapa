@@ -62,6 +62,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chkServidas = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.txtLatencia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInactividad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSQLResultados)).BeginInit();
@@ -394,6 +395,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.chkServidas);
             this.tabPage1.Controls.Add(this.txtIP);
             this.tabPage1.Controls.Add(this.btnWS);
             this.tabPage1.Controls.Add(this.label20);
@@ -467,7 +469,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(592, 377);
+            this.tabPage3.Size = new System.Drawing.Size(826, 377);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Zonas";
             // 
@@ -478,9 +480,19 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(592, 377);
+            this.tabPage4.Size = new System.Drawing.Size(826, 377);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Mtto";
+            // 
+            // chkServidas
+            // 
+            this.chkServidas.AutoSize = true;
+            this.chkServidas.Location = new System.Drawing.Point(136, 232);
+            this.chkServidas.Name = "chkServidas";
+            this.chkServidas.Size = new System.Drawing.Size(86, 17);
+            this.chkServidas.TabIndex = 103;
+            this.chkServidas.Text = "Ver Servidas";
+            this.chkServidas.UseVisualStyleBackColor = true;
             // 
             // frmConfiguracion
             // 
@@ -555,5 +567,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Panel panelSQL;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.CheckBox chkServidas;
     }
 }

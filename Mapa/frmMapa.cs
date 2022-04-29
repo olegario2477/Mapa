@@ -81,6 +81,7 @@ namespace Mapa
 
         DataTable dtUbictmp;
         DataTable dtRepartotmp;
+        DataTable dtLocalizatmp;
         DataTable dtCabezastmp;
 
         private ArrayList lista = new ArrayList();
@@ -152,6 +153,9 @@ namespace Mapa
         int gopc;
         string gnombre;
 
+        const int clasico = 1;
+        const int ecologico = 2;
+
         private List<PointLatLng> _points;
         private List<PointLatLng> _pointsc;
         private List<PointLatLng> _pointslc;
@@ -182,12 +186,22 @@ namespace Mapa
             tabControl1.Height = 0;
 
             this.Text = "Mapa " + "[" +gnombre + "]"; //Application.ProductName + " - Sistema Reparto Gusi - v" + Application.ProductVersion;
-                        
+
+            
+            splitContainerMapa.Dock = DockStyle.Fill;
+            splitContainerMapa.Panel2Collapsed = true;
+            gMapControl1.Dock = DockStyle.Fill;
+            this.Refresh();
+
+
+
             tablaCamionTemp();
             tablaListaCamionTemp();
             tablaRepartoTemp();
+            tablaLocalizaTemp();
             tablaCabezasTemp();
 
+            
             llenaTablets();
             buscaCamiones2(false);
 
@@ -286,13 +300,17 @@ namespace Mapa
             switch (gopc) 
             {
                 case 1:
+                    //chart2.Visible = true;
                     mostrarDatosWs();
                     tim();
-
-
+                    servidaToolStripMenuItem_Click(sender, e);
 
                     break;
                 case 2:
+                    chart2.Visible = false;
+                    chart3.Visible = false;
+                    chart4.Visible = false;
+                    
                     indiceBotonVista = 0;
                     mostrarDatosWs();
 
@@ -301,6 +319,8 @@ namespace Mapa
                     toolStripButton5.Visible = false;
                     toolStripLabel8.Visible = false;
                     toolStripButton16.Visible = false;
+                    toolStripButton18.Visible = false;
+                    toolStripButton21.Visible = false;
                     this.Refresh();
 
                     timerCamion.Stop();                    
@@ -308,16 +328,17 @@ namespace Mapa
                     //menuBasico();
 
                     menuBuscarCamion(false);
-                    menuRutas(false);
-                   
+                    menuRutas(false);                 
                     
-
                     break;
 
                 case 3:
                     //corralActividadInicio();
                     //dtCabezastmp.Rows.Clear();
 
+                    chart2.Visible = false;
+                    chart3.Visible = false;
+                    chart4.Visible = false;
                     indiceBotonVista = 0;
                     mostrarDatosWs();
 
@@ -326,12 +347,13 @@ namespace Mapa
                     toolStripButton5.Visible = false;
                     toolStripLabel8.Visible = false;
                     toolStripButton16.Visible = false;
+                    toolStripButton18.Visible = false;
+                    toolStripButton21.Visible = false;
                     this.Refresh();                    
 
                     timerCamion.Stop();
                     cabezasToolStripMenuItem_Click(sender, e);
                     //menuBasico();
-
 
                     menuBuscarCamion(false);
                     menuRutas(false);
@@ -391,8 +413,45 @@ namespace Mapa
             this.Cursor = Cursors.Default;
 
 
+            //////////////////////////////////////////////////////////////////////////////////////////
+
+            //21.885035827,-98.732714653
+            //21.9012825188,-98.7540006638
+
+
+            //21.8934779666,-98.7249469757
+            //21.9090468278,-98.7459754944
+
+
+            //21.9021186955,-98.7417697906
+
+
+            //_points.Clear();
+            //_points.Add(new PointLatLng(21.9021186955, -98.7417697906));
+
+
+            ////PointLatLng lPoint = new PointLatLng();
+            ////lPoint.Lat = 21.9021186955;
+            ////lPoint.Lng = -98.7417697906;
+
+            //Point point = new Point(21.9021186955, -98.7417697906);
+
+            //double North = 0;
+            //double East = 0;
+            //double South = 0;
+            //double West = 0;
+
+            //bool valor = PointInRectangle(_points, North, East, South, West);
+
+
+            //servidaToolStripMenuItem_Click(sender,e);
+
+
+
+            //////////////////////////////////////////////////////////////////////////////////////////
+
         }
-        
+
         private void variablesMapa() 
         {
 
@@ -446,7 +505,7 @@ namespace Mapa
 
         }
 
-        private void corralActividadInicio()
+        private void corralActividadLimpia()
         {
             String colorcapa = cmbColorCapas.Text;
             Color vcolor = Color.White;
@@ -489,6 +548,28 @@ namespace Mapa
 
         }
 
+        private Color corralColor(string nombre)
+        {
+            Color color = Color.Transparent;
+
+            for (int i = 0; i < overlayCeldas.Polygons.Count; i++)
+            {
+
+                if (overlayCeldas.Polygons.ElementAt(i).Name.Equals(nombre))
+                {
+
+                    Brush brush =  overlayCeldas.Polygons.ElementAt(i).Fill;                    
+                    SolidBrush solidbrush = (SolidBrush) brush;
+                    color = solidbrush.Color;                                
+
+                }
+
+            }
+
+            return color;
+
+        }
+
         private void tablaRepartoTemp()
         {
 
@@ -505,6 +586,24 @@ namespace Mapa
             dtRepartotmp.Columns.Add("plandia");
             dtRepartotmp.Columns.Add("servidodia");
 
+        }
+
+        private void tablaLocalizaTemp()
+        {
+
+            dtLocalizatmp = new DataTable();
+
+            dtLocalizatmp.Columns.Add("numcamion");
+            dtLocalizatmp.Columns.Add("name");
+            dtLocalizatmp.Columns.Add("fecha");
+            dtLocalizatmp.Columns.Add("hora");
+            dtLocalizatmp.Columns.Add("lat");
+            dtLocalizatmp.Columns.Add("lng");
+            dtLocalizatmp.Columns.Add("racion");
+            dtLocalizatmp.Columns.Add("servida");
+            dtLocalizatmp.Columns.Add("pila");
+            dtLocalizatmp.Columns.Add("red");
+         
         }
 
         private void corralesActividadNombre()
@@ -1172,12 +1271,12 @@ namespace Mapa
             if (demora.TotalMinutes <= Convert.ToDouble(inactividad))
             {
                 vimg = this.imageList1.Images[6];
-                mostrarCamionActivo(id, false);
+                mostrarCamionActivo(id, true);
             }
             else
             {
                 vimg = this.imageList1.Images[2];
-                mostrarCamionActivo(id, true);
+                mostrarCamionActivo(id, false);
             }
 
             Bitmap bmpmarker = new Bitmap(vimg); //imagen camion
@@ -1620,8 +1719,10 @@ namespace Mapa
             btnRotarDer.Top = panelTrack.Top + panelTrack.Height + 40;
             btnRotarDer.Left = panelTrack.Left;
 
-            btnRotarIzq.Top = btnRotarDer.Top;
-            btnRotarIzq.Left = btnRotarDer.Left;
+            //btnRotarIzq.Top = btnRotarDer.Top;
+            //btnRotarIzq.Left = btnRotarDer.Left;
+            btnRotarIzq.Top = panelTrack.Top + panelTrack.Height - btnRotarIzq.Height;
+            btnRotarIzq.Left = panelTrack.Left + panelTrack.Width + 5;
 
             //panelRuta.Top = 60;
             //panelRuta.Left = 60;
@@ -1656,17 +1757,14 @@ namespace Mapa
             //chart1.Left = this.Width / 4;
             //chart1.Top = this.Height - chart1.Height - 90;
 
-            chart2.Left = this.Width - chart2.Width - 30;
-            chart2.Top = this.Height - chart2.Height - 90;
-
-            chart1.Top = chart2.Top;
-            chart1.Left = chart2.Left - chart1.Width;
+            //chart2.Left = this.Width - chart2.Width - 30;
+            //chart2.Top = this.Height - chart2.Height - 90;
 
             panelDetalles.Top = panelLeyendas.Top;
             panelDetalles.Left = panelLeyendas.Left;
             panelDetalles.Height = panelLeyendas.Height;
             panelDetalles.Width = panelLeyendas.Width;
-
+            
             //panelCamiones.Top = this.Height - 110;
             //panelCamiones.Left = (this.Width / 2) - (panelCamiones.Width / 2);
 
@@ -1674,7 +1772,47 @@ namespace Mapa
             panelCamiones.Left = this.Width - panelCamiones.Width - 10;
 
 
+            //-------------------------------------------------------------------------------
+            
+            splitContainerMapa.Panel2.Controls.Add(panelCamion);
+            splitContainerMapa.Panel2.Controls.Add(chart1);
+            splitContainerMapa.Panel2.Controls.Add(chart2);
+            splitContainerMapa.Panel2.Controls.Add(chart3);
+            splitContainerMapa.Panel2.Controls.Add(chart4);
+            splitContainerMapa.Panel2.Controls.Add(btnCerrarPanel);
 
+            splitContainerMapa.FixedPanel = FixedPanel.Panel2;
+            splitContainerMapa.Panel2MinSize = 10;
+
+            //chart1.Top = 40;
+            //chart1.Left = 10;
+            //chart1.Height = 300;
+            //chart1.Width = 170;
+
+            panelCamion.Top = 40;
+            panelCamion.Left = 10;
+            //panelCamion.Height = 300;
+            //panelCamion.Width = 170;
+
+
+            chart2.Top = panelCamion.Top + panelCamion.Height + 5;//chart1.Top + chart1.Height + 5;
+            chart2.Left = 10;
+            chart2.Height = 0;
+
+            chart3.Top = chart2.Top + chart2.Height + 5;
+            chart3.Left = 10; // chart2.Left + chart2.Width + 10;
+
+            chart4.Top = chart3.Top + chart3.Height + 5;
+            chart4.Left = 10; // chart3.Left + chart3.Width + 10;
+
+            chart3.Height = 150;//chart2.Height;
+            chart3.Width = 150;// chart2.Width;
+
+            chart4.Height = chart3.Height;
+            chart4.Width = chart3.Width;
+
+            btnCerrarPanel.Top = splitContainerMapa.Panel2.Height / 2;
+            btnCerrarPanel.Left = 0;
 
 
         }
@@ -1745,6 +1883,7 @@ namespace Mapa
 
             tim();
             lblTimer.Text = (Int32.Parse(latencia) + 1).ToString();
+            lblCamPorc.Text = porcCamion().ToString()+"%";
         }
 
         private void tim() 
@@ -1758,16 +1897,13 @@ namespace Mapa
             //lblErrores.Text = "Ok";
 
             mostrarLocalizaCamiones();
-
-            //mostrarDatos(tab);
-                       
             mostrarDatosWs();
 
+            //mostrarDatos(tab);
+            refrescaGraficos();
+
             //FlushMemory();
-
             //mostrarCamionesActivos();
-
-
             //Convert.ToInt32()
 
             if (lblConectadoF.Value == 0)
@@ -1779,6 +1915,15 @@ namespace Mapa
                 lblConectadoF.Value = 0;
             }      
 
+        }
+
+        private void refrescaGraficos()
+        {
+            graficoBarras();
+            //grafico1(chart1);
+            grafico2(chart2,0);
+            grafico2(chart3,clasico);
+            grafico2(chart4,ecologico);
         }
 
         private void mostrarDatosWs()
@@ -1798,8 +1943,11 @@ namespace Mapa
                 case 4:
                     mostrarReparto("racion");
                     break;
-                case 0:
+                case 5:
                     mostrarCabezasCorral();
+                    break;
+                case 0:
+                    mostrarRepartoCorralServida();
                     break;
 
                 default:
@@ -2710,6 +2858,8 @@ namespace Mapa
             dttmp.Columns.Add("lng");
             dttmp.Columns.Add("Racion");
             dttmp.Columns.Add("Servida");
+            dttmp.Columns.Add("Pila");
+            dttmp.Columns.Add("Red");
 
 
             foreach (String listar in lista)
@@ -2734,6 +2884,9 @@ namespace Mapa
 
                 newRow["racion"] = lines[5].Trim();
                 newRow["servida"] = lines[6].Trim();
+                
+                newRow["pila"] = lines[7].Trim();
+                newRow["red"] = lines[8].Trim();
 
                 //if (newRow["numcamion"].Equals("3")||
                 //    newRow["numcamion"].Equals("7")||
@@ -2749,7 +2902,9 @@ namespace Mapa
             }
 
             dt = dttmp;
-             
+
+            dtLocalizatmp = dttmp;
+
             //Cursor = Cursors.Default;
 
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -3570,6 +3725,14 @@ namespace Mapa
 
         private void btnRotarIzq_Click(object sender, EventArgs e)
         {
+
+            giroIzq();
+
+        }
+
+        private void giroIzq()
+        {
+
             gMapControl1.Bearing += 90;//10;
             lblGiro.Text = gMapControl1.Bearing.ToString();
             //lblGirar.Text = gMapControl1.Bearing.ToString();
@@ -3595,13 +3758,16 @@ namespace Mapa
             //corralesActividadNombre();
             //lblErrores.Text = gorientacion.ToString();
 
-
-
         }
 
         private void btnRotarDer_Click(object sender, EventArgs e)
         {
-            gMapControl1.Bearing -= 10;
+            giroDer();
+        }
+
+        private void giroDer()         
+        {
+            gMapControl1.Bearing -= 90; //10;
             lblGiro.Text = gMapControl1.Bearing.ToString();
             //gMapControl1.Bearing -= -50; //-140
 
@@ -3611,7 +3777,25 @@ namespace Mapa
             //}
 
             //lblGirar.Text = gMapControl1.Bearing.ToString() + " " + trackBar1.Value.ToString();
+            //
+            switch (gorientacion)
+            {
+                case 0:
+                    gorientacion = 1;
+                    break;
+                case 1:
+                    gorientacion = 2;
+                    break;
+                case 2:
+                    gorientacion = 3;
+                    break;
+                case 3:
+                    gorientacion = 0;
+                    break;
 
+            }
+
+            nombresCorral();
         }
 
         private void ubicacionCamion()
@@ -4265,12 +4449,13 @@ namespace Mapa
 
                 obtenerWsdlServidasSap(ref dt);
 
-                corralActividadInicio();
-
-                corralesActividadNombre();
-
                 if (dt.Rows.Count > 0)
                 {
+
+                    corralActividadLimpia();
+
+                    corralesActividadNombre();
+
                     foreach (DataRow row in dt.Rows)
                     {
                         double valor = Convert.ToDouble(row["servidodia"]) / Convert.ToDouble(row["plandia"]) * 100;
@@ -4309,6 +4494,88 @@ namespace Mapa
 
         }
 
+
+        private void mostrarRepartoCorralServida()
+        {
+
+            Boolean vfiltro = false;
+
+            string[] valores = { "VACIO", "AM", "PM" };
+
+            listBoxLeyendas.Items.Clear();
+
+            for (int i = 0; i < valores.Length; i++)
+            {
+                listBoxLeyendas.Items.Add(valores[i]);
+            }
+
+            //dataGridVista.Rows.Clear();
+            //llenarColores(true);
+
+            colores.Clear();
+            colores.Add(Color.White);
+            colores.Add(Color.Orange);
+            colores.Add(Color.LimeGreen);
+
+            llenaGridValores(true);
+
+            try
+            {
+
+                DataTable dt = new DataTable();
+
+                obtenerWsdlServidasSap(ref dt);
+
+                if (dt.Rows.Count > 0)
+                {
+
+                    corralActividadLimpia();
+
+                    corralesActividadNombre();
+
+                    dt.DefaultView.Sort = "numcamion asc";//"corral, hora asc";
+                    dt = dt.DefaultView.ToTable();
+
+                    if (cmbFiltroVista.Items.Count > 0 && !cmbFiltroVista.Text.Equals(vtodos))
+                    {
+                        dt.DefaultView.RowFilter = "numcamion = '" + cmbFiltroVista.Text + "'";
+                        dt = dt.DefaultView.ToTable();
+                        vfiltro = true;
+                    }
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+
+                        switch (Int32.Parse(row["servida"].ToString()))
+                        {
+                            case 1:
+                                //if( Color.White == corralColor(row["corral"].ToString()))
+                                //{
+                                    corralActividadMod(row["corral"].ToString(), Color.Orange);
+                                // }
+                                break;
+                            case 3:
+                                corralActividadMod(row["corral"].ToString(), Color.Orange);
+                                break;
+                            case 2:
+                                corralActividadMod(row["corral"].ToString(), Color.LimeGreen);
+                                break;
+                        }
+
+                    }
+
+                    mostrarCamionRepartiendo(ref dt);
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                lblErrores.Text = "Reparto, " + e.Message;
+            }
+
+        }
+
         private void mostrarCamionRepartiendo(ref DataTable dt)
         {
 
@@ -4316,7 +4583,7 @@ namespace Mapa
             DataTable dtLocal = new DataTable();
             dtLocal = dt.Copy();
 
-            dtLocal.DefaultView.Sort = "numcamion, horareg asc";
+            dtLocal.DefaultView.Sort = "numcamion, horareg desc";               
             dtLocal = dtLocal.DefaultView.ToTable();
 
             for (int i = 1; i <= 15; i++)
@@ -4395,7 +4662,7 @@ namespace Mapa
 
                 obtenerWsdlCabezasSap(ref dtCabezastmp);
 
-                corralActividadInicio();
+                corralActividadLimpia();
                 
                 corralesActividadNombres(ref dtCabezastmp);
 
@@ -4456,16 +4723,19 @@ namespace Mapa
 
             try
             {
-
+                
                 Image imagen;
+                Color color;
 
                 if (estado)
                 {
                     imagen = imageList1.Images[2];
+                    color = Color.LimeGreen;
                 }
                 else 
                 {
                     imagen = imageList1.Images[0];
+                    color = Color.Transparent;
                 }
 
                 camion = cerosIzq(camion);
@@ -4474,48 +4744,63 @@ namespace Mapa
                 {
                     case "01":
                         picCam01.Image = numeroImagen(imagen, camion);
+                        picGpsCam01.BackColor = color;
                         break;
                     case "02":
                         picCam02.Image = numeroImagen(imagen, camion);
+                        picGpsCam02.BackColor = color;
                         break;
                     case "03":
                         picCam03.Image = numeroImagen(imagen, camion);
+                        picGpsCam03.BackColor = color;
                         break;
                     case "04":
                         picCam04.Image = numeroImagen(imagen, camion);
+                        picGpsCam04.BackColor = color;
                         break;
                     case "05":
                         picCam05.Image = numeroImagen(imagen, camion);
+                        picGpsCam05.BackColor = color;
                         break;
                     case "06":
                         picCam06.Image = numeroImagen(imagen, camion);
+                        picGpsCam06.BackColor = color;
                         break;
                     case "07":
                         picCam07.Image = numeroImagen(imagen, camion);
+                        picGpsCam07.BackColor = color;
                         break;
                     case "08":
                         picCam08.Image = numeroImagen(imagen, camion);
+                        picGpsCam08.BackColor = color;
                         break;
                     case "09":
                         picCam09.Image = numeroImagen(imagen, camion);
+                        picGpsCam09.BackColor = color;
                         break;
                     case "10":
                         picCam10.Image = numeroImagen(imagen, camion);
+                        picGpsCam10.BackColor = color;
                         break;
                     case "11":
                         picCam11.Image = numeroImagen(imagen, camion);
+                        picGpsCam11.BackColor = color;
                         break;
                     case "12":
                         picCam12.Image = numeroImagen(imagen, camion);
+                        picGpsCam12.BackColor = color;
                         break;
                     case "13":
                         picCam13.Image = numeroImagen(imagen, camion);
+                        picGpsCam13.BackColor = color;
                         break;
                     case "14":
                         picCam14.Image = numeroImagen(imagen, camion);
+                        picGpsCam14.BackColor = color;
                         break;
                     case "15":
                         picCam15.Image = numeroImagen(imagen, camion);
+                        picGpsCam15.BackColor = color;
                         break;
                 }
 
@@ -4820,7 +5105,7 @@ namespace Mapa
             try
             {
 
-                llenarColores(false);
+                llenarColores(false);//true); incluye blanco para vacio
 
                 int cont = 0;
 
@@ -4835,15 +5120,15 @@ namespace Mapa
 
                 obtenerWsdlServidasSap(ref dt);
 
-                corralActividadInicio();
-
-                corralesActividadNombre();
-
-                listBoxLeyendas.Items.Clear();
-                //dataGridVista.Rows.Clear();
-
                 if (dt.Rows.Count > 0)
                 {
+
+                    corralActividadLimpia();
+
+                    corralesActividadNombre();
+
+                    listBoxLeyendas.Items.Clear();
+                    //dataGridVista.Rows.Clear();
                     
                     dt.DefaultView.Sort = columna + " asc";
                     dt = dt.DefaultView.ToTable();
@@ -4854,7 +5139,11 @@ namespace Mapa
                         dt = dt.DefaultView.ToTable();
                         vfiltro = true;
                     }
-                    
+
+
+
+                    //listBoxLeyendas.Items.Add("VACIO");
+
                     foreach (DataRow row in dt.Rows)
                     {
 
@@ -4878,7 +5167,8 @@ namespace Mapa
                         corralActividadMod(row["corral"].ToString(), vcolor);
                         
                     }
-                    
+
+                    mostrarCamionRepartiendo(ref dt);
 
                 }
 
@@ -5116,11 +5406,11 @@ namespace Mapa
 
             if (txtFecha.Text.Equals(DateTime.Now.ToString("dd/MM/yyyy")))
             {
-                seleccion = "REPARTO"; //envio datos camion en vivo
+                seleccion = "REPARTO"; //envio datos camion en vivo HOY
             }
             else
             {
-                seleccion = "SERVIDAS"; //subido archivo en sap
+                seleccion = "SERVIDAS"; //subido archivo en sap AYER
             }                       
 
             Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
@@ -5200,6 +5490,8 @@ namespace Mapa
 
             dtsalida = dttmp;
 
+            dtRepartotmp = dtsalida;
+
             //Cursor = Cursors.Default;
 
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -5215,11 +5507,11 @@ namespace Mapa
 
             if (txtFecha.Text.Equals(DateTime.Now.ToString("dd/MM/yyyy")))
             {
-                seleccion = "REPARTO"; //envio datos camion en vivo
+                seleccion = "REPARTO"; //envio datos camion en vivo HOY
             }
             else
             {
-                seleccion = "REPARTOS"; //subido archivo en sap
+                seleccion = "REPARTOS"; //en sap AYER
             }
 
 
@@ -5640,6 +5932,7 @@ namespace Mapa
                     panelFecha.Visible = false;
                     timerCamion.Enabled = true;
                     toolStripButton9.Enabled = true;
+                    //chart2.Visible = true;
                     break;
                 case 1:
                     desdesap = "1";
@@ -5653,6 +5946,7 @@ namespace Mapa
                     panelFecha.Visible = false;
                     timerCamion.Enabled = true;
                     toolStripButton9.Enabled = true;
+                    chart2.Visible = false;
                     break;
                 case 2:
                     desdesap = "1";
@@ -5666,7 +5960,7 @@ namespace Mapa
                     panelFecha.Visible = false;
                     timerCamion.Enabled = false;
                     toolStripButton9.Enabled = true;
-
+                    chart2.Visible = false;
                     monthCalendar1.SetDate(DateTime.Today);
                     break;
             }
@@ -5777,7 +6071,9 @@ namespace Mapa
             panelFecha.Visible = false;
             
             timerCamion.Enabled = txtFecha.Text.Equals(DateTime.Now.ToString("dd/MM/yyyy"));
-            
+
+            refrescaGraficos();
+
         }
 
         private void fechaVer()
@@ -5803,105 +6099,673 @@ namespace Mapa
             this.Cursor = Cursors.Default;
 
         }
-               
-        private void grafico1(Chart chart)
+
+        private void graficoBarras()
         {
-            
-            chart.Series[0].IsValueShownAsLabel = true;
-            chart.Series[0].IsVisibleInLegend = false;
-            chart.Series[0].BorderColor = Color.Black;
-            chart.Series[0].LabelBackColor = Color.Transparent;
-            chart.Series[0].LabelBorderColor = Color.Transparent;
-            chart.Series[0].LabelForeColor = Color.Black;
-            chart.Series[0].Points.Clear();
-                        
-            chart.Series[1].IsValueShownAsLabel = true;
-            chart.Series[1].IsVisibleInLegend = false;
-            chart.Series[1].BorderColor = Color.Black;
-            chart.Series[1].LabelBackColor = Color.Transparent;
-            chart.Series[1].LabelBorderColor = Color.Transparent;
-            chart.Series[1].LabelForeColor = Color.Black;
-            chart.Series[1].Points.Clear();
 
-
-            double vfaltadia = 0;
-            double vplandia = 0;
-            double vservido = 0;
-            double vvalor = 0;
-
-            foreach (DataRow row in dtRepartotmp.Rows)
+            if (!splitContainerMapa.Panel2Collapsed)
             {
 
-                if (row["numcamion"].Equals("1"))
+                //obtenerWsdlServidasSap(ref dtRepartotmp);
+
+                foreach (String camion in cmbCamion.Items)
                 {
-                  vplandia = vplandia + Convert.ToInt32(row["plandia"]);
-                  vservido = vservido + Convert.ToInt32(row["servidodia"]);
+
+                    double vplandia = 0;
+                    double vservido = 0;
+                    double vvalor = 0;
+                    int vcont = 0;
+                    int vporc = 0;
+
+                    DataRow[] rows = dtLocalizatmp.Select("numcamion = '" + camion.TrimStart('0') + "' and fecha ='" + DateTime.Today.ToString("yyyy-MM-dd") + "'");
+
+                    string servida = "";
+                    string racion = "_";
+                    string pila = "_";
+
+                    foreach (DataRow row2 in rows)
+                    {
+                        servida = row2["servida"].ToString();
+                        racion = row2["racion"].ToString();
+                        pila = row2["pila"].ToString();
+                    }
+
+                    foreach (DataRow row in dtRepartotmp.Rows)
+                    {
+
+                        if (row["fecha"].ToString() == DateTime.Today.ToString("yyyy-MM-dd"))
+                        {
+
+                            if (row["numcamion"].Equals(camion))
+                            {
+                                vplandia = vplandia + Convert.ToInt32(row["plandia"]);
+                                vservido = vservido + Convert.ToInt32(row["servidodia"]);
+
+                                if (row["servida"].Equals(servida) /*&& row["racion"].Equals(racion)*/) { vcont++; }
+
+                            }
+
+                        }
+
+                    }
+
+                    vplandia = Math.Round(vplandia, 0);
+                    vservido = Math.Round(vservido, 0);
+                    vporc = (int)((vservido / vplandia) * 100);
+                    if (vporc > 100) { vporc = 100; }
+                    vporc = vcont;
+                    camBar(camion, vporc, vcont, 0, racion, servida.TrimStart('0'), pila);                     
+
+                }
+
+            }
+        
+        }
+
+        private void camBar(string camion, int valor, int cont, int total, string racion, string servida, string pila)
+        {
+
+            if (valor >= pBar01.Minimum && valor <= pBar01.Maximum)//100)
+            {
+
+                Color colorServ = Color.Transparent;
+
+                switch (servida)
+                {
+                    case "1":
+                        colorServ = Color.Orange;
+                        break;
+                    case "2":
+                        colorServ = Color.LimeGreen;
+                        break;
+
                 }
                 
+                switch (camion)
+                {
+                    case "01":
+                        pBar01.Value = valor;
+                        lblpBc01.Text = cont.ToString();//+ "/" + total.ToString();
+                        lblpB01.Text = valor.ToString() + " %";
+                        lblpBr01.Text = racion.ToString();
+                        lblpBs01.Text = servida.ToString();
+                        picBs01.BackColor = colorServ;
+                        lblpBb01.Text = pila.ToString();
+
+                        if (picRepCam01.BackColor != Color.Transparent || picGpsCam01.BackColor != Color.Transparent)
+                        {
+                            lblCam01.ForeColor = Color.Black;
+                            lblpBc01.ForeColor = Color.Black;
+                            lblpBr01.ForeColor = Color.Black;
+                            lblpBb01.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam01.ForeColor = Color.Silver;
+                            picBs01.BackColor = Color.Transparent;
+                            pBar01.Value = 0;
+                            lblpBc01.ForeColor = Color.Silver;
+                            lblpBr01.ForeColor = Color.Silver;
+                            lblpBb01.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "02":
+                        pBar02.Value = valor;
+                        lblpBc02.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB02.Text = valor.ToString() + " %";
+                        lblpBr02.Text = racion.ToString();
+                        lblpBs02.Text = servida.ToString();
+                        picBs02.BackColor = colorServ;
+                        lblpBb02.Text = pila.ToString();
+
+                        if (picRepCam02.BackColor != Color.Transparent || picGpsCam02.BackColor != Color.Transparent)
+                        {
+                            lblCam02.ForeColor = Color.Black;             
+                            lblpBc02.ForeColor = Color.Black;
+                            lblpBr02.ForeColor = Color.Black;
+                            lblpBb02.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam02.ForeColor = Color.Silver;
+                            picBs02.BackColor = Color.Transparent;  
+                            pBar02.Value = 0;
+                            lblpBc02.ForeColor = Color.Silver;
+                            lblpBr02.ForeColor = Color.Silver;
+                            lblpBb02.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "03":
+                        pBar03.Value = valor;
+                        lblpBc03.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB03.Text = valor.ToString() + " %";
+                        lblpBr03.Text = racion.ToString();
+                        lblpBs03.Text = servida.ToString();
+                        picBs03.BackColor = colorServ;
+                        lblpBb03.Text = pila.ToString();
+
+                        if (picRepCam03.BackColor != Color.Transparent || picGpsCam03.BackColor != Color.Transparent)
+                        {
+                            lblCam03.ForeColor = Color.Black;
+                            lblpBc03.ForeColor = Color.Black;
+                            lblpBr03.ForeColor = Color.Black;
+                            lblpBb03.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam03.ForeColor = Color.Silver;
+                            picBs03.BackColor = Color.Transparent;
+                            pBar03.Value = 0;
+                            lblpBc03.ForeColor = Color.Silver;
+                            lblpBr03.ForeColor = Color.Silver;
+                            lblpBb03.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "04":
+                        pBar04.Value = valor;
+                        lblpBc04.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB04.Text = valor.ToString() + " %";
+                        lblpBr04.Text = racion.ToString();
+                        lblpBs04.Text = servida.ToString();
+                        picBs04.BackColor = colorServ;
+                        lblpBb04.Text = pila.ToString();
+
+                        if (picRepCam04.BackColor != Color.Transparent || picGpsCam04.BackColor != Color.Transparent)
+                        {
+                            lblCam04.ForeColor = Color.Black;
+                            lblpBc04.ForeColor = Color.Black;
+                            lblpBr04.ForeColor = Color.Black;
+                            lblpBb04.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam04.ForeColor = Color.Silver;
+                            picBs04.BackColor = Color.Transparent;
+                            pBar04.Value = 0;
+                            lblpBc04.ForeColor = Color.Silver;
+                            lblpBr04.ForeColor = Color.Silver;
+                            lblpBb04.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "05":
+                        pBar05.Value = valor;
+                        lblpBc05.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB05.Text = valor.ToString() + " %";
+                        lblpBr05.Text = racion.ToString();
+                        lblpBs05.Text = servida.ToString();
+                        picBs05.BackColor = colorServ;
+                        lblpBb05.Text = pila.ToString();
+
+                        if (picRepCam05.BackColor != Color.Transparent || picGpsCam05.BackColor != Color.Transparent)
+                        {
+                            lblCam05.ForeColor = Color.Black;
+                            lblpBc05.ForeColor = Color.Black;
+                            lblpBr05.ForeColor = Color.Black;
+                            lblpBb05.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam05.ForeColor = Color.Silver;
+                            picBs05.BackColor = Color.Transparent;
+                            pBar05.Value = 0;
+                            lblpBc05.ForeColor = Color.Silver;
+                            lblpBr05.ForeColor = Color.Silver;
+                            lblpBb05.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "06":
+                        pBar06.Value = valor;
+                        lblpBc06.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB06.Text = valor.ToString() + " %";
+                        lblpBr06.Text = racion.ToString();
+                        lblpBs06.Text = servida.ToString();
+                        picBs06.BackColor = colorServ;
+                        lblpBb06.Text = pila.ToString();
+
+                        if (picRepCam06.BackColor != Color.Transparent || picGpsCam06.BackColor != Color.Transparent)
+                        {
+                            lblCam06.ForeColor = Color.Black;
+                            lblpBc06.ForeColor = Color.Black;
+                            lblpBr06.ForeColor = Color.Black;
+                            lblpBb06.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam06.ForeColor = Color.Silver;
+                            picBs06.BackColor = Color.Transparent;
+                            pBar06.Value = 0;
+                            lblpBc06.ForeColor = Color.Silver;
+                            lblpBr06.ForeColor = Color.Silver;
+                            lblpBb06.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "07":
+                        pBar07.Value = valor;
+                        lblpBc07.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB07.Text = valor.ToString() + " %";
+                        lblpBr07.Text = racion.ToString();
+                        lblpBs07.Text = servida.ToString();
+                        picBs07.BackColor = colorServ;
+                        lblpBb07.Text = pila.ToString();
+
+                        if (picRepCam07.BackColor != Color.Transparent || picGpsCam07.BackColor != Color.Transparent)
+                        {
+                            lblCam07.ForeColor = Color.Black;
+                            lblpBc07.ForeColor = Color.Black;
+                            lblpBr07.ForeColor = Color.Black;
+                            lblpBb07.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam07.ForeColor = Color.Silver;
+                            picBs07.BackColor = Color.Transparent;
+                            pBar07.Value = 0;
+                            lblpBc07.ForeColor = Color.Silver;
+                            lblpBr07.ForeColor = Color.Silver;
+                            lblpBb07.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "08":
+                        pBar08.Value = valor;
+                        lblpBc08.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB08.Text = valor.ToString() + " %";
+                        lblpBr08.Text = racion.ToString();
+                        lblpBs08.Text = servida.ToString();
+                        picBs08.BackColor = colorServ;
+                        lblpBb08.Text = pila.ToString();
+
+                        if (picRepCam08.BackColor != Color.Transparent || picGpsCam08.BackColor != Color.Transparent)
+                        {
+                            lblCam08.ForeColor = Color.Black;
+                            lblpBc08.ForeColor = Color.Black;
+                            lblpBr08.ForeColor = Color.Black;
+                            lblpBb08.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam08.ForeColor = Color.Silver;
+                            picBs08.BackColor = Color.Transparent;
+                            pBar08.Value = 0;
+                            lblpBc08.ForeColor = Color.Silver;
+                            lblpBr08.ForeColor = Color.Silver;
+                            lblpBb08.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "09":
+                        pBar09.Value = valor;
+                        lblpBc09.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB09.Text = valor.ToString() + " %";
+                        lblpBr09.Text = racion.ToString();
+                        lblpBs09.Text = servida.ToString();
+                        picBs09.BackColor = colorServ;
+                        lblpBb09.Text = pila.ToString();
+
+                        if (picRepCam09.BackColor != Color.Transparent || picGpsCam09.BackColor != Color.Transparent)
+                        {
+                            lblCam09.ForeColor = Color.Black;
+                            lblpBc09.ForeColor = Color.Black;
+                            lblpBr09.ForeColor = Color.Black;
+                            lblpBb09.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam09.ForeColor = Color.Silver;
+                            picBs09.BackColor = Color.Transparent;
+                            pBar09.Value = 0;
+                            lblpBc09.ForeColor = Color.Silver;
+                            lblpBr09.ForeColor = Color.Silver;
+                            lblpBb09.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "10":
+                        pBar10.Value = valor;
+                        lblpBc10.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB10.Text = valor.ToString() + " %";
+                        lblpBr10.Text = racion.ToString();
+                        lblpBs10.Text = servida.ToString();
+                        picBs10.BackColor = colorServ;
+                        lblpBb10.Text = pila.ToString();
+
+                        if (picRepCam10.BackColor != Color.Transparent || picGpsCam10.BackColor != Color.Transparent)
+                        {
+                            lblCam10.ForeColor = Color.Black;
+                            lblpBc10.ForeColor = Color.Black;
+                            lblpBr10.ForeColor = Color.Black;
+                            lblpBb10.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam10.ForeColor = Color.Silver;
+                            picBs10.BackColor = Color.Transparent;
+                            pBar10.Value = 0;
+                            lblpBc10.ForeColor = Color.Silver;
+                            lblpBr10.ForeColor = Color.Silver;
+                            lblpBb10.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "11":
+                        pBar11.Value = valor;
+                        lblpBc11.Text = cont.ToString();//+ "/" + total.ToString();
+                        lblpB11.Text = valor.ToString() + " %";
+                        lblpBr11.Text = racion.ToString();
+                        lblpBs11.Text = servida.ToString();
+                        picBs11.BackColor = colorServ;
+                        lblpBb11.Text = pila.ToString();
+
+                        if (picRepCam11.BackColor != Color.Transparent || picGpsCam11.BackColor != Color.Transparent)
+                        {
+                            lblCam11.ForeColor = Color.Black;
+                            lblpBc11.ForeColor = Color.Black;
+                            lblpBr11.ForeColor = Color.Black;
+                            lblpBb11.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam11.ForeColor = Color.Silver;
+                            picBs11.BackColor = Color.Transparent;
+                            pBar11.Value = 0;
+                            lblpBc11.ForeColor = Color.Silver;
+                            lblpBr11.ForeColor = Color.Silver;
+                            lblpBb11.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "12":
+                        pBar12.Value = valor;
+                        lblpBc12.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB12.Text = valor.ToString() + " %";
+                        lblpBr12.Text = racion.ToString();
+                        lblpBs12.Text = servida.ToString();
+                        picBs12.BackColor = colorServ;
+                        lblpBb12.Text = pila.ToString();
+
+                        if (picRepCam12.BackColor != Color.Transparent || picGpsCam12.BackColor != Color.Transparent)
+                        {
+                            lblCam12.ForeColor = Color.Black;
+                            lblpBc12.ForeColor = Color.Black;
+                            lblpBr12.ForeColor = Color.Black;
+                            lblpBb12.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam12.ForeColor = Color.Silver;
+                            picBs12.BackColor = Color.Transparent;
+                            pBar12.Value = 0;
+                            lblpBc12.ForeColor = Color.Silver;
+                            lblpBr12.ForeColor = Color.Silver;
+                            lblpBb12.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "13":
+                        pBar13.Value = valor;
+                        lblpBc13.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB13.Text = valor.ToString() + " %";
+                        lblpBr13.Text = racion.ToString();
+                        lblpBs13.Text = servida.ToString();
+                        picBs13.BackColor = colorServ;
+                        lblpBb13.Text = pila.ToString();
+
+                        if (picRepCam13.BackColor != Color.Transparent || picGpsCam13.BackColor != Color.Transparent)
+                        {
+                            lblCam13.ForeColor = Color.Black;
+                            lblpBc13.ForeColor = Color.Black;
+                            lblpBr13.ForeColor = Color.Black;
+                            lblpBb13.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam13.ForeColor = Color.Silver;
+                            picBs13.BackColor = Color.Transparent;
+                            pBar13.Value = 0;
+                            lblpBc13.ForeColor = Color.Silver;
+                            lblpBr13.ForeColor = Color.Silver;
+                            lblpBb13.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "14":
+                        pBar14.Value = valor;
+                        lblpBc14.Text = cont.ToString();//+ "/" + total.ToString();
+                        lblpB14.Text = valor.ToString() + " %";
+                        lblpBr14.Text = racion.ToString();
+                        lblpBs14.Text = servida.ToString();
+                        picBs14.BackColor = colorServ;
+                        lblpBb14.Text = pila.ToString();
+
+                        if (picRepCam14.BackColor != Color.Transparent || picGpsCam14.BackColor != Color.Transparent)
+                        {
+                            lblCam14.ForeColor = Color.Black;
+                            lblpBc14.ForeColor = Color.Black;
+                            lblpBr14.ForeColor = Color.Black;
+                            lblpBb14.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam14.ForeColor = Color.Silver;
+                            picBs14.BackColor = Color.Transparent;
+                            pBar14.Value = 0;
+                            lblpBc14.ForeColor = Color.Silver;
+                            lblpBr14.ForeColor = Color.Silver;
+                            lblpBb14.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                    case "15":
+                        pBar15.Value = valor;
+                        lblpBc15.Text = cont.ToString();// + "/" + total.ToString();
+                        lblpB15.Text = valor.ToString() + " %";
+                        lblpBr15.Text = racion.ToString();
+                        lblpBs15.Text = servida.ToString();
+                        picBs15.BackColor = colorServ;
+                        lblpBb15.Text = pila.ToString();
+
+                        if (picRepCam15.BackColor != Color.Transparent || picGpsCam15.BackColor != Color.Transparent)
+                        {
+                            lblCam15.ForeColor = Color.Black;
+                            lblpBc15.ForeColor = Color.Black;
+                            lblpBr15.ForeColor = Color.Black;
+                            lblpBb15.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            lblCam15.ForeColor = Color.Silver;
+                            picBs15.BackColor = Color.Transparent;
+                            pBar15.Value = 0;
+                            lblpBc15.ForeColor = Color.Silver;
+                            lblpBr15.ForeColor = Color.Silver;
+                            lblpBb15.ForeColor = Color.Silver;
+                        }
+
+                        break;
+                }
+            }
+            else 
+            { 
             }
 
+        }
 
+        private void grafico1(Chart chart)
+        {
 
-            vplandia = Math.Round(vplandia, 0);
-            vservido = Math.Round(vservido, 0);
+            if (!splitContainerMapa.Panel2Collapsed)
+            {   
 
-            vfaltadia = Math.Abs(vplandia - vservido);
-            
-            chart.Series[0].Points.AddXY("CAM1", vservido.ToString());
+                chart.Series["S1"].ChartType = SeriesChartType.StackedBar100;
+                chart.Series["S1"].IsValueShownAsLabel = true;
+                chart.Series["S1"].IsVisibleInLegend = false;
+                chart.Series["S1"].BorderColor = Color.Black;
+                chart.Series["S1"].LabelBackColor = Color.Transparent;
+                chart.Series["S1"].LabelBorderColor = Color.Transparent;
+                chart.Series["S1"].LabelForeColor = Color.Black;
+                chart.Series["S1"].Color = Color.LimeGreen;
+                chart.Series["S1"].Points.Clear();
 
-            vvalor = vservido / vplandia * 100;
-            chart.Series[0].Points[0].Color = colorLeyenda(vvalor);
+                chart.Series["S2"].ChartType = SeriesChartType.StackedBar100;
+                chart.Series["S2"].IsValueShownAsLabel = true;
+                chart.Series["S2"].IsVisibleInLegend = false;
+                chart.Series["S2"].BorderColor = Color.Black;
+                chart.Series["S2"].LabelBackColor = Color.Transparent;
+                chart.Series["S2"].LabelBorderColor = Color.Transparent;
+                chart.Series["S2"].LabelForeColor = Color.Black;
+                chart.Series["S2"].Color = Color.Silver;
+                chart.Series["S2"].Points.Clear();
 
-            chart.Series[1].Points.AddXY("CAM1", vfaltadia.ToString());
-            chart.Series[1].Points[0].Color = Color.White;
+                chart.ChartAreas[0].AxisX.Interval = 1;
+                chart.ChartAreas[0].AxisY.Interval = 50;
+                
+                obtenerWsdlServidasSap(ref dtRepartotmp);
 
-            chart.Series[1].Sort(PointSortOrder.Ascending);
+                foreach (String camion in cmbCamion.Items)
+                {                   
 
+                    double vfaltadia = 0;
+                    double vplandia = 0;
+                    double vservido = 0;
+                    double vvalor = 0;
+                    
+                    foreach (DataRow row in dtRepartotmp.Rows)
+                    {
 
+                        if (row["numcamion"].Equals(camion))
+                        {
+                            vplandia = vplandia + Convert.ToInt32(row["plandia"]);
+                            vservido = vservido + Convert.ToInt32(row["servidodia"]);
+                        }
+
+                    }
+
+                    vplandia = Math.Round(vplandia, 0);
+                    vservido = Math.Round(vservido, 0);
+                    vfaltadia = Math.Abs(vplandia - vservido);
+
+                    chart.Series["S1"].Points.AddXY("C"+ camion, vservido);
+                    chart.Series["S2"].Points.AddXY("C" + camion, vfaltadia);
+     
+                }
+
+                //chart.Series["S1"].Sort(PointSortOrder.Ascending);
+           
+            }
 
         }                  
 
-        private void grafico2(Chart chart)
+        private void grafico2(Chart chart, int ubic)
         {
-                       
-            chart.Series[0].IsValueShownAsLabel = true;
-            chart.Series[0].IsVisibleInLegend = false;
-            chart.Series[0].BorderColor = Color.Black;
-            chart.Series[0].LabelBackColor = Color.Transparent;
-            chart.Series[0].LabelBorderColor = Color.Transparent;
-            chart.Series[0].LabelForeColor = Color.Black;
-            chart.Series[0].Points.Clear();
-
-            Color[] colores = {
-                     Color.White,
-                     Color.Silver,
-                     Color.Orange,
-                     Color.Yellow,
-                     Color.Cyan,
-                     Color.LimeGreen,
-                     Color.DarkViolet,
-                     Color.Red,
-            };
-
-            double[] valores = { 0,0,0,0,0,0,0,0 };
-
-            int totalcapas = overlayCeldas.Polygons.Count;
-
-            for (int i = 0; i < totalcapas; i++)
+            if (!splitContainerMapa.Panel2Collapsed)
             {
-                for (int j = 0; j < valores.Count(); j++)
+
+                chart.Series[0].IsValueShownAsLabel = true;
+                chart.Series[0].IsVisibleInLegend = false;
+                chart.Series[0].BorderColor = Color.Black;
+                chart.Series[0].LabelBackColor = Color.Transparent;
+                chart.Series[0].LabelBorderColor = Color.Transparent;
+                chart.Series[0].LabelForeColor = Color.Black;
+                chart.Series[0].Points.Clear();
+
+                int totalcapas = overlayCeldas.Polygons.Count;
+                int totalGrid = dataGridVista.RowCount; //valores.Count();
+                double totalcapasubic = 0;
+
+                Color[] colores = new Color[totalGrid];
+                double[] valores = new double[totalGrid];//{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+                for (int j = 0; j < totalGrid; j++)
                 {
-                    if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name)) { valores[j]++; }
+                    colores[j] = dataGridVista[1, j].Style.BackColor;
+                    valores[j] = 0;
                 }
-            }
+
+                for (int i = 0; i < totalcapas; i++) //corrales
+                {
+
+                    for (int j = 0; j < totalGrid; j++) //colores grid
+                    {
+
+                        string numero = overlayCeldas.Polygons.ElementAt(i).Name.ToString().Substring(0, 1);
+
+                        if (!numero.Equals("2")) //quitar recep
+                        {
+                            switch (ubic)
+                            {
+                                case clasico:
+                                    if (ubicE(overlayCeldas.Polygons.ElementAt(i).Points[0].Lat) == ubic)
+                                    {
+                                        if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name)) { valores[j]++; }
+                                    }
+                                    
+                                    //if (numero.Equals("1")
+                                    //    && !numero.Equals("2"))
+                                    //{
+                                    //    if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name)) { valores[j]++; }
+                                    //}
+                                    break;
+                                case ecologico:
+                                    if (ubicE(overlayCeldas.Polygons.ElementAt(i).Points[0].Lat) == ubic)
+                                    {
+                                        if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name)) { valores[j]++; }
+                                    }
+                                    
+                                    //if ((numero.Equals("6")
+                                    //    || numero.Equals("7")
+                                    //    || numero.Equals("8"))
+                                    //    && !numero.Equals("2"))
+                                    //{
+                                    //    if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name)) { valores[j]++; }
+                                    //}
+                                    break;
+
+                                default:
+                                    if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name)) { valores[j]++; }
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                for (int i = 0; i < totalGrid; i++)
+                {
+                    totalcapasubic = totalcapasubic + valores[i];
+                }
+
+                for (int i = 0; i < totalGrid; i++)
+                {
+                    valores[i] = Math.Round(valores[i] / totalcapasubic * 100, 1);
+                    chart.Series[0].Points.AddXY(i.ToString(), valores[i].ToString());
+                    chart.Series[0].Points[i].Color = colores[i];
+                }
             
-            for (int i = 0; i < valores.Count(); i++)
-            {
-                valores[i] = Math.Round(valores[i] / totalcapas * 100, 1);
-                chart.Series[0].Points.AddXY(i.ToString(),valores[i].ToString());
-                chart.Series[0].Points[i].Color = colores[i];
             }
 
+        }
+
+        private int ubicE(double lat)
+        {
+
+            int ubic;
+
+            if (lat > 21.911475576)
+            {
+                ubic = clasico;
+            }
+            else
+            {
+                ubic = ecologico;
+            }            
+
+            return ubic;
+        
         }
 
         private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
@@ -5937,7 +6801,6 @@ namespace Mapa
 
         private void toolStripButton11_Click(object sender, EventArgs e)
         {
-
 
             // Displays a SaveFileDialog so the user can save the Image
             // assigned to Button2.
@@ -5982,18 +6845,15 @@ namespace Mapa
 
                 //fs.Close();
             }
-
-            
+                        
             //ThisMap.Save(sImageName, ImageFormat.Png);
 
             //MessageBox.Show("Listo: se guardo en: " + sImageName, "Mensaje");
-
 
         }
 
         private void toolStripSplitButton3_ButtonClick(object sender, EventArgs e)
         {
-
 
             indiceBotonVista += 1;
 
@@ -6024,11 +6884,16 @@ namespace Mapa
                     //toolStripSplitButton3.Text = servidasToolStripMenuItem.Text;
                     break;
 
+                case 6:
+                    servidaToolStripMenuItem_Click(sender, e);
+                    //toolStripSplitButton3.Text = servidasToolStripMenuItem.Text;
+                    break;
+
                 default:
                     break;
             }
 
-            if (indiceBotonVista == 5)
+            if (indiceBotonVista == 6)
             {
                 indiceBotonVista = 0;
             }
@@ -6053,6 +6918,7 @@ namespace Mapa
             mostrarDatosWs();  
 
             cmbFiltroVista.Visible = false;
+            refrescaGraficos();
 
         }
 
@@ -6074,8 +6940,9 @@ namespace Mapa
             mostrarDatosWs();
 
             cmbFiltroVista.Visible = true;
-            llenaFiltroVista();            
-                                
+            llenaFiltroVista();
+            refrescaGraficos();
+
         }
 
         private void camionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6097,7 +6964,8 @@ namespace Mapa
 
             cmbFiltroVista.Visible = true;
             llenaFiltroVista();
-                                           
+            refrescaGraficos();
+
         }
 
         private void planeadoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6118,12 +6986,13 @@ namespace Mapa
 
             cmbFiltroVista.Visible = true;
             llenaFiltroVista();
+            refrescaGraficos();
         }
 
         private void cabezasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             toolStripSplitButton3.Text = cabezasToolStripMenuItem.Text;
-            indiceBotonVista = 0;
+            indiceBotonVista = 5;
             indiceBotonVistaSel = 5;
             panelLeyenda.Visible = false;
             panelLeyendas.Visible = false;
@@ -6147,6 +7016,42 @@ namespace Mapa
             panelLeyendas.Visible = false;
             panelCamiones.Visible = false;
 
+            //chart2.Visible = false;
+            //chart3.Visible = false;
+            //chart4.Visible = false;
+
+            refrescaGraficos();
+
+        }
+
+        private void servidaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStripSplitButton3.Text = servidaToolStripMenuItem.Text;
+            indiceBotonVista = 0;
+            indiceBotonVistaSel = 6;
+            panelLeyenda.Visible = false;
+            panelLeyendas.Visible = true;
+            panelDetalles.Visible = false;
+            panelCamiones.Visible = true;
+            labelLeyendas.Text = toolStripSplitButton3.Text;
+
+            cmbFiltroVista.Items.Clear();
+
+            if (indiceBotonFecha == 1) { timerCamion.Start(); }
+            mostrarDatosWs();
+
+
+            cmbFiltroVista.Visible = true;//false;
+
+            cmbFiltroVista.Items.Add(vtodos);
+            cmbFiltroVista.Items.AddRange(cmbCamion.Items.Cast<Object>().ToArray());
+            if (cmbFiltroVista.Items.Count > 0)
+            {
+                cmbFiltroVista.SelectedIndex = 0;
+            }
+
+
+            refrescaGraficos();
         }
 
         private void llenaFiltroVista()
@@ -6902,6 +7807,7 @@ namespace Mapa
             //btnBuscarcamionruta.Visible = true;
             buscaCamiones2(false);
 
+            //refrescaGraficos();
             //llenarCabezasCorral();
             //nombresCorral();
         }
@@ -7014,6 +7920,29 @@ namespace Mapa
             {
                 menuColor(item.Tag.ToString().Trim());
             }
+            if (gopc == 1)
+            {
+
+                if (item.Tag != null)
+                {
+
+                    String cadena = item.Tag.ToString().Trim();
+
+                    obtenerWsdlCabezasSap(ref dtCabezastmp);
+
+                    dtCabezastmp.DefaultView.RowFilter = "corral = '" + cadena + "'";
+                    dtCabezastmp = dtCabezastmp.DefaultView.ToTable();
+                    String cab = "0";
+                    if (dtCabezastmp.Rows.Count > 0)
+                    {
+                        cab = dtCabezastmp.Rows[0][7].ToString().Replace(".000", "");
+                    }
+                    //MessageBox.Show(cadena+", Cab: "+cab, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                    lblMsg.Text = cadena + ", Cab: " + cab;
+                }
+
+            }
+
         }
 
         private void menuColor(string corral) 
@@ -7954,7 +8883,12 @@ namespace Mapa
         private void timerReloj_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
-            lblTimer.Text = (Int32.Parse(lblTimer.Text) - 1).ToString();
+
+            if (gopc!=2&&gopc!=3) 
+            { 
+                lblTimer.Text = (Int32.Parse(lblTimer.Text) - 1).ToString();
+            }
+
         }
 
         private void botonCeldasActividad(int opc) 
@@ -8036,10 +8970,221 @@ namespace Mapa
             return resultado;
         }
 
+        private void btnOcultarCuadro_Click(object sender, EventArgs e)
+        {
+            panelLeyendas.Visible = false;   
+        }
+
+        private void toolStripButton17_Click(object sender, EventArgs e)
+        {
+            giroIzq();
+        }
+
+        private void toolStripButton18_Click(object sender, EventArgs e)
+        {
+            panelLeyendas.Visible = true;
+        }
+
+        private void toolStripButton19_Click(object sender, EventArgs e)
+        {
+            giroDer();
+        }
+
+        bool PointInRectangle(Point pt, double North, double East, double South, double West)
+        {
+            // you may want to check that the point is a valid coordinate
+            if (West < East)
+            {
+                return pt.X < East && pt.X > West && pt.Y < North && pt.Y > South;
+            }
+
+            // it crosses the date line
+            return (pt.X < East || pt.X > West) && pt.Y < North && pt.Y > South;
+        }
+
+        private void picRepCam01_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private double porcCamion()
+        {
+            double cant = 0;
+
+            if (picRepCam01.BackColor != Color.Transparent || picGpsCam01.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam02.BackColor != Color.Transparent || picGpsCam02.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam03.BackColor != Color.Transparent || picGpsCam03.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam04.BackColor != Color.Transparent || picGpsCam04.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam05.BackColor != Color.Transparent || picGpsCam05.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam06.BackColor != Color.Transparent || picGpsCam06.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam07.BackColor != Color.Transparent || picGpsCam07.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam08.BackColor != Color.Transparent || picGpsCam08.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam09.BackColor != Color.Transparent || picGpsCam09.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam10.BackColor != Color.Transparent || picGpsCam10.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam11.BackColor != Color.Transparent || picGpsCam11.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam12.BackColor != Color.Transparent || picGpsCam12.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam13.BackColor != Color.Transparent || picGpsCam13.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam14.BackColor != Color.Transparent || picGpsCam14.BackColor != Color.Transparent) { cant++; }
+            if (picRepCam15.BackColor != Color.Transparent || picGpsCam15.BackColor != Color.Transparent) { cant++; }
 
 
 
+            //if (picRepCam01.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam02.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam03.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam04.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam05.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam06.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam07.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam08.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam09.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam10.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam11.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam12.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam13.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam14.BackColor != Color.Transparent) { cant++; }
+            //if (picRepCam15.BackColor != Color.Transparent) { cant++; }
 
+            //if (picGpsCam01.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam02.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam03.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam04.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam05.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam06.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam07.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam08.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam09.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam10.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam11.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam12.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam13.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam14.BackColor != Color.Transparent) { cant++; }
+            //if (picGpsCam15.BackColor != Color.Transparent) { cant++; }
+
+            return Math.Round(cant / 15 * 100);
+            //return Math.Round(cant / 30 * 100);
+
+        }
+
+        private void lbl01_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 0;
+            ubicacionCamion();
+        }
+
+        private void lbl02_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 1;
+            ubicacionCamion();
+        }
+
+        private void lbl03_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 2;
+            ubicacionCamion();
+        }
+
+        private void lbl04_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 3;
+            ubicacionCamion();
+        }
+
+        private void lbl05_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 4;
+            ubicacionCamion();
+        }
+
+        private void lbl06_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 5;
+            ubicacionCamion();
+        }
+
+        private void lbl07_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 6;
+            ubicacionCamion();
+        }
+
+        private void lbl08_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 7;
+            ubicacionCamion();
+        }
+
+        private void lbl09_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 8;
+            ubicacionCamion();
+        }
+
+        private void lbl10_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 9;
+            ubicacionCamion();
+        }
+
+        private void lbl11_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 10;
+            ubicacionCamion();
+        }
+
+        private void lbl12_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 11;
+            ubicacionCamion();
+        }
+
+        private void lbl13_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 12;
+            ubicacionCamion();
+        }
+
+        private void lbl14_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 13;
+            ubicacionCamion();
+        }
+
+        private void lbl15_Click(object sender, EventArgs e)
+        {
+            cmbCamionRuta.SelectedIndex = 14;
+            ubicacionCamion();
+        }
+
+        private void dataGridVista_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void toolStripButton21_Click(object sender, EventArgs e)
+        {
+            splitContainerMapa.Panel2Collapsed = !splitContainerMapa.Panel2Collapsed;
+        }
+
+        private void splitContainerMapa_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblpBc01_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label42_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelCamion_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
     internal class Graphic

@@ -30,14 +30,20 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMapa));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.contextMenuStripMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.guardarCoordenadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +91,7 @@
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.planeadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cabezasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.servidaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbFiltroVista = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -126,6 +133,13 @@
             this.toolStripButton15 = new System.Windows.Forms.ToolStripButton();
             this.imageListColor = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton18 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator26 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton17 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton19 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton21 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.lblHora = new System.Windows.Forms.ToolStripLabel();
             this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -164,6 +178,7 @@
             this.toolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
             this.lblTimer = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblMsg = new System.Windows.Forms.ToolStripLabel();
             this.webBClima = new System.Windows.Forms.WebBrowser();
             this.panelLeyenda = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -200,10 +215,45 @@
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.listBoxLeyendas = new System.Windows.Forms.ListBox();
             this.panelLeyendas = new System.Windows.Forms.Panel();
+            this.btnOcultarCuadro = new System.Windows.Forms.Button();
             this.dataGridVista = new System.Windows.Forms.DataGridView();
             this.labelLeyendas = new System.Windows.Forms.Label();
             this.timerPing = new System.Windows.Forms.Timer(this.components);
             this.panelCamiones = new System.Windows.Forms.Panel();
+            this.lblCamPorc = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.picGpsCam15 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam14 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam13 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam12 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam11 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam10 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam09 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam08 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam07 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam06 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam05 = new System.Windows.Forms.PictureBox();
+            this.lbl15 = new System.Windows.Forms.Label();
+            this.lbl14 = new System.Windows.Forms.Label();
+            this.lbl13 = new System.Windows.Forms.Label();
+            this.lbl12 = new System.Windows.Forms.Label();
+            this.lbl11 = new System.Windows.Forms.Label();
+            this.lbl10 = new System.Windows.Forms.Label();
+            this.lbl09 = new System.Windows.Forms.Label();
+            this.lbl08 = new System.Windows.Forms.Label();
+            this.lbl07 = new System.Windows.Forms.Label();
+            this.lbl06 = new System.Windows.Forms.Label();
+            this.lbl05 = new System.Windows.Forms.Label();
+            this.picGpsCam04 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam03 = new System.Windows.Forms.PictureBox();
+            this.picGpsCam02 = new System.Windows.Forms.PictureBox();
+            this.lbl04 = new System.Windows.Forms.Label();
+            this.lbl03 = new System.Windows.Forms.Label();
+            this.lbl02 = new System.Windows.Forms.Label();
+            this.picGpsCam01 = new System.Windows.Forms.PictureBox();
+            this.lbl01 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.picRepCam15 = new System.Windows.Forms.PictureBox();
             this.picRepCam14 = new System.Windows.Forms.PictureBox();
             this.picRepCam13 = new System.Windows.Forms.PictureBox();
@@ -239,6 +289,136 @@
             this.lblDetalles = new System.Windows.Forms.Label();
             this.timerReloj = new System.Windows.Forms.Timer(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.splitContainerMapa = new System.Windows.Forms.SplitContainer();
+            this.panelCamion = new System.Windows.Forms.Panel();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.lblpBb15 = new System.Windows.Forms.Label();
+            this.lblpBb14 = new System.Windows.Forms.Label();
+            this.lblpBb13 = new System.Windows.Forms.Label();
+            this.lblpBb12 = new System.Windows.Forms.Label();
+            this.lblpBb11 = new System.Windows.Forms.Label();
+            this.lblpBb10 = new System.Windows.Forms.Label();
+            this.lblpBb09 = new System.Windows.Forms.Label();
+            this.lblpBb08 = new System.Windows.Forms.Label();
+            this.lblpBb07 = new System.Windows.Forms.Label();
+            this.lblpBb06 = new System.Windows.Forms.Label();
+            this.lblpBb05 = new System.Windows.Forms.Label();
+            this.lblpBb04 = new System.Windows.Forms.Label();
+            this.lblpBb03 = new System.Windows.Forms.Label();
+            this.lblpBb02 = new System.Windows.Forms.Label();
+            this.lblpBb01 = new System.Windows.Forms.Label();
+            this.pBar15 = new System.Windows.Forms.ProgressBar();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.picBs15 = new System.Windows.Forms.PictureBox();
+            this.picBs14 = new System.Windows.Forms.PictureBox();
+            this.picBs13 = new System.Windows.Forms.PictureBox();
+            this.picBs12 = new System.Windows.Forms.PictureBox();
+            this.picBs11 = new System.Windows.Forms.PictureBox();
+            this.picBs10 = new System.Windows.Forms.PictureBox();
+            this.picBs09 = new System.Windows.Forms.PictureBox();
+            this.picBs08 = new System.Windows.Forms.PictureBox();
+            this.picBs07 = new System.Windows.Forms.PictureBox();
+            this.picBs06 = new System.Windows.Forms.PictureBox();
+            this.picBs05 = new System.Windows.Forms.PictureBox();
+            this.picBs04 = new System.Windows.Forms.PictureBox();
+            this.picBs03 = new System.Windows.Forms.PictureBox();
+            this.picBs02 = new System.Windows.Forms.PictureBox();
+            this.picBs01 = new System.Windows.Forms.PictureBox();
+            this.lblpBs15 = new System.Windows.Forms.Label();
+            this.lblpBs14 = new System.Windows.Forms.Label();
+            this.lblpBs13 = new System.Windows.Forms.Label();
+            this.lblpBs12 = new System.Windows.Forms.Label();
+            this.lblpBs11 = new System.Windows.Forms.Label();
+            this.lblpBs10 = new System.Windows.Forms.Label();
+            this.lblpBs09 = new System.Windows.Forms.Label();
+            this.lblpBs08 = new System.Windows.Forms.Label();
+            this.lblpBs07 = new System.Windows.Forms.Label();
+            this.lblpBs06 = new System.Windows.Forms.Label();
+            this.lblpBs05 = new System.Windows.Forms.Label();
+            this.lblpBs04 = new System.Windows.Forms.Label();
+            this.lblpBs03 = new System.Windows.Forms.Label();
+            this.lblpBs02 = new System.Windows.Forms.Label();
+            this.lblpBs01 = new System.Windows.Forms.Label();
+            this.lblpBr15 = new System.Windows.Forms.Label();
+            this.lblpBr14 = new System.Windows.Forms.Label();
+            this.lblpBr13 = new System.Windows.Forms.Label();
+            this.lblpBr12 = new System.Windows.Forms.Label();
+            this.lblpBr11 = new System.Windows.Forms.Label();
+            this.lblpBr10 = new System.Windows.Forms.Label();
+            this.lblpBr09 = new System.Windows.Forms.Label();
+            this.lblpBr08 = new System.Windows.Forms.Label();
+            this.lblpBr07 = new System.Windows.Forms.Label();
+            this.lblpBr06 = new System.Windows.Forms.Label();
+            this.lblpBr05 = new System.Windows.Forms.Label();
+            this.lblpBr04 = new System.Windows.Forms.Label();
+            this.lblpBr03 = new System.Windows.Forms.Label();
+            this.lblpBr02 = new System.Windows.Forms.Label();
+            this.lblpBr01 = new System.Windows.Forms.Label();
+            this.lblpBc15 = new System.Windows.Forms.Label();
+            this.lblpBc14 = new System.Windows.Forms.Label();
+            this.lblpBc13 = new System.Windows.Forms.Label();
+            this.lblpBc12 = new System.Windows.Forms.Label();
+            this.lblpBc11 = new System.Windows.Forms.Label();
+            this.lblpBc10 = new System.Windows.Forms.Label();
+            this.lblpBc09 = new System.Windows.Forms.Label();
+            this.lblpBc08 = new System.Windows.Forms.Label();
+            this.lblpBc07 = new System.Windows.Forms.Label();
+            this.lblpBc06 = new System.Windows.Forms.Label();
+            this.lblpBc05 = new System.Windows.Forms.Label();
+            this.lblpBc04 = new System.Windows.Forms.Label();
+            this.lblpBc03 = new System.Windows.Forms.Label();
+            this.lblpBc02 = new System.Windows.Forms.Label();
+            this.lblpBc01 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.lblpB15 = new System.Windows.Forms.Label();
+            this.lblpB14 = new System.Windows.Forms.Label();
+            this.lblpB13 = new System.Windows.Forms.Label();
+            this.lblpB12 = new System.Windows.Forms.Label();
+            this.lblpB11 = new System.Windows.Forms.Label();
+            this.lblpB10 = new System.Windows.Forms.Label();
+            this.lblpB09 = new System.Windows.Forms.Label();
+            this.lblpB08 = new System.Windows.Forms.Label();
+            this.lblpB07 = new System.Windows.Forms.Label();
+            this.lblpB06 = new System.Windows.Forms.Label();
+            this.lblpB05 = new System.Windows.Forms.Label();
+            this.lblpB04 = new System.Windows.Forms.Label();
+            this.lblpB03 = new System.Windows.Forms.Label();
+            this.lblpB02 = new System.Windows.Forms.Label();
+            this.lblpB01 = new System.Windows.Forms.Label();
+            this.lblCam15 = new System.Windows.Forms.Label();
+            this.lblCam14 = new System.Windows.Forms.Label();
+            this.pBar14 = new System.Windows.Forms.ProgressBar();
+            this.lblCam13 = new System.Windows.Forms.Label();
+            this.pBar13 = new System.Windows.Forms.ProgressBar();
+            this.lblCam12 = new System.Windows.Forms.Label();
+            this.pBar12 = new System.Windows.Forms.ProgressBar();
+            this.lblCam11 = new System.Windows.Forms.Label();
+            this.pBar11 = new System.Windows.Forms.ProgressBar();
+            this.lblCam10 = new System.Windows.Forms.Label();
+            this.pBar10 = new System.Windows.Forms.ProgressBar();
+            this.lblCam09 = new System.Windows.Forms.Label();
+            this.pBar09 = new System.Windows.Forms.ProgressBar();
+            this.lblCam08 = new System.Windows.Forms.Label();
+            this.pBar08 = new System.Windows.Forms.ProgressBar();
+            this.lblCam07 = new System.Windows.Forms.Label();
+            this.pBar07 = new System.Windows.Forms.ProgressBar();
+            this.lblCam06 = new System.Windows.Forms.Label();
+            this.pBar06 = new System.Windows.Forms.ProgressBar();
+            this.lblCam05 = new System.Windows.Forms.Label();
+            this.pBar05 = new System.Windows.Forms.ProgressBar();
+            this.lblCam04 = new System.Windows.Forms.Label();
+            this.pBar04 = new System.Windows.Forms.ProgressBar();
+            this.lblCam03 = new System.Windows.Forms.Label();
+            this.pBar03 = new System.Windows.Forms.ProgressBar();
+            this.lblCam02 = new System.Windows.Forms.Label();
+            this.pBar02 = new System.Windows.Forms.ProgressBar();
+            this.lblCam01 = new System.Windows.Forms.Label();
+            this.pBar01 = new System.Windows.Forms.ProgressBar();
+            this.btnCerrarPanel = new System.Windows.Forms.Button();
             this.contextMenuStripMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -260,6 +440,21 @@
             this.panelLeyendas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVista)).BeginInit();
             this.panelCamiones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam09)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam08)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam07)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam06)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam05)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam04)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam03)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam02)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam01)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRepCam15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRepCam14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRepCam13)).BeginInit();
@@ -291,6 +486,27 @@
             ((System.ComponentModel.ISupportInitialize)(this.picCam05)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCam01)).BeginInit();
             this.panelDetalles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapa)).BeginInit();
+            this.splitContainerMapa.Panel1.SuspendLayout();
+            this.splitContainerMapa.SuspendLayout();
+            this.panelCamion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs09)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs08)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs07)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs06)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs05)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs04)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs03)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs02)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs01)).BeginInit();
             this.SuspendLayout();
             // 
             // gMapControl1
@@ -301,12 +517,11 @@
             this.gMapControl1.CanDragMap = true;
             this.gMapControl1.ContextMenuStrip = this.contextMenuStripMenu;
             this.gMapControl1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.gMapControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(0, 0);
+            this.gMapControl1.Location = new System.Drawing.Point(16, 32);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 2;
             this.gMapControl1.MinZoom = 2;
@@ -320,7 +535,7 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(1202, 488);
+            this.gMapControl1.Size = new System.Drawing.Size(91, 45);
             this.gMapControl1.TabIndex = 0;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gMapControl1_OnMarkerClick);
@@ -518,11 +733,12 @@
             this.btnRotarIzq.BackColor = System.Drawing.Color.White;
             this.btnRotarIzq.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRotarIzq.Image = ((System.Drawing.Image)(resources.GetObject("btnRotarIzq.Image")));
-            this.btnRotarIzq.Location = new System.Drawing.Point(63, 334);
+            this.btnRotarIzq.Location = new System.Drawing.Point(61, 318);
             this.btnRotarIzq.Name = "btnRotarIzq";
             this.btnRotarIzq.Size = new System.Drawing.Size(50, 50);
             this.btnRotarIzq.TabIndex = 55;
             this.btnRotarIzq.UseVisualStyleBackColor = false;
+            this.btnRotarIzq.Visible = false;
             this.btnRotarIzq.Click += new System.EventHandler(this.btnRotarIzq_Click);
             // 
             // btnRotarDer
@@ -531,7 +747,7 @@
             this.btnRotarDer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRotarDer.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnRotarDer.Image = ((System.Drawing.Image)(resources.GetObject("btnRotarDer.Image")));
-            this.btnRotarDer.Location = new System.Drawing.Point(12, 334);
+            this.btnRotarDer.Location = new System.Drawing.Point(12, 318);
             this.btnRotarDer.Name = "btnRotarDer";
             this.btnRotarDer.Size = new System.Drawing.Size(50, 50);
             this.btnRotarDer.TabIndex = 56;
@@ -736,7 +952,8 @@
             this.camionToolStripMenuItem,
             this.toolStripSeparator13,
             this.planeadoToolStripMenuItem,
-            this.cabezasToolStripMenuItem});
+            this.cabezasToolStripMenuItem,
+            this.servidaToolStripMenuItem});
             this.toolStripSplitButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton3.Image")));
             this.toolStripSplitButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton3.Name = "toolStripSplitButton3";
@@ -784,6 +1001,13 @@
             this.cabezasToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.cabezasToolStripMenuItem.Text = "Cabezas";
             this.cabezasToolStripMenuItem.Click += new System.EventHandler(this.cabezasToolStripMenuItem_Click);
+            // 
+            // servidaToolStripMenuItem
+            // 
+            this.servidaToolStripMenuItem.Name = "servidaToolStripMenuItem";
+            this.servidaToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.servidaToolStripMenuItem.Text = "Servida";
+            this.servidaToolStripMenuItem.Click += new System.EventHandler(this.servidaToolStripMenuItem_Click);
             // 
             // cmbFiltroVista
             // 
@@ -938,7 +1162,7 @@
             // 
             this.cmbCamiones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCamiones.Name = "cmbCamiones";
-            this.cmbCamiones.Size = new System.Drawing.Size(75, 23);
+            this.cmbCamiones.Size = new System.Drawing.Size(75, 33);
             this.cmbCamiones.Visible = false;
             // 
             // toolStripSeparator3
@@ -951,7 +1175,7 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(62, 24);
+            this.toolStripButton4.Size = new System.Drawing.Size(62, 30);
             this.toolStripButton4.Text = "Clima";
             this.toolStripButton4.Visible = false;
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
@@ -959,14 +1183,14 @@
             // lblcmbCamionRuta
             // 
             this.lblcmbCamionRuta.Name = "lblcmbCamionRuta";
-            this.lblcmbCamionRuta.Size = new System.Drawing.Size(49, 15);
+            this.lblcmbCamionRuta.Size = new System.Drawing.Size(49, 30);
             this.lblcmbCamionRuta.Text = "Camion";
             // 
             // cmbCamionRuta
             // 
             this.cmbCamionRuta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCamionRuta.Name = "cmbCamionRuta";
-            this.cmbCamionRuta.Size = new System.Drawing.Size(75, 23);
+            this.cmbCamionRuta.Size = new System.Drawing.Size(75, 33);
             // 
             // btnBuscarcamionruta
             // 
@@ -974,7 +1198,7 @@
             this.btnBuscarcamionruta.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarcamionruta.Image")));
             this.btnBuscarcamionruta.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnBuscarcamionruta.Name = "btnBuscarcamionruta";
-            this.btnBuscarcamionruta.Size = new System.Drawing.Size(24, 24);
+            this.btnBuscarcamionruta.Size = new System.Drawing.Size(24, 30);
             this.btnBuscarcamionruta.Text = "Buscar Camion";
             this.btnBuscarcamionruta.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
@@ -989,7 +1213,7 @@
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton6.Size = new System.Drawing.Size(24, 30);
             this.toolStripButton6.Text = "Reparto";
             this.toolStripButton6.ToolTipText = "Recorrido";
             this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click_1);
@@ -997,7 +1221,7 @@
             // toolStripLabel8
             // 
             this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(28, 15);
+            this.toolStripLabel8.Size = new System.Drawing.Size(28, 30);
             this.toolStripLabel8.Text = "GPS";
             // 
             // toolStripButton9
@@ -1006,7 +1230,7 @@
             this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
             this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton9.Name = "toolStripButton9";
-            this.toolStripButton9.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton9.Size = new System.Drawing.Size(24, 30);
             this.toolStripButton9.Text = "Recorridos";
             this.toolStripButton9.ToolTipText = "Recorridos";
             this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
@@ -1017,7 +1241,7 @@
             this.toolStripButton16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton16.Image")));
             this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton16.Name = "toolStripButton16";
-            this.toolStripButton16.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton16.Size = new System.Drawing.Size(24, 30);
             this.toolStripButton16.Text = "Repartos";
             this.toolStripButton16.Click += new System.EventHandler(this.toolStripButton16_Click);
             // 
@@ -1027,7 +1251,7 @@
             this.toolStripButton12.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton12.Image")));
             this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton12.Name = "toolStripButton12";
-            this.toolStripButton12.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton12.Size = new System.Drawing.Size(24, 30);
             this.toolStripButton12.Text = "toolStripButton12";
             this.toolStripButton12.Visible = false;
             this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
@@ -1038,7 +1262,7 @@
             this.toolStripButton14.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton14.Image")));
             this.toolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton14.Name = "toolStripButton14";
-            this.toolStripButton14.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton14.Size = new System.Drawing.Size(24, 30);
             this.toolStripButton14.Text = "toolStripButton14";
             this.toolStripButton14.ToolTipText = "Recorrido";
             this.toolStripButton14.Visible = false;
@@ -1050,7 +1274,7 @@
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton8.Size = new System.Drawing.Size(24, 30);
             this.toolStripButton8.Text = "Cerrar";
             this.toolStripButton8.ToolTipText = "Cerrar Rutas";
             this.toolStripButton8.Click += new System.EventHandler(this.toolStripButton8_Click);
@@ -1058,7 +1282,7 @@
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(29, 15);
+            this.toolStripLabel3.Size = new System.Drawing.Size(29, 30);
             this.toolStripLabel3.Text = "Serv";
             // 
             // cmbServidas
@@ -1069,33 +1293,33 @@
             "1",
             "2"});
             this.cmbServidas.Name = "cmbServidas";
-            this.cmbServidas.Size = new System.Drawing.Size(75, 23);
+            this.cmbServidas.Size = new System.Drawing.Size(75, 33);
             // 
             // toolStripLabel7
             // 
             this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(32, 15);
+            this.toolStripLabel7.Size = new System.Drawing.Size(32, 30);
             this.toolStripLabel7.Text = "Cam";
             // 
             // cmbCamion
             // 
             this.cmbCamion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCamion.Name = "cmbCamion";
-            this.cmbCamion.Size = new System.Drawing.Size(75, 23);
+            this.cmbCamion.Size = new System.Drawing.Size(75, 33);
             this.cmbCamion.SelectedIndexChanged += new System.EventHandler(this.cmbCamion_SelectedIndexChanged);
             this.cmbCamion.Click += new System.EventHandler(this.cmbCamion_Click);
             // 
             // toolStripLabel4
             // 
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(26, 15);
+            this.toolStripLabel4.Size = new System.Drawing.Size(26, 30);
             this.toolStripLabel4.Text = "Rac";
             // 
             // cmbRaciones
             // 
             this.cmbRaciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRaciones.Name = "cmbRaciones";
-            this.cmbRaciones.Size = new System.Drawing.Size(75, 23);
+            this.cmbRaciones.Size = new System.Drawing.Size(75, 33);
             // 
             // toolStripButton15
             // 
@@ -1119,6 +1343,13 @@
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton18,
+            this.toolStripSeparator26,
+            this.toolStripButton17,
+            this.toolStripButton19,
+            this.toolStripSeparator25,
+            this.toolStripButton21,
+            this.toolStripSeparator27,
             this.lblHora,
             this.lblConectadoF,
             this.toolStripSeparator5,
@@ -1156,12 +1387,71 @@
             this.lblAngulo,
             this.toolStripSeparator24,
             this.lblTimer,
-            this.toolStripSeparator23});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 463);
+            this.toolStripSeparator23,
+            this.lblMsg});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 486);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1202, 25);
             this.toolStrip2.TabIndex = 70;
             this.toolStrip2.Text = "toolStrip2";
+            // 
+            // toolStripButton18
+            // 
+            this.toolStripButton18.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton18.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton18.Image")));
+            this.toolStripButton18.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton18.Name = "toolStripButton18";
+            this.toolStripButton18.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton18.Text = "toolStripButton18";
+            this.toolStripButton18.Click += new System.EventHandler(this.toolStripButton18_Click);
+            // 
+            // toolStripSeparator26
+            // 
+            this.toolStripSeparator26.Name = "toolStripSeparator26";
+            this.toolStripSeparator26.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton17
+            // 
+            this.toolStripButton17.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton17.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton17.Image")));
+            this.toolStripButton17.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton17.Name = "toolStripButton17";
+            this.toolStripButton17.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton17.Text = "toolStripButton17";
+            this.toolStripButton17.ToolTipText = "\r\n";
+            this.toolStripButton17.Click += new System.EventHandler(this.toolStripButton17_Click);
+            // 
+            // toolStripButton19
+            // 
+            this.toolStripButton19.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton19.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton19.Image")));
+            this.toolStripButton19.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton19.Name = "toolStripButton19";
+            this.toolStripButton19.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton19.Text = "toolStripButton19";
+            this.toolStripButton19.ToolTipText = "\r\n";
+            this.toolStripButton19.Click += new System.EventHandler(this.toolStripButton19_Click);
+            // 
+            // toolStripSeparator25
+            // 
+            this.toolStripSeparator25.Name = "toolStripSeparator25";
+            this.toolStripSeparator25.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton21
+            // 
+            this.toolStripButton21.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton21.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton21.Image")));
+            this.toolStripButton21.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton21.Name = "toolStripButton21";
+            this.toolStripButton21.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton21.Text = "toolStripButton21";
+            this.toolStripButton21.ToolTipText = "\r\n";
+            this.toolStripButton21.Click += new System.EventHandler(this.toolStripButton21_Click);
+            // 
+            // toolStripSeparator27
+            // 
+            this.toolStripSeparator27.Name = "toolStripSeparator27";
+            this.toolStripSeparator27.Size = new System.Drawing.Size(6, 25);
             // 
             // lblHora
             // 
@@ -1409,9 +1699,15 @@
             this.toolStripSeparator23.Name = "toolStripSeparator23";
             this.toolStripSeparator23.Size = new System.Drawing.Size(6, 25);
             // 
+            // lblMsg
+            // 
+            this.lblMsg.Name = "lblMsg";
+            this.lblMsg.Size = new System.Drawing.Size(16, 22);
+            this.lblMsg.Text = "...";
+            // 
             // webBClima
             // 
-            this.webBClima.Location = new System.Drawing.Point(145, 322);
+            this.webBClima.Location = new System.Drawing.Point(117, 299);
             this.webBClima.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBClima.Name = "webBClima";
             this.webBClima.ScrollBarsEnabled = false;
@@ -1440,7 +1736,7 @@
             this.panelLeyenda.Controls.Add(this.pictureBox711);
             this.panelLeyenda.Controls.Add(this.label13);
             this.panelLeyenda.Controls.Add(this.pictureBox710);
-            this.panelLeyenda.Location = new System.Drawing.Point(1016, 110);
+            this.panelLeyenda.Location = new System.Drawing.Point(1062, 249);
             this.panelLeyenda.Name = "panelLeyenda";
             this.panelLeyenda.Size = new System.Drawing.Size(136, 234);
             this.panelLeyenda.TabIndex = 78;
@@ -1737,7 +2033,7 @@
             this.panelFecha.Controls.Add(this.btnActualizaFecha);
             this.panelFecha.Controls.Add(this.btnCerrarFecha);
             this.panelFecha.Controls.Add(this.monthCalendar1);
-            this.panelFecha.Location = new System.Drawing.Point(115, 95);
+            this.panelFecha.Location = new System.Drawing.Point(61, 87);
             this.panelFecha.Name = "panelFecha";
             this.panelFecha.Size = new System.Drawing.Size(248, 198);
             this.panelFecha.TabIndex = 83;
@@ -1756,51 +2052,56 @@
             // 
             // chart2
             // 
-            this.chart2.BackColor = System.Drawing.SystemColors.Control;
-            this.chart2.BackImageTransparentColor = System.Drawing.Color.White;
-            this.chart2.BackSecondaryColor = System.Drawing.Color.White;
-            chartArea1.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea1);
-            this.chart2.Location = new System.Drawing.Point(400, 215);
+            this.chart2.BackColor = System.Drawing.Color.Transparent;
+            this.chart2.BackImageTransparentColor = System.Drawing.SystemColors.Control;
+            this.chart2.BackSecondaryColor = System.Drawing.SystemColors.Control;
+            this.chart2.BorderlineColor = System.Drawing.SystemColors.Control;
+            chartArea5.BackColor = System.Drawing.SystemColors.Control;
+            chartArea5.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea5);
+            this.chart2.Location = new System.Drawing.Point(666, 404);
             this.chart2.Name = "chart2";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            series1.Name = "Series1";
-            this.chart2.Series.Add(series1);
-            this.chart2.Size = new System.Drawing.Size(69, 83);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            series6.Name = "Series1";
+            series6.YValuesPerPoint = 4;
+            this.chart2.Series.Add(series6);
+            this.chart2.Size = new System.Drawing.Size(59, 69);
             this.chart2.TabIndex = 85;
             this.chart2.Text = "chart2";
-            title1.Name = "Title1";
-            title1.Text = "Grafico Servido %";
-            this.chart2.Titles.Add(title1);
-            this.chart2.Visible = false;
+            title5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title5.Name = "Title1";
+            title5.Text = "Total";
+            this.chart2.Titles.Add(title5);
             // 
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.SystemColors.Control;
             this.chart1.BackImageTransparentColor = System.Drawing.Color.White;
             this.chart1.BackSecondaryColor = System.Drawing.Color.White;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            this.chart1.Location = new System.Drawing.Point(400, 106);
+            chartArea6.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea6);
+            this.chart1.Location = new System.Drawing.Point(573, 395);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedBar100;
-            series2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            series2.Name = "Series1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedBar100;
-            series3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            series3.Name = "Series2";
-            this.chart1.Series.Add(series2);
-            this.chart1.Series.Add(series3);
-            this.chart1.Size = new System.Drawing.Size(88, 107);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedBar100;
+            series7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            series7.Name = "S1";
+            series7.YValuesPerPoint = 2;
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedBar100;
+            series8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            series8.Name = "S2";
+            this.chart1.Series.Add(series7);
+            this.chart1.Series.Add(series8);
+            this.chart1.Size = new System.Drawing.Size(87, 107);
             this.chart1.TabIndex = 86;
             this.chart1.Text = "chart1";
-            title2.Name = "Title1";
-            title2.Text = "Grafico Camion %";
-            this.chart1.Titles.Add(title2);
+            title6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title6.Name = "Title1";
+            title6.Text = "Camiones";
+            this.chart1.Titles.Add(title6);
             this.chart1.Visible = false;
             // 
             // listBoxLeyendas
@@ -1820,13 +2121,24 @@
             // panelLeyendas
             // 
             this.panelLeyendas.BackColor = System.Drawing.Color.Transparent;
+            this.panelLeyendas.Controls.Add(this.btnOcultarCuadro);
             this.panelLeyendas.Controls.Add(this.dataGridVista);
             this.panelLeyendas.Controls.Add(this.labelLeyendas);
             this.panelLeyendas.Controls.Add(this.listBoxLeyendas);
-            this.panelLeyendas.Location = new System.Drawing.Point(657, 110);
+            this.panelLeyendas.Location = new System.Drawing.Point(922, 74);
             this.panelLeyendas.Name = "panelLeyendas";
             this.panelLeyendas.Size = new System.Drawing.Size(134, 188);
             this.panelLeyendas.TabIndex = 88;
+            // 
+            // btnOcultarCuadro
+            // 
+            this.btnOcultarCuadro.Location = new System.Drawing.Point(99, 3);
+            this.btnOcultarCuadro.Name = "btnOcultarCuadro";
+            this.btnOcultarCuadro.Size = new System.Drawing.Size(32, 24);
+            this.btnOcultarCuadro.TabIndex = 90;
+            this.btnOcultarCuadro.Text = "<<";
+            this.btnOcultarCuadro.UseVisualStyleBackColor = true;
+            this.btnOcultarCuadro.Click += new System.EventHandler(this.btnOcultarCuadro_Click);
             // 
             // dataGridVista
             // 
@@ -1839,14 +2151,14 @@
             this.dataGridVista.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridVista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridVista.ColumnHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridVista.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridVista.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridVista.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridVista.Location = new System.Drawing.Point(0, 33);
             this.dataGridVista.MultiSelect = false;
@@ -1858,6 +2170,7 @@
             this.dataGridVista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridVista.Size = new System.Drawing.Size(134, 155);
             this.dataGridVista.TabIndex = 89;
+            this.dataGridVista.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVista_CellContentClick);
             // 
             // labelLeyendas
             // 
@@ -1878,6 +2191,40 @@
             // panelCamiones
             // 
             this.panelCamiones.BackColor = System.Drawing.Color.Transparent;
+            this.panelCamiones.Controls.Add(this.lblCamPorc);
+            this.panelCamiones.Controls.Add(this.label31);
+            this.panelCamiones.Controls.Add(this.picGpsCam15);
+            this.panelCamiones.Controls.Add(this.picGpsCam14);
+            this.panelCamiones.Controls.Add(this.picGpsCam13);
+            this.panelCamiones.Controls.Add(this.picGpsCam12);
+            this.panelCamiones.Controls.Add(this.picGpsCam11);
+            this.panelCamiones.Controls.Add(this.picGpsCam10);
+            this.panelCamiones.Controls.Add(this.picGpsCam09);
+            this.panelCamiones.Controls.Add(this.picGpsCam08);
+            this.panelCamiones.Controls.Add(this.picGpsCam07);
+            this.panelCamiones.Controls.Add(this.picGpsCam06);
+            this.panelCamiones.Controls.Add(this.picGpsCam05);
+            this.panelCamiones.Controls.Add(this.lbl15);
+            this.panelCamiones.Controls.Add(this.lbl14);
+            this.panelCamiones.Controls.Add(this.lbl13);
+            this.panelCamiones.Controls.Add(this.lbl12);
+            this.panelCamiones.Controls.Add(this.lbl11);
+            this.panelCamiones.Controls.Add(this.lbl10);
+            this.panelCamiones.Controls.Add(this.lbl09);
+            this.panelCamiones.Controls.Add(this.lbl08);
+            this.panelCamiones.Controls.Add(this.lbl07);
+            this.panelCamiones.Controls.Add(this.lbl06);
+            this.panelCamiones.Controls.Add(this.lbl05);
+            this.panelCamiones.Controls.Add(this.picGpsCam04);
+            this.panelCamiones.Controls.Add(this.picGpsCam03);
+            this.panelCamiones.Controls.Add(this.picGpsCam02);
+            this.panelCamiones.Controls.Add(this.lbl04);
+            this.panelCamiones.Controls.Add(this.lbl03);
+            this.panelCamiones.Controls.Add(this.lbl02);
+            this.panelCamiones.Controls.Add(this.picGpsCam01);
+            this.panelCamiones.Controls.Add(this.lbl01);
+            this.panelCamiones.Controls.Add(this.label2);
+            this.panelCamiones.Controls.Add(this.label1);
             this.panelCamiones.Controls.Add(this.picRepCam15);
             this.panelCamiones.Controls.Add(this.picRepCam14);
             this.panelCamiones.Controls.Add(this.picRepCam13);
@@ -1908,19 +2255,404 @@
             this.panelCamiones.Controls.Add(this.picCam03);
             this.panelCamiones.Controls.Add(this.picCam05);
             this.panelCamiones.Controls.Add(this.picCam01);
-            this.panelCamiones.Location = new System.Drawing.Point(345, 385);
+            this.panelCamiones.Location = new System.Drawing.Point(12, 378);
             this.panelCamiones.Name = "panelCamiones";
-            this.panelCamiones.Size = new System.Drawing.Size(469, 30);
+            this.panelCamiones.Size = new System.Drawing.Size(529, 95);
             this.panelCamiones.TabIndex = 89;
+            // 
+            // lblCamPorc
+            // 
+            this.lblCamPorc.AutoSize = true;
+            this.lblCamPorc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCamPorc.Location = new System.Drawing.Point(6, 3);
+            this.lblCamPorc.Name = "lblCamPorc";
+            this.lblCamPorc.Size = new System.Drawing.Size(28, 17);
+            this.lblCamPorc.TabIndex = 135;
+            this.lblCamPorc.Text = "0%";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(39, 1);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(22, 7);
+            this.label31.TabIndex = 134;
+            this.label31.Text = "Cam";
+            // 
+            // picGpsCam15
+            // 
+            this.picGpsCam15.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam15.Location = new System.Drawing.Point(490, 13);
+            this.picGpsCam15.Name = "picGpsCam15";
+            this.picGpsCam15.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam15.TabIndex = 133;
+            this.picGpsCam15.TabStop = false;
+            // 
+            // picGpsCam14
+            // 
+            this.picGpsCam14.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam14.Location = new System.Drawing.Point(460, 13);
+            this.picGpsCam14.Name = "picGpsCam14";
+            this.picGpsCam14.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam14.TabIndex = 132;
+            this.picGpsCam14.TabStop = false;
+            // 
+            // picGpsCam13
+            // 
+            this.picGpsCam13.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam13.Location = new System.Drawing.Point(430, 13);
+            this.picGpsCam13.Name = "picGpsCam13";
+            this.picGpsCam13.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam13.TabIndex = 131;
+            this.picGpsCam13.TabStop = false;
+            // 
+            // picGpsCam12
+            // 
+            this.picGpsCam12.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam12.Location = new System.Drawing.Point(400, 13);
+            this.picGpsCam12.Name = "picGpsCam12";
+            this.picGpsCam12.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam12.TabIndex = 130;
+            this.picGpsCam12.TabStop = false;
+            // 
+            // picGpsCam11
+            // 
+            this.picGpsCam11.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam11.Location = new System.Drawing.Point(370, 13);
+            this.picGpsCam11.Name = "picGpsCam11";
+            this.picGpsCam11.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam11.TabIndex = 129;
+            this.picGpsCam11.TabStop = false;
+            // 
+            // picGpsCam10
+            // 
+            this.picGpsCam10.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam10.Location = new System.Drawing.Point(340, 13);
+            this.picGpsCam10.Name = "picGpsCam10";
+            this.picGpsCam10.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam10.TabIndex = 128;
+            this.picGpsCam10.TabStop = false;
+            // 
+            // picGpsCam09
+            // 
+            this.picGpsCam09.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam09.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam09.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam09.Location = new System.Drawing.Point(310, 13);
+            this.picGpsCam09.Name = "picGpsCam09";
+            this.picGpsCam09.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam09.TabIndex = 127;
+            this.picGpsCam09.TabStop = false;
+            // 
+            // picGpsCam08
+            // 
+            this.picGpsCam08.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam08.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam08.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam08.Location = new System.Drawing.Point(280, 13);
+            this.picGpsCam08.Name = "picGpsCam08";
+            this.picGpsCam08.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam08.TabIndex = 126;
+            this.picGpsCam08.TabStop = false;
+            // 
+            // picGpsCam07
+            // 
+            this.picGpsCam07.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam07.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam07.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam07.Location = new System.Drawing.Point(250, 13);
+            this.picGpsCam07.Name = "picGpsCam07";
+            this.picGpsCam07.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam07.TabIndex = 125;
+            this.picGpsCam07.TabStop = false;
+            // 
+            // picGpsCam06
+            // 
+            this.picGpsCam06.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam06.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam06.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam06.Location = new System.Drawing.Point(220, 13);
+            this.picGpsCam06.Name = "picGpsCam06";
+            this.picGpsCam06.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam06.TabIndex = 124;
+            this.picGpsCam06.TabStop = false;
+            // 
+            // picGpsCam05
+            // 
+            this.picGpsCam05.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam05.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam05.Location = new System.Drawing.Point(190, 13);
+            this.picGpsCam05.Name = "picGpsCam05";
+            this.picGpsCam05.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam05.TabIndex = 123;
+            this.picGpsCam05.TabStop = false;
+            // 
+            // lbl15
+            // 
+            this.lbl15.AutoSize = true;
+            this.lbl15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl15.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl15.Location = new System.Drawing.Point(495, 2);
+            this.lbl15.Name = "lbl15";
+            this.lbl15.Size = new System.Drawing.Size(14, 7);
+            this.lbl15.TabIndex = 122;
+            this.lbl15.Text = "15";
+            this.lbl15.Click += new System.EventHandler(this.lbl15_Click);
+            // 
+            // lbl14
+            // 
+            this.lbl14.AutoSize = true;
+            this.lbl14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl14.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl14.Location = new System.Drawing.Point(464, 2);
+            this.lbl14.Name = "lbl14";
+            this.lbl14.Size = new System.Drawing.Size(14, 7);
+            this.lbl14.TabIndex = 121;
+            this.lbl14.Text = "14";
+            this.lbl14.Click += new System.EventHandler(this.lbl14_Click);
+            // 
+            // lbl13
+            // 
+            this.lbl13.AutoSize = true;
+            this.lbl13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl13.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl13.Location = new System.Drawing.Point(435, 2);
+            this.lbl13.Name = "lbl13";
+            this.lbl13.Size = new System.Drawing.Size(14, 7);
+            this.lbl13.TabIndex = 120;
+            this.lbl13.Text = "13";
+            this.lbl13.Click += new System.EventHandler(this.lbl13_Click);
+            // 
+            // lbl12
+            // 
+            this.lbl12.AutoSize = true;
+            this.lbl12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl12.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl12.Location = new System.Drawing.Point(407, 2);
+            this.lbl12.Name = "lbl12";
+            this.lbl12.Size = new System.Drawing.Size(14, 7);
+            this.lbl12.TabIndex = 119;
+            this.lbl12.Text = "12";
+            this.lbl12.Click += new System.EventHandler(this.lbl12_Click);
+            // 
+            // lbl11
+            // 
+            this.lbl11.AutoSize = true;
+            this.lbl11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl11.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl11.Location = new System.Drawing.Point(376, 2);
+            this.lbl11.Name = "lbl11";
+            this.lbl11.Size = new System.Drawing.Size(14, 7);
+            this.lbl11.TabIndex = 118;
+            this.lbl11.Text = "11";
+            this.lbl11.Click += new System.EventHandler(this.lbl11_Click);
+            // 
+            // lbl10
+            // 
+            this.lbl10.AutoSize = true;
+            this.lbl10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl10.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl10.Location = new System.Drawing.Point(346, 2);
+            this.lbl10.Name = "lbl10";
+            this.lbl10.Size = new System.Drawing.Size(14, 7);
+            this.lbl10.TabIndex = 117;
+            this.lbl10.Text = "10";
+            this.lbl10.Click += new System.EventHandler(this.lbl10_Click);
+            // 
+            // lbl09
+            // 
+            this.lbl09.AutoSize = true;
+            this.lbl09.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl09.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl09.Location = new System.Drawing.Point(319, 2);
+            this.lbl09.Name = "lbl09";
+            this.lbl09.Size = new System.Drawing.Size(9, 7);
+            this.lbl09.TabIndex = 116;
+            this.lbl09.Text = "9";
+            this.lbl09.Click += new System.EventHandler(this.lbl09_Click);
+            // 
+            // lbl08
+            // 
+            this.lbl08.AutoSize = true;
+            this.lbl08.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl08.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl08.Location = new System.Drawing.Point(288, 2);
+            this.lbl08.Name = "lbl08";
+            this.lbl08.Size = new System.Drawing.Size(9, 7);
+            this.lbl08.TabIndex = 115;
+            this.lbl08.Text = "8";
+            this.lbl08.Click += new System.EventHandler(this.lbl08_Click);
+            // 
+            // lbl07
+            // 
+            this.lbl07.AutoSize = true;
+            this.lbl07.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl07.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl07.Location = new System.Drawing.Point(258, 2);
+            this.lbl07.Name = "lbl07";
+            this.lbl07.Size = new System.Drawing.Size(9, 7);
+            this.lbl07.TabIndex = 114;
+            this.lbl07.Text = "7";
+            this.lbl07.Click += new System.EventHandler(this.lbl07_Click);
+            // 
+            // lbl06
+            // 
+            this.lbl06.AutoSize = true;
+            this.lbl06.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl06.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl06.Location = new System.Drawing.Point(230, 2);
+            this.lbl06.Name = "lbl06";
+            this.lbl06.Size = new System.Drawing.Size(9, 7);
+            this.lbl06.TabIndex = 113;
+            this.lbl06.Text = "6";
+            this.lbl06.Click += new System.EventHandler(this.lbl06_Click);
+            // 
+            // lbl05
+            // 
+            this.lbl05.AutoSize = true;
+            this.lbl05.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl05.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl05.Location = new System.Drawing.Point(199, 2);
+            this.lbl05.Name = "lbl05";
+            this.lbl05.Size = new System.Drawing.Size(9, 7);
+            this.lbl05.TabIndex = 112;
+            this.lbl05.Text = "5";
+            this.lbl05.Click += new System.EventHandler(this.lbl05_Click);
+            // 
+            // picGpsCam04
+            // 
+            this.picGpsCam04.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam04.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam04.Location = new System.Drawing.Point(160, 13);
+            this.picGpsCam04.Name = "picGpsCam04";
+            this.picGpsCam04.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam04.TabIndex = 111;
+            this.picGpsCam04.TabStop = false;
+            // 
+            // picGpsCam03
+            // 
+            this.picGpsCam03.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam03.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam03.Location = new System.Drawing.Point(130, 13);
+            this.picGpsCam03.Name = "picGpsCam03";
+            this.picGpsCam03.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam03.TabIndex = 110;
+            this.picGpsCam03.TabStop = false;
+            // 
+            // picGpsCam02
+            // 
+            this.picGpsCam02.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam02.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam02.Location = new System.Drawing.Point(100, 13);
+            this.picGpsCam02.Name = "picGpsCam02";
+            this.picGpsCam02.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam02.TabIndex = 109;
+            this.picGpsCam02.TabStop = false;
+            // 
+            // lbl04
+            // 
+            this.lbl04.AutoSize = true;
+            this.lbl04.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl04.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl04.Location = new System.Drawing.Point(168, 2);
+            this.lbl04.Name = "lbl04";
+            this.lbl04.Size = new System.Drawing.Size(9, 7);
+            this.lbl04.TabIndex = 108;
+            this.lbl04.Text = "4";
+            this.lbl04.Click += new System.EventHandler(this.lbl04_Click);
+            // 
+            // lbl03
+            // 
+            this.lbl03.AutoSize = true;
+            this.lbl03.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl03.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl03.Location = new System.Drawing.Point(138, 2);
+            this.lbl03.Name = "lbl03";
+            this.lbl03.Size = new System.Drawing.Size(9, 7);
+            this.lbl03.TabIndex = 107;
+            this.lbl03.Text = "3";
+            this.lbl03.Click += new System.EventHandler(this.lbl03_Click);
+            // 
+            // lbl02
+            // 
+            this.lbl02.AutoSize = true;
+            this.lbl02.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl02.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl02.Location = new System.Drawing.Point(109, 2);
+            this.lbl02.Name = "lbl02";
+            this.lbl02.Size = new System.Drawing.Size(9, 7);
+            this.lbl02.TabIndex = 106;
+            this.lbl02.Text = "2";
+            this.lbl02.Click += new System.EventHandler(this.lbl02_Click);
+            // 
+            // picGpsCam01
+            // 
+            this.picGpsCam01.BackColor = System.Drawing.Color.Transparent;
+            this.picGpsCam01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picGpsCam01.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGpsCam01.Location = new System.Drawing.Point(70, 13);
+            this.picGpsCam01.Name = "picGpsCam01";
+            this.picGpsCam01.Size = new System.Drawing.Size(27, 4);
+            this.picGpsCam01.TabIndex = 105;
+            this.picGpsCam01.TabStop = false;
+            // 
+            // lbl01
+            // 
+            this.lbl01.AutoSize = true;
+            this.lbl01.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl01.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl01.Location = new System.Drawing.Point(78, 2);
+            this.lbl01.Name = "lbl01";
+            this.lbl01.Size = new System.Drawing.Size(9, 7);
+            this.lbl01.TabIndex = 104;
+            this.lbl01.Text = "1";
+            this.lbl01.Click += new System.EventHandler(this.lbl01_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(41, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 7);
+            this.label2.TabIndex = 103;
+            this.label2.Text = "Gps";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(39, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(23, 7);
+            this.label1.TabIndex = 102;
+            this.label1.Text = "Dato";
             // 
             // picRepCam15
             // 
             this.picRepCam15.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam15.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam15.Location = new System.Drawing.Point(429, 0);
+            this.picRepCam15.Location = new System.Drawing.Point(490, 10);
             this.picRepCam15.Name = "picRepCam15";
-            this.picRepCam15.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam15.Size = new System.Drawing.Size(27, 4);
             this.picRepCam15.TabIndex = 101;
             this.picRepCam15.TabStop = false;
             // 
@@ -1929,9 +2661,9 @@
             this.picRepCam14.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam14.Location = new System.Drawing.Point(399, 0);
+            this.picRepCam14.Location = new System.Drawing.Point(460, 10);
             this.picRepCam14.Name = "picRepCam14";
-            this.picRepCam14.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam14.Size = new System.Drawing.Size(27, 4);
             this.picRepCam14.TabIndex = 100;
             this.picRepCam14.TabStop = false;
             // 
@@ -1940,9 +2672,9 @@
             this.picRepCam13.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam13.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam13.Location = new System.Drawing.Point(369, 0);
+            this.picRepCam13.Location = new System.Drawing.Point(430, 10);
             this.picRepCam13.Name = "picRepCam13";
-            this.picRepCam13.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam13.Size = new System.Drawing.Size(27, 4);
             this.picRepCam13.TabIndex = 99;
             this.picRepCam13.TabStop = false;
             // 
@@ -1951,9 +2683,9 @@
             this.picRepCam12.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam12.Location = new System.Drawing.Point(339, 0);
+            this.picRepCam12.Location = new System.Drawing.Point(400, 10);
             this.picRepCam12.Name = "picRepCam12";
-            this.picRepCam12.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam12.Size = new System.Drawing.Size(27, 4);
             this.picRepCam12.TabIndex = 98;
             this.picRepCam12.TabStop = false;
             // 
@@ -1962,9 +2694,9 @@
             this.picRepCam11.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam11.Location = new System.Drawing.Point(309, 0);
+            this.picRepCam11.Location = new System.Drawing.Point(370, 10);
             this.picRepCam11.Name = "picRepCam11";
-            this.picRepCam11.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam11.Size = new System.Drawing.Size(27, 4);
             this.picRepCam11.TabIndex = 97;
             this.picRepCam11.TabStop = false;
             // 
@@ -1973,9 +2705,9 @@
             this.picRepCam08.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam08.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam08.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam08.Location = new System.Drawing.Point(219, 0);
+            this.picRepCam08.Location = new System.Drawing.Point(280, 10);
             this.picRepCam08.Name = "picRepCam08";
-            this.picRepCam08.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam08.Size = new System.Drawing.Size(27, 4);
             this.picRepCam08.TabIndex = 98;
             this.picRepCam08.TabStop = false;
             // 
@@ -1984,9 +2716,9 @@
             this.picRepCam10.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam10.Location = new System.Drawing.Point(279, 0);
+            this.picRepCam10.Location = new System.Drawing.Point(340, 10);
             this.picRepCam10.Name = "picRepCam10";
-            this.picRepCam10.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam10.Size = new System.Drawing.Size(27, 4);
             this.picRepCam10.TabIndex = 96;
             this.picRepCam10.TabStop = false;
             // 
@@ -1995,9 +2727,9 @@
             this.picRepCam07.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam07.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam07.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam07.Location = new System.Drawing.Point(189, 0);
+            this.picRepCam07.Location = new System.Drawing.Point(250, 10);
             this.picRepCam07.Name = "picRepCam07";
-            this.picRepCam07.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam07.Size = new System.Drawing.Size(27, 4);
             this.picRepCam07.TabIndex = 97;
             this.picRepCam07.TabStop = false;
             // 
@@ -2006,9 +2738,9 @@
             this.picRepCam09.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam09.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam09.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam09.Location = new System.Drawing.Point(249, 0);
+            this.picRepCam09.Location = new System.Drawing.Point(310, 10);
             this.picRepCam09.Name = "picRepCam09";
-            this.picRepCam09.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam09.Size = new System.Drawing.Size(27, 4);
             this.picRepCam09.TabIndex = 95;
             this.picRepCam09.TabStop = false;
             // 
@@ -2017,9 +2749,9 @@
             this.picRepCam06.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam06.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam06.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam06.Location = new System.Drawing.Point(159, 0);
+            this.picRepCam06.Location = new System.Drawing.Point(220, 10);
             this.picRepCam06.Name = "picRepCam06";
-            this.picRepCam06.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam06.Size = new System.Drawing.Size(27, 4);
             this.picRepCam06.TabIndex = 96;
             this.picRepCam06.TabStop = false;
             // 
@@ -2028,9 +2760,9 @@
             this.picRepCam05.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam05.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam05.Location = new System.Drawing.Point(129, 0);
+            this.picRepCam05.Location = new System.Drawing.Point(190, 10);
             this.picRepCam05.Name = "picRepCam05";
-            this.picRepCam05.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam05.Size = new System.Drawing.Size(27, 4);
             this.picRepCam05.TabIndex = 95;
             this.picRepCam05.TabStop = false;
             // 
@@ -2039,9 +2771,9 @@
             this.picRepCam04.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam04.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam04.Location = new System.Drawing.Point(99, 0);
+            this.picRepCam04.Location = new System.Drawing.Point(160, 10);
             this.picRepCam04.Name = "picRepCam04";
-            this.picRepCam04.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam04.Size = new System.Drawing.Size(27, 4);
             this.picRepCam04.TabIndex = 94;
             this.picRepCam04.TabStop = false;
             // 
@@ -2050,9 +2782,9 @@
             this.picRepCam03.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam03.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam03.Location = new System.Drawing.Point(69, 0);
+            this.picRepCam03.Location = new System.Drawing.Point(130, 10);
             this.picRepCam03.Name = "picRepCam03";
-            this.picRepCam03.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam03.Size = new System.Drawing.Size(27, 4);
             this.picRepCam03.TabIndex = 93;
             this.picRepCam03.TabStop = false;
             // 
@@ -2061,9 +2793,9 @@
             this.picRepCam02.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam02.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam02.Location = new System.Drawing.Point(39, 0);
+            this.picRepCam02.Location = new System.Drawing.Point(100, 10);
             this.picRepCam02.Name = "picRepCam02";
-            this.picRepCam02.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam02.Size = new System.Drawing.Size(27, 4);
             this.picRepCam02.TabIndex = 92;
             this.picRepCam02.TabStop = false;
             // 
@@ -2072,17 +2804,18 @@
             this.picRepCam01.BackColor = System.Drawing.Color.Transparent;
             this.picRepCam01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepCam01.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picRepCam01.Location = new System.Drawing.Point(9, 0);
+            this.picRepCam01.Location = new System.Drawing.Point(70, 10);
             this.picRepCam01.Name = "picRepCam01";
-            this.picRepCam01.Size = new System.Drawing.Size(27, 6);
+            this.picRepCam01.Size = new System.Drawing.Size(27, 4);
             this.picRepCam01.TabIndex = 91;
             this.picRepCam01.TabStop = false;
+            this.picRepCam01.Click += new System.EventHandler(this.picRepCam01_Click);
             // 
             // picCam14
             // 
             this.picCam14.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam14.Image = ((System.Drawing.Image)(resources.GetObject("picCam14.Image")));
-            this.picCam14.Location = new System.Drawing.Point(397, 4);
+            this.picCam14.Location = new System.Drawing.Point(456, 62);
             this.picCam14.Name = "picCam14";
             this.picCam14.Size = new System.Drawing.Size(31, 24);
             this.picCam14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2094,7 +2827,7 @@
             // 
             this.picCam15.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam15.Image = ((System.Drawing.Image)(resources.GetObject("picCam15.Image")));
-            this.picCam15.Location = new System.Drawing.Point(427, 4);
+            this.picCam15.Location = new System.Drawing.Point(486, 62);
             this.picCam15.Name = "picCam15";
             this.picCam15.Size = new System.Drawing.Size(31, 24);
             this.picCam15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2106,7 +2839,7 @@
             // 
             this.picCam13.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam13.Image = ((System.Drawing.Image)(resources.GetObject("picCam13.Image")));
-            this.picCam13.Location = new System.Drawing.Point(367, 4);
+            this.picCam13.Location = new System.Drawing.Point(426, 62);
             this.picCam13.Name = "picCam13";
             this.picCam13.Size = new System.Drawing.Size(31, 24);
             this.picCam13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2118,7 +2851,7 @@
             // 
             this.picCam11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam11.Image = ((System.Drawing.Image)(resources.GetObject("picCam11.Image")));
-            this.picCam11.Location = new System.Drawing.Point(307, 4);
+            this.picCam11.Location = new System.Drawing.Point(366, 62);
             this.picCam11.Name = "picCam11";
             this.picCam11.Size = new System.Drawing.Size(31, 24);
             this.picCam11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2130,7 +2863,7 @@
             // 
             this.picCam12.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam12.Image = ((System.Drawing.Image)(resources.GetObject("picCam12.Image")));
-            this.picCam12.Location = new System.Drawing.Point(337, 4);
+            this.picCam12.Location = new System.Drawing.Point(396, 62);
             this.picCam12.Name = "picCam12";
             this.picCam12.Size = new System.Drawing.Size(31, 24);
             this.picCam12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2142,7 +2875,7 @@
             // 
             this.picCam10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam10.Image = ((System.Drawing.Image)(resources.GetObject("picCam10.Image")));
-            this.picCam10.Location = new System.Drawing.Point(277, 4);
+            this.picCam10.Location = new System.Drawing.Point(336, 62);
             this.picCam10.Name = "picCam10";
             this.picCam10.Size = new System.Drawing.Size(31, 24);
             this.picCam10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2154,7 +2887,7 @@
             // 
             this.picCam08.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam08.Image = ((System.Drawing.Image)(resources.GetObject("picCam08.Image")));
-            this.picCam08.Location = new System.Drawing.Point(217, 4);
+            this.picCam08.Location = new System.Drawing.Point(276, 62);
             this.picCam08.Name = "picCam08";
             this.picCam08.Size = new System.Drawing.Size(31, 24);
             this.picCam08.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2166,7 +2899,7 @@
             // 
             this.picCam09.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam09.Image = ((System.Drawing.Image)(resources.GetObject("picCam09.Image")));
-            this.picCam09.Location = new System.Drawing.Point(247, 4);
+            this.picCam09.Location = new System.Drawing.Point(306, 62);
             this.picCam09.Name = "picCam09";
             this.picCam09.Size = new System.Drawing.Size(31, 24);
             this.picCam09.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2178,7 +2911,7 @@
             // 
             this.picCam07.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam07.Image = ((System.Drawing.Image)(resources.GetObject("picCam07.Image")));
-            this.picCam07.Location = new System.Drawing.Point(187, 4);
+            this.picCam07.Location = new System.Drawing.Point(246, 62);
             this.picCam07.Name = "picCam07";
             this.picCam07.Size = new System.Drawing.Size(31, 24);
             this.picCam07.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2190,7 +2923,7 @@
             // 
             this.picCam04.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam04.Image = ((System.Drawing.Image)(resources.GetObject("picCam04.Image")));
-            this.picCam04.Location = new System.Drawing.Point(97, 4);
+            this.picCam04.Location = new System.Drawing.Point(156, 62);
             this.picCam04.Name = "picCam04";
             this.picCam04.Size = new System.Drawing.Size(31, 24);
             this.picCam04.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2202,7 +2935,7 @@
             // 
             this.picCam06.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam06.Image = ((System.Drawing.Image)(resources.GetObject("picCam06.Image")));
-            this.picCam06.Location = new System.Drawing.Point(157, 4);
+            this.picCam06.Location = new System.Drawing.Point(216, 62);
             this.picCam06.Name = "picCam06";
             this.picCam06.Size = new System.Drawing.Size(31, 24);
             this.picCam06.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2214,7 +2947,7 @@
             // 
             this.picCam02.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam02.Image = ((System.Drawing.Image)(resources.GetObject("picCam02.Image")));
-            this.picCam02.Location = new System.Drawing.Point(37, 4);
+            this.picCam02.Location = new System.Drawing.Point(96, 62);
             this.picCam02.Name = "picCam02";
             this.picCam02.Size = new System.Drawing.Size(31, 24);
             this.picCam02.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2226,7 +2959,7 @@
             // 
             this.picCam03.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam03.Image = ((System.Drawing.Image)(resources.GetObject("picCam03.Image")));
-            this.picCam03.Location = new System.Drawing.Point(67, 4);
+            this.picCam03.Location = new System.Drawing.Point(126, 62);
             this.picCam03.Name = "picCam03";
             this.picCam03.Size = new System.Drawing.Size(31, 24);
             this.picCam03.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2238,7 +2971,7 @@
             // 
             this.picCam05.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam05.Image = ((System.Drawing.Image)(resources.GetObject("picCam05.Image")));
-            this.picCam05.Location = new System.Drawing.Point(127, 4);
+            this.picCam05.Location = new System.Drawing.Point(186, 62);
             this.picCam05.Name = "picCam05";
             this.picCam05.Size = new System.Drawing.Size(31, 24);
             this.picCam05.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2250,7 +2983,7 @@
             // 
             this.picCam01.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picCam01.Image = ((System.Drawing.Image)(resources.GetObject("picCam01.Image")));
-            this.picCam01.Location = new System.Drawing.Point(7, 4);
+            this.picCam01.Location = new System.Drawing.Point(66, 62);
             this.picCam01.Name = "picCam01";
             this.picCam01.Size = new System.Drawing.Size(31, 24);
             this.picCam01.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -2262,7 +2995,7 @@
             // 
             this.panelDetalles.Controls.Add(this.labelDetalles);
             this.panelDetalles.Controls.Add(this.lblDetalles);
-            this.panelDetalles.Location = new System.Drawing.Point(836, 138);
+            this.panelDetalles.Location = new System.Drawing.Point(919, 275);
             this.panelDetalles.Name = "panelDetalles";
             this.panelDetalles.Size = new System.Drawing.Size(137, 206);
             this.panelDetalles.TabIndex = 90;
@@ -2297,28 +3030,1499 @@
             // 
             // colorDialog1
             // 
-            this.colorDialog1.AllowFullOpen = false;
+            this.colorDialog1.AnyColor = true;
+            this.colorDialog1.SolidColorOnly = true;
+            // 
+            // chart3
+            // 
+            this.chart3.BackColor = System.Drawing.Color.Transparent;
+            this.chart3.BackImageTransparentColor = System.Drawing.SystemColors.Control;
+            this.chart3.BackSecondaryColor = System.Drawing.SystemColors.Control;
+            this.chart3.BorderlineColor = System.Drawing.SystemColors.Control;
+            chartArea7.BackColor = System.Drawing.SystemColors.Control;
+            chartArea7.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea7);
+            this.chart3.Location = new System.Drawing.Point(741, 404);
+            this.chart3.Name = "chart3";
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            series9.Legend = "Legend1";
+            series9.Name = "Series1";
+            series9.YValuesPerPoint = 4;
+            this.chart3.Series.Add(series9);
+            this.chart3.Size = new System.Drawing.Size(46, 73);
+            this.chart3.TabIndex = 91;
+            this.chart3.Text = "chart3";
+            title7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title7.Name = "Title1";
+            title7.Text = "Clasicos";
+            this.chart3.Titles.Add(title7);
+            // 
+            // chart4
+            // 
+            this.chart4.BackColor = System.Drawing.Color.Transparent;
+            this.chart4.BackImageTransparentColor = System.Drawing.SystemColors.Control;
+            this.chart4.BackSecondaryColor = System.Drawing.SystemColors.Control;
+            this.chart4.BorderlineColor = System.Drawing.SystemColors.Control;
+            chartArea8.BackColor = System.Drawing.SystemColors.Control;
+            chartArea8.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea8);
+            this.chart4.Location = new System.Drawing.Point(805, 404);
+            this.chart4.Name = "chart4";
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            series10.Name = "Series1";
+            series10.YValuesPerPoint = 4;
+            this.chart4.Series.Add(series10);
+            this.chart4.Size = new System.Drawing.Size(56, 73);
+            this.chart4.TabIndex = 92;
+            this.chart4.Text = "chart4";
+            title8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title8.Name = "Title1";
+            title8.Text = "Ecologicos";
+            this.chart4.Titles.Add(title8);
+            // 
+            // splitContainerMapa
+            // 
+            this.splitContainerMapa.Location = new System.Drawing.Point(322, 84);
+            this.splitContainerMapa.Name = "splitContainerMapa";
+            // 
+            // splitContainerMapa.Panel1
+            // 
+            this.splitContainerMapa.Panel1.Controls.Add(this.gMapControl1);
+            // 
+            // splitContainerMapa.Panel2
+            // 
+            this.splitContainerMapa.Panel2.AutoScroll = true;
+            this.splitContainerMapa.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerMapa.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerMapa_Panel2_Paint);
+            this.splitContainerMapa.Size = new System.Drawing.Size(227, 211);
+            this.splitContainerMapa.SplitterDistance = 187;
+            this.splitContainerMapa.SplitterWidth = 15;
+            this.splitContainerMapa.TabIndex = 93;
+            // 
+            // panelCamion
+            // 
+            this.panelCamion.Controls.Add(this.label34);
+            this.panelCamion.Controls.Add(this.label33);
+            this.panelCamion.Controls.Add(this.lblpBb15);
+            this.panelCamion.Controls.Add(this.lblpBb14);
+            this.panelCamion.Controls.Add(this.lblpBb13);
+            this.panelCamion.Controls.Add(this.lblpBb12);
+            this.panelCamion.Controls.Add(this.lblpBb11);
+            this.panelCamion.Controls.Add(this.lblpBb10);
+            this.panelCamion.Controls.Add(this.lblpBb09);
+            this.panelCamion.Controls.Add(this.lblpBb08);
+            this.panelCamion.Controls.Add(this.lblpBb07);
+            this.panelCamion.Controls.Add(this.lblpBb06);
+            this.panelCamion.Controls.Add(this.lblpBb05);
+            this.panelCamion.Controls.Add(this.lblpBb04);
+            this.panelCamion.Controls.Add(this.lblpBb03);
+            this.panelCamion.Controls.Add(this.lblpBb02);
+            this.panelCamion.Controls.Add(this.lblpBb01);
+            this.panelCamion.Controls.Add(this.pBar15);
+            this.panelCamion.Controls.Add(this.label32);
+            this.panelCamion.Controls.Add(this.label30);
+            this.panelCamion.Controls.Add(this.picBs15);
+            this.panelCamion.Controls.Add(this.picBs14);
+            this.panelCamion.Controls.Add(this.picBs13);
+            this.panelCamion.Controls.Add(this.picBs12);
+            this.panelCamion.Controls.Add(this.picBs11);
+            this.panelCamion.Controls.Add(this.picBs10);
+            this.panelCamion.Controls.Add(this.picBs09);
+            this.panelCamion.Controls.Add(this.picBs08);
+            this.panelCamion.Controls.Add(this.picBs07);
+            this.panelCamion.Controls.Add(this.picBs06);
+            this.panelCamion.Controls.Add(this.picBs05);
+            this.panelCamion.Controls.Add(this.picBs04);
+            this.panelCamion.Controls.Add(this.picBs03);
+            this.panelCamion.Controls.Add(this.picBs02);
+            this.panelCamion.Controls.Add(this.picBs01);
+            this.panelCamion.Controls.Add(this.lblpBs15);
+            this.panelCamion.Controls.Add(this.lblpBs14);
+            this.panelCamion.Controls.Add(this.lblpBs13);
+            this.panelCamion.Controls.Add(this.lblpBs12);
+            this.panelCamion.Controls.Add(this.lblpBs11);
+            this.panelCamion.Controls.Add(this.lblpBs10);
+            this.panelCamion.Controls.Add(this.lblpBs09);
+            this.panelCamion.Controls.Add(this.lblpBs08);
+            this.panelCamion.Controls.Add(this.lblpBs07);
+            this.panelCamion.Controls.Add(this.lblpBs06);
+            this.panelCamion.Controls.Add(this.lblpBs05);
+            this.panelCamion.Controls.Add(this.lblpBs04);
+            this.panelCamion.Controls.Add(this.lblpBs03);
+            this.panelCamion.Controls.Add(this.lblpBs02);
+            this.panelCamion.Controls.Add(this.lblpBs01);
+            this.panelCamion.Controls.Add(this.lblpBr15);
+            this.panelCamion.Controls.Add(this.lblpBr14);
+            this.panelCamion.Controls.Add(this.lblpBr13);
+            this.panelCamion.Controls.Add(this.lblpBr12);
+            this.panelCamion.Controls.Add(this.lblpBr11);
+            this.panelCamion.Controls.Add(this.lblpBr10);
+            this.panelCamion.Controls.Add(this.lblpBr09);
+            this.panelCamion.Controls.Add(this.lblpBr08);
+            this.panelCamion.Controls.Add(this.lblpBr07);
+            this.panelCamion.Controls.Add(this.lblpBr06);
+            this.panelCamion.Controls.Add(this.lblpBr05);
+            this.panelCamion.Controls.Add(this.lblpBr04);
+            this.panelCamion.Controls.Add(this.lblpBr03);
+            this.panelCamion.Controls.Add(this.lblpBr02);
+            this.panelCamion.Controls.Add(this.lblpBr01);
+            this.panelCamion.Controls.Add(this.lblpBc15);
+            this.panelCamion.Controls.Add(this.lblpBc14);
+            this.panelCamion.Controls.Add(this.lblpBc13);
+            this.panelCamion.Controls.Add(this.lblpBc12);
+            this.panelCamion.Controls.Add(this.lblpBc11);
+            this.panelCamion.Controls.Add(this.lblpBc10);
+            this.panelCamion.Controls.Add(this.lblpBc09);
+            this.panelCamion.Controls.Add(this.lblpBc08);
+            this.panelCamion.Controls.Add(this.lblpBc07);
+            this.panelCamion.Controls.Add(this.lblpBc06);
+            this.panelCamion.Controls.Add(this.lblpBc05);
+            this.panelCamion.Controls.Add(this.lblpBc04);
+            this.panelCamion.Controls.Add(this.lblpBc03);
+            this.panelCamion.Controls.Add(this.lblpBc02);
+            this.panelCamion.Controls.Add(this.lblpBc01);
+            this.panelCamion.Controls.Add(this.label29);
+            this.panelCamion.Controls.Add(this.lblpB15);
+            this.panelCamion.Controls.Add(this.lblpB14);
+            this.panelCamion.Controls.Add(this.lblpB13);
+            this.panelCamion.Controls.Add(this.lblpB12);
+            this.panelCamion.Controls.Add(this.lblpB11);
+            this.panelCamion.Controls.Add(this.lblpB10);
+            this.panelCamion.Controls.Add(this.lblpB09);
+            this.panelCamion.Controls.Add(this.lblpB08);
+            this.panelCamion.Controls.Add(this.lblpB07);
+            this.panelCamion.Controls.Add(this.lblpB06);
+            this.panelCamion.Controls.Add(this.lblpB05);
+            this.panelCamion.Controls.Add(this.lblpB04);
+            this.panelCamion.Controls.Add(this.lblpB03);
+            this.panelCamion.Controls.Add(this.lblpB02);
+            this.panelCamion.Controls.Add(this.lblpB01);
+            this.panelCamion.Controls.Add(this.lblCam15);
+            this.panelCamion.Controls.Add(this.lblCam14);
+            this.panelCamion.Controls.Add(this.pBar14);
+            this.panelCamion.Controls.Add(this.lblCam13);
+            this.panelCamion.Controls.Add(this.pBar13);
+            this.panelCamion.Controls.Add(this.lblCam12);
+            this.panelCamion.Controls.Add(this.pBar12);
+            this.panelCamion.Controls.Add(this.lblCam11);
+            this.panelCamion.Controls.Add(this.pBar11);
+            this.panelCamion.Controls.Add(this.lblCam10);
+            this.panelCamion.Controls.Add(this.pBar10);
+            this.panelCamion.Controls.Add(this.lblCam09);
+            this.panelCamion.Controls.Add(this.pBar09);
+            this.panelCamion.Controls.Add(this.lblCam08);
+            this.panelCamion.Controls.Add(this.pBar08);
+            this.panelCamion.Controls.Add(this.lblCam07);
+            this.panelCamion.Controls.Add(this.pBar07);
+            this.panelCamion.Controls.Add(this.lblCam06);
+            this.panelCamion.Controls.Add(this.pBar06);
+            this.panelCamion.Controls.Add(this.lblCam05);
+            this.panelCamion.Controls.Add(this.pBar05);
+            this.panelCamion.Controls.Add(this.lblCam04);
+            this.panelCamion.Controls.Add(this.pBar04);
+            this.panelCamion.Controls.Add(this.lblCam03);
+            this.panelCamion.Controls.Add(this.pBar03);
+            this.panelCamion.Controls.Add(this.lblCam02);
+            this.panelCamion.Controls.Add(this.pBar02);
+            this.panelCamion.Controls.Add(this.lblCam01);
+            this.panelCamion.Controls.Add(this.pBar01);
+            this.panelCamion.Location = new System.Drawing.Point(571, 85);
+            this.panelCamion.Name = "panelCamion";
+            this.panelCamion.Size = new System.Drawing.Size(187, 253);
+            this.panelCamion.TabIndex = 94;
+            this.panelCamion.Paint += new System.Windows.Forms.PaintEventHandler(this.panelCamion_Paint);
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(73, 19);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(30, 13);
+            this.label34.TabIndex = 124;
+            this.label34.Text = "Corr";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(137, 20);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(28, 13);
+            this.label33.TabIndex = 123;
+            this.label33.Text = "Pila";
+            // 
+            // lblpBb15
+            // 
+            this.lblpBb15.AutoSize = true;
+            this.lblpBb15.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb15.Location = new System.Drawing.Point(136, 216);
+            this.lblpBb15.Name = "lblpBb15";
+            this.lblpBb15.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb15.TabIndex = 122;
+            this.lblpBb15.Text = "0";
+            // 
+            // lblpBb14
+            // 
+            this.lblpBb14.AutoSize = true;
+            this.lblpBb14.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb14.Location = new System.Drawing.Point(136, 203);
+            this.lblpBb14.Name = "lblpBb14";
+            this.lblpBb14.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb14.TabIndex = 121;
+            this.lblpBb14.Text = "0";
+            // 
+            // lblpBb13
+            // 
+            this.lblpBb13.AutoSize = true;
+            this.lblpBb13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb13.Location = new System.Drawing.Point(136, 190);
+            this.lblpBb13.Name = "lblpBb13";
+            this.lblpBb13.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb13.TabIndex = 120;
+            this.lblpBb13.Text = "0";
+            // 
+            // lblpBb12
+            // 
+            this.lblpBb12.AutoSize = true;
+            this.lblpBb12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb12.Location = new System.Drawing.Point(136, 177);
+            this.lblpBb12.Name = "lblpBb12";
+            this.lblpBb12.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb12.TabIndex = 119;
+            this.lblpBb12.Text = "0";
+            // 
+            // lblpBb11
+            // 
+            this.lblpBb11.AutoSize = true;
+            this.lblpBb11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb11.Location = new System.Drawing.Point(136, 164);
+            this.lblpBb11.Name = "lblpBb11";
+            this.lblpBb11.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb11.TabIndex = 118;
+            this.lblpBb11.Text = "0";
+            // 
+            // lblpBb10
+            // 
+            this.lblpBb10.AutoSize = true;
+            this.lblpBb10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb10.Location = new System.Drawing.Point(136, 151);
+            this.lblpBb10.Name = "lblpBb10";
+            this.lblpBb10.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb10.TabIndex = 117;
+            this.lblpBb10.Text = "0";
+            // 
+            // lblpBb09
+            // 
+            this.lblpBb09.AutoSize = true;
+            this.lblpBb09.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb09.Location = new System.Drawing.Point(136, 138);
+            this.lblpBb09.Name = "lblpBb09";
+            this.lblpBb09.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb09.TabIndex = 116;
+            this.lblpBb09.Text = "0";
+            // 
+            // lblpBb08
+            // 
+            this.lblpBb08.AutoSize = true;
+            this.lblpBb08.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb08.Location = new System.Drawing.Point(136, 126);
+            this.lblpBb08.Name = "lblpBb08";
+            this.lblpBb08.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb08.TabIndex = 115;
+            this.lblpBb08.Text = "0";
+            // 
+            // lblpBb07
+            // 
+            this.lblpBb07.AutoSize = true;
+            this.lblpBb07.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb07.Location = new System.Drawing.Point(136, 113);
+            this.lblpBb07.Name = "lblpBb07";
+            this.lblpBb07.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb07.TabIndex = 114;
+            this.lblpBb07.Text = "0";
+            // 
+            // lblpBb06
+            // 
+            this.lblpBb06.AutoSize = true;
+            this.lblpBb06.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb06.Location = new System.Drawing.Point(136, 100);
+            this.lblpBb06.Name = "lblpBb06";
+            this.lblpBb06.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb06.TabIndex = 113;
+            this.lblpBb06.Text = "0";
+            this.lblpBb06.Click += new System.EventHandler(this.label42_Click);
+            // 
+            // lblpBb05
+            // 
+            this.lblpBb05.AutoSize = true;
+            this.lblpBb05.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb05.Location = new System.Drawing.Point(136, 87);
+            this.lblpBb05.Name = "lblpBb05";
+            this.lblpBb05.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb05.TabIndex = 112;
+            this.lblpBb05.Text = "0";
+            // 
+            // lblpBb04
+            // 
+            this.lblpBb04.AutoSize = true;
+            this.lblpBb04.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb04.Location = new System.Drawing.Point(136, 74);
+            this.lblpBb04.Name = "lblpBb04";
+            this.lblpBb04.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb04.TabIndex = 111;
+            this.lblpBb04.Text = "0";
+            // 
+            // lblpBb03
+            // 
+            this.lblpBb03.AutoSize = true;
+            this.lblpBb03.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb03.Location = new System.Drawing.Point(136, 61);
+            this.lblpBb03.Name = "lblpBb03";
+            this.lblpBb03.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb03.TabIndex = 110;
+            this.lblpBb03.Text = "0";
+            // 
+            // lblpBb02
+            // 
+            this.lblpBb02.AutoSize = true;
+            this.lblpBb02.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb02.Location = new System.Drawing.Point(136, 48);
+            this.lblpBb02.Name = "lblpBb02";
+            this.lblpBb02.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb02.TabIndex = 109;
+            this.lblpBb02.Text = "0";
+            // 
+            // lblpBb01
+            // 
+            this.lblpBb01.AutoSize = true;
+            this.lblpBb01.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBb01.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblpBb01.Location = new System.Drawing.Point(136, 35);
+            this.lblpBb01.Name = "lblpBb01";
+            this.lblpBb01.Size = new System.Drawing.Size(10, 12);
+            this.lblpBb01.TabIndex = 108;
+            this.lblpBb01.Text = "0";
+            // 
+            // pBar15
+            // 
+            this.pBar15.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar15.Location = new System.Drawing.Point(36, 221);
+            this.pBar15.Maximum = 200;
+            this.pBar15.Name = "pBar15";
+            this.pBar15.Size = new System.Drawing.Size(39, 3);
+            this.pBar15.TabIndex = 28;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(104, 20);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(30, 13);
+            this.label32.TabIndex = 107;
+            this.label32.Text = "Rac";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(38, 19);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(33, 13);
+            this.label30.TabIndex = 106;
+            this.label30.Text = "Serv";
+            // 
+            // picBs15
+            // 
+            this.picBs15.BackColor = System.Drawing.Color.Transparent;
+            this.picBs15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs15.Location = new System.Drawing.Point(25, 219);
+            this.picBs15.Name = "picBs15";
+            this.picBs15.Size = new System.Drawing.Size(10, 9);
+            this.picBs15.TabIndex = 105;
+            this.picBs15.TabStop = false;
+            // 
+            // picBs14
+            // 
+            this.picBs14.BackColor = System.Drawing.Color.Transparent;
+            this.picBs14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs14.Location = new System.Drawing.Point(25, 206);
+            this.picBs14.Name = "picBs14";
+            this.picBs14.Size = new System.Drawing.Size(10, 9);
+            this.picBs14.TabIndex = 104;
+            this.picBs14.TabStop = false;
+            // 
+            // picBs13
+            // 
+            this.picBs13.BackColor = System.Drawing.Color.Transparent;
+            this.picBs13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs13.Location = new System.Drawing.Point(25, 193);
+            this.picBs13.Name = "picBs13";
+            this.picBs13.Size = new System.Drawing.Size(10, 9);
+            this.picBs13.TabIndex = 103;
+            this.picBs13.TabStop = false;
+            // 
+            // picBs12
+            // 
+            this.picBs12.BackColor = System.Drawing.Color.Transparent;
+            this.picBs12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs12.Location = new System.Drawing.Point(25, 180);
+            this.picBs12.Name = "picBs12";
+            this.picBs12.Size = new System.Drawing.Size(10, 9);
+            this.picBs12.TabIndex = 102;
+            this.picBs12.TabStop = false;
+            // 
+            // picBs11
+            // 
+            this.picBs11.BackColor = System.Drawing.Color.Transparent;
+            this.picBs11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs11.Location = new System.Drawing.Point(25, 167);
+            this.picBs11.Name = "picBs11";
+            this.picBs11.Size = new System.Drawing.Size(10, 9);
+            this.picBs11.TabIndex = 101;
+            this.picBs11.TabStop = false;
+            // 
+            // picBs10
+            // 
+            this.picBs10.BackColor = System.Drawing.Color.Transparent;
+            this.picBs10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs10.Location = new System.Drawing.Point(25, 154);
+            this.picBs10.Name = "picBs10";
+            this.picBs10.Size = new System.Drawing.Size(10, 9);
+            this.picBs10.TabIndex = 100;
+            this.picBs10.TabStop = false;
+            // 
+            // picBs09
+            // 
+            this.picBs09.BackColor = System.Drawing.Color.Transparent;
+            this.picBs09.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs09.Location = new System.Drawing.Point(25, 141);
+            this.picBs09.Name = "picBs09";
+            this.picBs09.Size = new System.Drawing.Size(10, 9);
+            this.picBs09.TabIndex = 99;
+            this.picBs09.TabStop = false;
+            // 
+            // picBs08
+            // 
+            this.picBs08.BackColor = System.Drawing.Color.Transparent;
+            this.picBs08.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs08.Location = new System.Drawing.Point(25, 128);
+            this.picBs08.Name = "picBs08";
+            this.picBs08.Size = new System.Drawing.Size(10, 9);
+            this.picBs08.TabIndex = 98;
+            this.picBs08.TabStop = false;
+            // 
+            // picBs07
+            // 
+            this.picBs07.BackColor = System.Drawing.Color.Transparent;
+            this.picBs07.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs07.Location = new System.Drawing.Point(25, 115);
+            this.picBs07.Name = "picBs07";
+            this.picBs07.Size = new System.Drawing.Size(10, 9);
+            this.picBs07.TabIndex = 97;
+            this.picBs07.TabStop = false;
+            // 
+            // picBs06
+            // 
+            this.picBs06.BackColor = System.Drawing.Color.Transparent;
+            this.picBs06.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs06.Location = new System.Drawing.Point(25, 102);
+            this.picBs06.Name = "picBs06";
+            this.picBs06.Size = new System.Drawing.Size(10, 9);
+            this.picBs06.TabIndex = 96;
+            this.picBs06.TabStop = false;
+            // 
+            // picBs05
+            // 
+            this.picBs05.BackColor = System.Drawing.Color.Transparent;
+            this.picBs05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs05.Location = new System.Drawing.Point(25, 89);
+            this.picBs05.Name = "picBs05";
+            this.picBs05.Size = new System.Drawing.Size(10, 9);
+            this.picBs05.TabIndex = 95;
+            this.picBs05.TabStop = false;
+            // 
+            // picBs04
+            // 
+            this.picBs04.BackColor = System.Drawing.Color.Transparent;
+            this.picBs04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs04.Location = new System.Drawing.Point(25, 76);
+            this.picBs04.Name = "picBs04";
+            this.picBs04.Size = new System.Drawing.Size(10, 9);
+            this.picBs04.TabIndex = 94;
+            this.picBs04.TabStop = false;
+            // 
+            // picBs03
+            // 
+            this.picBs03.BackColor = System.Drawing.Color.Transparent;
+            this.picBs03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs03.Location = new System.Drawing.Point(25, 63);
+            this.picBs03.Name = "picBs03";
+            this.picBs03.Size = new System.Drawing.Size(10, 9);
+            this.picBs03.TabIndex = 93;
+            this.picBs03.TabStop = false;
+            // 
+            // picBs02
+            // 
+            this.picBs02.BackColor = System.Drawing.Color.Transparent;
+            this.picBs02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs02.Location = new System.Drawing.Point(25, 50);
+            this.picBs02.Name = "picBs02";
+            this.picBs02.Size = new System.Drawing.Size(10, 9);
+            this.picBs02.TabIndex = 92;
+            this.picBs02.TabStop = false;
+            // 
+            // picBs01
+            // 
+            this.picBs01.BackColor = System.Drawing.Color.Transparent;
+            this.picBs01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBs01.Location = new System.Drawing.Point(25, 37);
+            this.picBs01.Name = "picBs01";
+            this.picBs01.Size = new System.Drawing.Size(10, 9);
+            this.picBs01.TabIndex = 91;
+            this.picBs01.TabStop = false;
+            // 
+            // lblpBs15
+            // 
+            this.lblpBs15.AutoSize = true;
+            this.lblpBs15.Location = new System.Drawing.Point(198, 216);
+            this.lblpBs15.Name = "lblpBs15";
+            this.lblpBs15.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs15.TabIndex = 90;
+            this.lblpBs15.Text = "0";
+            this.lblpBs15.Visible = false;
+            // 
+            // lblpBs14
+            // 
+            this.lblpBs14.AutoSize = true;
+            this.lblpBs14.Location = new System.Drawing.Point(198, 203);
+            this.lblpBs14.Name = "lblpBs14";
+            this.lblpBs14.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs14.TabIndex = 89;
+            this.lblpBs14.Text = "0";
+            this.lblpBs14.Visible = false;
+            // 
+            // lblpBs13
+            // 
+            this.lblpBs13.AutoSize = true;
+            this.lblpBs13.Location = new System.Drawing.Point(198, 190);
+            this.lblpBs13.Name = "lblpBs13";
+            this.lblpBs13.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs13.TabIndex = 88;
+            this.lblpBs13.Text = "0";
+            this.lblpBs13.Visible = false;
+            // 
+            // lblpBs12
+            // 
+            this.lblpBs12.AutoSize = true;
+            this.lblpBs12.Location = new System.Drawing.Point(198, 177);
+            this.lblpBs12.Name = "lblpBs12";
+            this.lblpBs12.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs12.TabIndex = 87;
+            this.lblpBs12.Text = "0";
+            this.lblpBs12.Visible = false;
+            // 
+            // lblpBs11
+            // 
+            this.lblpBs11.AutoSize = true;
+            this.lblpBs11.Location = new System.Drawing.Point(198, 164);
+            this.lblpBs11.Name = "lblpBs11";
+            this.lblpBs11.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs11.TabIndex = 86;
+            this.lblpBs11.Text = "0";
+            this.lblpBs11.Visible = false;
+            // 
+            // lblpBs10
+            // 
+            this.lblpBs10.AutoSize = true;
+            this.lblpBs10.Location = new System.Drawing.Point(198, 151);
+            this.lblpBs10.Name = "lblpBs10";
+            this.lblpBs10.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs10.TabIndex = 85;
+            this.lblpBs10.Text = "0";
+            this.lblpBs10.Visible = false;
+            // 
+            // lblpBs09
+            // 
+            this.lblpBs09.AutoSize = true;
+            this.lblpBs09.Location = new System.Drawing.Point(198, 138);
+            this.lblpBs09.Name = "lblpBs09";
+            this.lblpBs09.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs09.TabIndex = 84;
+            this.lblpBs09.Text = "0";
+            this.lblpBs09.Visible = false;
+            // 
+            // lblpBs08
+            // 
+            this.lblpBs08.AutoSize = true;
+            this.lblpBs08.Location = new System.Drawing.Point(198, 126);
+            this.lblpBs08.Name = "lblpBs08";
+            this.lblpBs08.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs08.TabIndex = 83;
+            this.lblpBs08.Text = "0";
+            this.lblpBs08.Visible = false;
+            // 
+            // lblpBs07
+            // 
+            this.lblpBs07.AutoSize = true;
+            this.lblpBs07.Location = new System.Drawing.Point(198, 113);
+            this.lblpBs07.Name = "lblpBs07";
+            this.lblpBs07.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs07.TabIndex = 82;
+            this.lblpBs07.Text = "0";
+            this.lblpBs07.Visible = false;
+            // 
+            // lblpBs06
+            // 
+            this.lblpBs06.AutoSize = true;
+            this.lblpBs06.Location = new System.Drawing.Point(198, 100);
+            this.lblpBs06.Name = "lblpBs06";
+            this.lblpBs06.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs06.TabIndex = 81;
+            this.lblpBs06.Text = "0";
+            this.lblpBs06.Visible = false;
+            // 
+            // lblpBs05
+            // 
+            this.lblpBs05.AutoSize = true;
+            this.lblpBs05.Location = new System.Drawing.Point(198, 87);
+            this.lblpBs05.Name = "lblpBs05";
+            this.lblpBs05.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs05.TabIndex = 80;
+            this.lblpBs05.Text = "0";
+            this.lblpBs05.Visible = false;
+            // 
+            // lblpBs04
+            // 
+            this.lblpBs04.AutoSize = true;
+            this.lblpBs04.Location = new System.Drawing.Point(198, 74);
+            this.lblpBs04.Name = "lblpBs04";
+            this.lblpBs04.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs04.TabIndex = 79;
+            this.lblpBs04.Text = "0";
+            this.lblpBs04.Visible = false;
+            // 
+            // lblpBs03
+            // 
+            this.lblpBs03.AutoSize = true;
+            this.lblpBs03.Location = new System.Drawing.Point(198, 61);
+            this.lblpBs03.Name = "lblpBs03";
+            this.lblpBs03.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs03.TabIndex = 78;
+            this.lblpBs03.Text = "0";
+            this.lblpBs03.Visible = false;
+            // 
+            // lblpBs02
+            // 
+            this.lblpBs02.AutoSize = true;
+            this.lblpBs02.Location = new System.Drawing.Point(198, 48);
+            this.lblpBs02.Name = "lblpBs02";
+            this.lblpBs02.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs02.TabIndex = 77;
+            this.lblpBs02.Text = "0";
+            this.lblpBs02.Visible = false;
+            // 
+            // lblpBs01
+            // 
+            this.lblpBs01.AutoSize = true;
+            this.lblpBs01.Location = new System.Drawing.Point(198, 35);
+            this.lblpBs01.Name = "lblpBs01";
+            this.lblpBs01.Size = new System.Drawing.Size(13, 13);
+            this.lblpBs01.TabIndex = 76;
+            this.lblpBs01.Text = "0";
+            this.lblpBs01.Visible = false;
+            // 
+            // lblpBr15
+            // 
+            this.lblpBr15.AutoSize = true;
+            this.lblpBr15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr15.Location = new System.Drawing.Point(107, 215);
+            this.lblpBr15.Name = "lblpBr15";
+            this.lblpBr15.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr15.TabIndex = 75;
+            this.lblpBr15.Text = "_";
+            // 
+            // lblpBr14
+            // 
+            this.lblpBr14.AutoSize = true;
+            this.lblpBr14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr14.Location = new System.Drawing.Point(107, 202);
+            this.lblpBr14.Name = "lblpBr14";
+            this.lblpBr14.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr14.TabIndex = 74;
+            this.lblpBr14.Text = "_";
+            // 
+            // lblpBr13
+            // 
+            this.lblpBr13.AutoSize = true;
+            this.lblpBr13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr13.Location = new System.Drawing.Point(107, 189);
+            this.lblpBr13.Name = "lblpBr13";
+            this.lblpBr13.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr13.TabIndex = 73;
+            this.lblpBr13.Text = "_";
+            // 
+            // lblpBr12
+            // 
+            this.lblpBr12.AutoSize = true;
+            this.lblpBr12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr12.Location = new System.Drawing.Point(107, 176);
+            this.lblpBr12.Name = "lblpBr12";
+            this.lblpBr12.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr12.TabIndex = 72;
+            this.lblpBr12.Text = "_";
+            // 
+            // lblpBr11
+            // 
+            this.lblpBr11.AutoSize = true;
+            this.lblpBr11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr11.Location = new System.Drawing.Point(107, 163);
+            this.lblpBr11.Name = "lblpBr11";
+            this.lblpBr11.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr11.TabIndex = 71;
+            this.lblpBr11.Text = "_";
+            // 
+            // lblpBr10
+            // 
+            this.lblpBr10.AutoSize = true;
+            this.lblpBr10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr10.Location = new System.Drawing.Point(107, 150);
+            this.lblpBr10.Name = "lblpBr10";
+            this.lblpBr10.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr10.TabIndex = 70;
+            this.lblpBr10.Text = "_";
+            // 
+            // lblpBr09
+            // 
+            this.lblpBr09.AutoSize = true;
+            this.lblpBr09.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr09.Location = new System.Drawing.Point(107, 137);
+            this.lblpBr09.Name = "lblpBr09";
+            this.lblpBr09.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr09.TabIndex = 69;
+            this.lblpBr09.Text = "_";
+            // 
+            // lblpBr08
+            // 
+            this.lblpBr08.AutoSize = true;
+            this.lblpBr08.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr08.Location = new System.Drawing.Point(107, 125);
+            this.lblpBr08.Name = "lblpBr08";
+            this.lblpBr08.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr08.TabIndex = 68;
+            this.lblpBr08.Text = "_";
+            // 
+            // lblpBr07
+            // 
+            this.lblpBr07.AutoSize = true;
+            this.lblpBr07.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr07.Location = new System.Drawing.Point(107, 112);
+            this.lblpBr07.Name = "lblpBr07";
+            this.lblpBr07.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr07.TabIndex = 67;
+            this.lblpBr07.Text = "_";
+            // 
+            // lblpBr06
+            // 
+            this.lblpBr06.AutoSize = true;
+            this.lblpBr06.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr06.Location = new System.Drawing.Point(107, 99);
+            this.lblpBr06.Name = "lblpBr06";
+            this.lblpBr06.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr06.TabIndex = 66;
+            this.lblpBr06.Text = "_";
+            // 
+            // lblpBr05
+            // 
+            this.lblpBr05.AutoSize = true;
+            this.lblpBr05.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr05.Location = new System.Drawing.Point(107, 86);
+            this.lblpBr05.Name = "lblpBr05";
+            this.lblpBr05.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr05.TabIndex = 65;
+            this.lblpBr05.Text = "_";
+            // 
+            // lblpBr04
+            // 
+            this.lblpBr04.AutoSize = true;
+            this.lblpBr04.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr04.Location = new System.Drawing.Point(107, 73);
+            this.lblpBr04.Name = "lblpBr04";
+            this.lblpBr04.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr04.TabIndex = 64;
+            this.lblpBr04.Text = "_";
+            // 
+            // lblpBr03
+            // 
+            this.lblpBr03.AutoSize = true;
+            this.lblpBr03.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr03.Location = new System.Drawing.Point(107, 60);
+            this.lblpBr03.Name = "lblpBr03";
+            this.lblpBr03.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr03.TabIndex = 63;
+            this.lblpBr03.Text = "_";
+            // 
+            // lblpBr02
+            // 
+            this.lblpBr02.AutoSize = true;
+            this.lblpBr02.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr02.Location = new System.Drawing.Point(107, 47);
+            this.lblpBr02.Name = "lblpBr02";
+            this.lblpBr02.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr02.TabIndex = 62;
+            this.lblpBr02.Text = "_";
+            // 
+            // lblpBr01
+            // 
+            this.lblpBr01.AutoSize = true;
+            this.lblpBr01.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpBr01.Location = new System.Drawing.Point(107, 34);
+            this.lblpBr01.Name = "lblpBr01";
+            this.lblpBr01.Size = new System.Drawing.Size(13, 13);
+            this.lblpBr01.TabIndex = 61;
+            this.lblpBr01.Text = "_";
+            // 
+            // lblpBc15
+            // 
+            this.lblpBc15.AutoSize = true;
+            this.lblpBc15.Location = new System.Drawing.Point(80, 216);
+            this.lblpBc15.Name = "lblpBc15";
+            this.lblpBc15.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc15.TabIndex = 60;
+            this.lblpBc15.Text = "0";
+            // 
+            // lblpBc14
+            // 
+            this.lblpBc14.AutoSize = true;
+            this.lblpBc14.Location = new System.Drawing.Point(80, 203);
+            this.lblpBc14.Name = "lblpBc14";
+            this.lblpBc14.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc14.TabIndex = 59;
+            this.lblpBc14.Text = "0";
+            // 
+            // lblpBc13
+            // 
+            this.lblpBc13.AutoSize = true;
+            this.lblpBc13.Location = new System.Drawing.Point(80, 190);
+            this.lblpBc13.Name = "lblpBc13";
+            this.lblpBc13.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc13.TabIndex = 58;
+            this.lblpBc13.Text = "0";
+            // 
+            // lblpBc12
+            // 
+            this.lblpBc12.AutoSize = true;
+            this.lblpBc12.Location = new System.Drawing.Point(80, 177);
+            this.lblpBc12.Name = "lblpBc12";
+            this.lblpBc12.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc12.TabIndex = 57;
+            this.lblpBc12.Text = "0";
+            // 
+            // lblpBc11
+            // 
+            this.lblpBc11.AutoSize = true;
+            this.lblpBc11.Location = new System.Drawing.Point(80, 164);
+            this.lblpBc11.Name = "lblpBc11";
+            this.lblpBc11.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc11.TabIndex = 56;
+            this.lblpBc11.Text = "0";
+            // 
+            // lblpBc10
+            // 
+            this.lblpBc10.AutoSize = true;
+            this.lblpBc10.Location = new System.Drawing.Point(80, 151);
+            this.lblpBc10.Name = "lblpBc10";
+            this.lblpBc10.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc10.TabIndex = 55;
+            this.lblpBc10.Text = "0";
+            // 
+            // lblpBc09
+            // 
+            this.lblpBc09.AutoSize = true;
+            this.lblpBc09.Location = new System.Drawing.Point(80, 138);
+            this.lblpBc09.Name = "lblpBc09";
+            this.lblpBc09.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc09.TabIndex = 54;
+            this.lblpBc09.Text = "0";
+            // 
+            // lblpBc08
+            // 
+            this.lblpBc08.AutoSize = true;
+            this.lblpBc08.Location = new System.Drawing.Point(80, 126);
+            this.lblpBc08.Name = "lblpBc08";
+            this.lblpBc08.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc08.TabIndex = 53;
+            this.lblpBc08.Text = "0";
+            // 
+            // lblpBc07
+            // 
+            this.lblpBc07.AutoSize = true;
+            this.lblpBc07.Location = new System.Drawing.Point(80, 113);
+            this.lblpBc07.Name = "lblpBc07";
+            this.lblpBc07.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc07.TabIndex = 52;
+            this.lblpBc07.Text = "0";
+            // 
+            // lblpBc06
+            // 
+            this.lblpBc06.AutoSize = true;
+            this.lblpBc06.Location = new System.Drawing.Point(80, 100);
+            this.lblpBc06.Name = "lblpBc06";
+            this.lblpBc06.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc06.TabIndex = 51;
+            this.lblpBc06.Text = "0";
+            // 
+            // lblpBc05
+            // 
+            this.lblpBc05.AutoSize = true;
+            this.lblpBc05.Location = new System.Drawing.Point(80, 87);
+            this.lblpBc05.Name = "lblpBc05";
+            this.lblpBc05.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc05.TabIndex = 50;
+            this.lblpBc05.Text = "0";
+            // 
+            // lblpBc04
+            // 
+            this.lblpBc04.AutoSize = true;
+            this.lblpBc04.Location = new System.Drawing.Point(80, 74);
+            this.lblpBc04.Name = "lblpBc04";
+            this.lblpBc04.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc04.TabIndex = 49;
+            this.lblpBc04.Text = "0";
+            // 
+            // lblpBc03
+            // 
+            this.lblpBc03.AutoSize = true;
+            this.lblpBc03.Location = new System.Drawing.Point(80, 61);
+            this.lblpBc03.Name = "lblpBc03";
+            this.lblpBc03.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc03.TabIndex = 48;
+            this.lblpBc03.Text = "0";
+            // 
+            // lblpBc02
+            // 
+            this.lblpBc02.AutoSize = true;
+            this.lblpBc02.Location = new System.Drawing.Point(80, 48);
+            this.lblpBc02.Name = "lblpBc02";
+            this.lblpBc02.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc02.TabIndex = 47;
+            this.lblpBc02.Text = "0";
+            // 
+            // lblpBc01
+            // 
+            this.lblpBc01.AutoSize = true;
+            this.lblpBc01.Location = new System.Drawing.Point(80, 35);
+            this.lblpBc01.Name = "lblpBc01";
+            this.lblpBc01.Size = new System.Drawing.Size(13, 13);
+            this.lblpBc01.TabIndex = 46;
+            this.lblpBc01.Text = "0";
+            this.lblpBc01.Click += new System.EventHandler(this.lblpBc01_Click);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(-1, 19);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(31, 13);
+            this.label29.TabIndex = 45;
+            this.label29.Text = "Cam";
+            // 
+            // lblpB15
+            // 
+            this.lblpB15.AutoSize = true;
+            this.lblpB15.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB15.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB15.Location = new System.Drawing.Point(227, 219);
+            this.lblpB15.Name = "lblpB15";
+            this.lblpB15.Size = new System.Drawing.Size(18, 9);
+            this.lblpB15.TabIndex = 44;
+            this.lblpB15.Text = "0 %";
+            this.lblpB15.Visible = false;
+            // 
+            // lblpB14
+            // 
+            this.lblpB14.AutoSize = true;
+            this.lblpB14.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB14.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB14.Location = new System.Drawing.Point(227, 206);
+            this.lblpB14.Name = "lblpB14";
+            this.lblpB14.Size = new System.Drawing.Size(18, 9);
+            this.lblpB14.TabIndex = 43;
+            this.lblpB14.Text = "0 %";
+            this.lblpB14.Visible = false;
+            // 
+            // lblpB13
+            // 
+            this.lblpB13.AutoSize = true;
+            this.lblpB13.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB13.Location = new System.Drawing.Point(227, 193);
+            this.lblpB13.Name = "lblpB13";
+            this.lblpB13.Size = new System.Drawing.Size(18, 9);
+            this.lblpB13.TabIndex = 42;
+            this.lblpB13.Text = "0 %";
+            this.lblpB13.Visible = false;
+            // 
+            // lblpB12
+            // 
+            this.lblpB12.AutoSize = true;
+            this.lblpB12.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB12.Location = new System.Drawing.Point(227, 180);
+            this.lblpB12.Name = "lblpB12";
+            this.lblpB12.Size = new System.Drawing.Size(18, 9);
+            this.lblpB12.TabIndex = 41;
+            this.lblpB12.Text = "0 %";
+            this.lblpB12.Visible = false;
+            // 
+            // lblpB11
+            // 
+            this.lblpB11.AutoSize = true;
+            this.lblpB11.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB11.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB11.Location = new System.Drawing.Point(227, 167);
+            this.lblpB11.Name = "lblpB11";
+            this.lblpB11.Size = new System.Drawing.Size(18, 9);
+            this.lblpB11.TabIndex = 40;
+            this.lblpB11.Text = "0 %";
+            this.lblpB11.Visible = false;
+            // 
+            // lblpB10
+            // 
+            this.lblpB10.AutoSize = true;
+            this.lblpB10.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB10.Location = new System.Drawing.Point(227, 154);
+            this.lblpB10.Name = "lblpB10";
+            this.lblpB10.Size = new System.Drawing.Size(18, 9);
+            this.lblpB10.TabIndex = 39;
+            this.lblpB10.Text = "0 %";
+            this.lblpB10.Visible = false;
+            // 
+            // lblpB09
+            // 
+            this.lblpB09.AutoSize = true;
+            this.lblpB09.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB09.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB09.Location = new System.Drawing.Point(227, 141);
+            this.lblpB09.Name = "lblpB09";
+            this.lblpB09.Size = new System.Drawing.Size(18, 9);
+            this.lblpB09.TabIndex = 38;
+            this.lblpB09.Text = "0 %";
+            this.lblpB09.Visible = false;
+            // 
+            // lblpB08
+            // 
+            this.lblpB08.AutoSize = true;
+            this.lblpB08.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB08.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB08.Location = new System.Drawing.Point(227, 129);
+            this.lblpB08.Name = "lblpB08";
+            this.lblpB08.Size = new System.Drawing.Size(18, 9);
+            this.lblpB08.TabIndex = 37;
+            this.lblpB08.Text = "0 %";
+            this.lblpB08.Visible = false;
+            // 
+            // lblpB07
+            // 
+            this.lblpB07.AutoSize = true;
+            this.lblpB07.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB07.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB07.Location = new System.Drawing.Point(227, 116);
+            this.lblpB07.Name = "lblpB07";
+            this.lblpB07.Size = new System.Drawing.Size(18, 9);
+            this.lblpB07.TabIndex = 36;
+            this.lblpB07.Text = "0 %";
+            this.lblpB07.Visible = false;
+            // 
+            // lblpB06
+            // 
+            this.lblpB06.AutoSize = true;
+            this.lblpB06.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB06.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB06.Location = new System.Drawing.Point(227, 103);
+            this.lblpB06.Name = "lblpB06";
+            this.lblpB06.Size = new System.Drawing.Size(18, 9);
+            this.lblpB06.TabIndex = 35;
+            this.lblpB06.Text = "0 %";
+            this.lblpB06.Visible = false;
+            // 
+            // lblpB05
+            // 
+            this.lblpB05.AutoSize = true;
+            this.lblpB05.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB05.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB05.Location = new System.Drawing.Point(227, 90);
+            this.lblpB05.Name = "lblpB05";
+            this.lblpB05.Size = new System.Drawing.Size(18, 9);
+            this.lblpB05.TabIndex = 34;
+            this.lblpB05.Text = "0 %";
+            this.lblpB05.Visible = false;
+            // 
+            // lblpB04
+            // 
+            this.lblpB04.AutoSize = true;
+            this.lblpB04.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB04.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB04.Location = new System.Drawing.Point(227, 77);
+            this.lblpB04.Name = "lblpB04";
+            this.lblpB04.Size = new System.Drawing.Size(18, 9);
+            this.lblpB04.TabIndex = 33;
+            this.lblpB04.Text = "0 %";
+            this.lblpB04.Visible = false;
+            // 
+            // lblpB03
+            // 
+            this.lblpB03.AutoSize = true;
+            this.lblpB03.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB03.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB03.Location = new System.Drawing.Point(227, 64);
+            this.lblpB03.Name = "lblpB03";
+            this.lblpB03.Size = new System.Drawing.Size(18, 9);
+            this.lblpB03.TabIndex = 32;
+            this.lblpB03.Text = "0 %";
+            this.lblpB03.Visible = false;
+            // 
+            // lblpB02
+            // 
+            this.lblpB02.AutoSize = true;
+            this.lblpB02.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB02.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB02.Location = new System.Drawing.Point(227, 51);
+            this.lblpB02.Name = "lblpB02";
+            this.lblpB02.Size = new System.Drawing.Size(18, 9);
+            this.lblpB02.TabIndex = 31;
+            this.lblpB02.Text = "0 %";
+            this.lblpB02.Visible = false;
+            // 
+            // lblpB01
+            // 
+            this.lblpB01.AutoSize = true;
+            this.lblpB01.BackColor = System.Drawing.Color.Transparent;
+            this.lblpB01.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpB01.Location = new System.Drawing.Point(227, 38);
+            this.lblpB01.Name = "lblpB01";
+            this.lblpB01.Size = new System.Drawing.Size(18, 9);
+            this.lblpB01.TabIndex = 30;
+            this.lblpB01.Text = "0 %";
+            this.lblpB01.Visible = false;
+            // 
+            // lblCam15
+            // 
+            this.lblCam15.AutoSize = true;
+            this.lblCam15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam15.Location = new System.Drawing.Point(3, 216);
+            this.lblCam15.Name = "lblCam15";
+            this.lblCam15.Size = new System.Drawing.Size(21, 13);
+            this.lblCam15.TabIndex = 29;
+            this.lblCam15.Text = "15";
+            // 
+            // lblCam14
+            // 
+            this.lblCam14.AutoSize = true;
+            this.lblCam14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam14.Location = new System.Drawing.Point(3, 203);
+            this.lblCam14.Name = "lblCam14";
+            this.lblCam14.Size = new System.Drawing.Size(21, 13);
+            this.lblCam14.TabIndex = 27;
+            this.lblCam14.Text = "14";
+            // 
+            // pBar14
+            // 
+            this.pBar14.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar14.Location = new System.Drawing.Point(36, 208);
+            this.pBar14.Maximum = 200;
+            this.pBar14.Name = "pBar14";
+            this.pBar14.Size = new System.Drawing.Size(39, 3);
+            this.pBar14.TabIndex = 26;
+            // 
+            // lblCam13
+            // 
+            this.lblCam13.AutoSize = true;
+            this.lblCam13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam13.Location = new System.Drawing.Point(3, 190);
+            this.lblCam13.Name = "lblCam13";
+            this.lblCam13.Size = new System.Drawing.Size(21, 13);
+            this.lblCam13.TabIndex = 25;
+            this.lblCam13.Text = "13";
+            // 
+            // pBar13
+            // 
+            this.pBar13.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar13.Location = new System.Drawing.Point(36, 196);
+            this.pBar13.Maximum = 200;
+            this.pBar13.Name = "pBar13";
+            this.pBar13.Size = new System.Drawing.Size(39, 3);
+            this.pBar13.TabIndex = 24;
+            // 
+            // lblCam12
+            // 
+            this.lblCam12.AutoSize = true;
+            this.lblCam12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam12.Location = new System.Drawing.Point(3, 177);
+            this.lblCam12.Name = "lblCam12";
+            this.lblCam12.Size = new System.Drawing.Size(21, 13);
+            this.lblCam12.TabIndex = 23;
+            this.lblCam12.Text = "12";
+            // 
+            // pBar12
+            // 
+            this.pBar12.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar12.Location = new System.Drawing.Point(36, 183);
+            this.pBar12.Maximum = 200;
+            this.pBar12.Name = "pBar12";
+            this.pBar12.Size = new System.Drawing.Size(39, 3);
+            this.pBar12.TabIndex = 22;
+            // 
+            // lblCam11
+            // 
+            this.lblCam11.AutoSize = true;
+            this.lblCam11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam11.Location = new System.Drawing.Point(3, 164);
+            this.lblCam11.Name = "lblCam11";
+            this.lblCam11.Size = new System.Drawing.Size(21, 13);
+            this.lblCam11.TabIndex = 21;
+            this.lblCam11.Text = "11";
+            // 
+            // pBar11
+            // 
+            this.pBar11.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar11.Location = new System.Drawing.Point(36, 169);
+            this.pBar11.Maximum = 200;
+            this.pBar11.Name = "pBar11";
+            this.pBar11.Size = new System.Drawing.Size(39, 3);
+            this.pBar11.TabIndex = 20;
+            // 
+            // lblCam10
+            // 
+            this.lblCam10.AutoSize = true;
+            this.lblCam10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam10.Location = new System.Drawing.Point(3, 151);
+            this.lblCam10.Name = "lblCam10";
+            this.lblCam10.Size = new System.Drawing.Size(21, 13);
+            this.lblCam10.TabIndex = 19;
+            this.lblCam10.Text = "10";
+            // 
+            // pBar10
+            // 
+            this.pBar10.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar10.Location = new System.Drawing.Point(36, 156);
+            this.pBar10.Maximum = 200;
+            this.pBar10.Name = "pBar10";
+            this.pBar10.Size = new System.Drawing.Size(39, 3);
+            this.pBar10.TabIndex = 18;
+            // 
+            // lblCam09
+            // 
+            this.lblCam09.AutoSize = true;
+            this.lblCam09.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam09.Location = new System.Drawing.Point(3, 138);
+            this.lblCam09.Name = "lblCam09";
+            this.lblCam09.Size = new System.Drawing.Size(21, 13);
+            this.lblCam09.TabIndex = 17;
+            this.lblCam09.Text = "09";
+            // 
+            // pBar09
+            // 
+            this.pBar09.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar09.Location = new System.Drawing.Point(36, 144);
+            this.pBar09.Maximum = 200;
+            this.pBar09.Name = "pBar09";
+            this.pBar09.Size = new System.Drawing.Size(39, 3);
+            this.pBar09.TabIndex = 16;
+            // 
+            // lblCam08
+            // 
+            this.lblCam08.AutoSize = true;
+            this.lblCam08.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam08.Location = new System.Drawing.Point(3, 126);
+            this.lblCam08.Name = "lblCam08";
+            this.lblCam08.Size = new System.Drawing.Size(21, 13);
+            this.lblCam08.TabIndex = 15;
+            this.lblCam08.Text = "08";
+            // 
+            // pBar08
+            // 
+            this.pBar08.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar08.Location = new System.Drawing.Point(36, 131);
+            this.pBar08.Maximum = 200;
+            this.pBar08.Name = "pBar08";
+            this.pBar08.Size = new System.Drawing.Size(39, 3);
+            this.pBar08.TabIndex = 14;
+            // 
+            // lblCam07
+            // 
+            this.lblCam07.AutoSize = true;
+            this.lblCam07.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam07.Location = new System.Drawing.Point(3, 113);
+            this.lblCam07.Name = "lblCam07";
+            this.lblCam07.Size = new System.Drawing.Size(21, 13);
+            this.lblCam07.TabIndex = 13;
+            this.lblCam07.Text = "07";
+            // 
+            // pBar07
+            // 
+            this.pBar07.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar07.Location = new System.Drawing.Point(36, 118);
+            this.pBar07.Maximum = 200;
+            this.pBar07.Name = "pBar07";
+            this.pBar07.Size = new System.Drawing.Size(39, 3);
+            this.pBar07.TabIndex = 12;
+            // 
+            // lblCam06
+            // 
+            this.lblCam06.AutoSize = true;
+            this.lblCam06.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam06.Location = new System.Drawing.Point(3, 100);
+            this.lblCam06.Name = "lblCam06";
+            this.lblCam06.Size = new System.Drawing.Size(21, 13);
+            this.lblCam06.TabIndex = 11;
+            this.lblCam06.Text = "06";
+            // 
+            // pBar06
+            // 
+            this.pBar06.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar06.Location = new System.Drawing.Point(36, 106);
+            this.pBar06.Maximum = 200;
+            this.pBar06.Name = "pBar06";
+            this.pBar06.Size = new System.Drawing.Size(39, 3);
+            this.pBar06.TabIndex = 10;
+            // 
+            // lblCam05
+            // 
+            this.lblCam05.AutoSize = true;
+            this.lblCam05.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam05.Location = new System.Drawing.Point(3, 87);
+            this.lblCam05.Name = "lblCam05";
+            this.lblCam05.Size = new System.Drawing.Size(21, 13);
+            this.lblCam05.TabIndex = 9;
+            this.lblCam05.Text = "05";
+            // 
+            // pBar05
+            // 
+            this.pBar05.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar05.Location = new System.Drawing.Point(36, 93);
+            this.pBar05.Maximum = 200;
+            this.pBar05.Name = "pBar05";
+            this.pBar05.Size = new System.Drawing.Size(39, 3);
+            this.pBar05.TabIndex = 8;
+            // 
+            // lblCam04
+            // 
+            this.lblCam04.AutoSize = true;
+            this.lblCam04.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam04.Location = new System.Drawing.Point(3, 74);
+            this.lblCam04.Name = "lblCam04";
+            this.lblCam04.Size = new System.Drawing.Size(21, 13);
+            this.lblCam04.TabIndex = 7;
+            this.lblCam04.Text = "04";
+            // 
+            // pBar04
+            // 
+            this.pBar04.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar04.Location = new System.Drawing.Point(36, 79);
+            this.pBar04.Maximum = 200;
+            this.pBar04.Name = "pBar04";
+            this.pBar04.Size = new System.Drawing.Size(39, 3);
+            this.pBar04.TabIndex = 6;
+            // 
+            // lblCam03
+            // 
+            this.lblCam03.AutoSize = true;
+            this.lblCam03.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam03.Location = new System.Drawing.Point(3, 61);
+            this.lblCam03.Name = "lblCam03";
+            this.lblCam03.Size = new System.Drawing.Size(21, 13);
+            this.lblCam03.TabIndex = 5;
+            this.lblCam03.Text = "03";
+            // 
+            // pBar03
+            // 
+            this.pBar03.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar03.Location = new System.Drawing.Point(36, 66);
+            this.pBar03.Maximum = 200;
+            this.pBar03.Name = "pBar03";
+            this.pBar03.Size = new System.Drawing.Size(39, 3);
+            this.pBar03.TabIndex = 4;
+            // 
+            // lblCam02
+            // 
+            this.lblCam02.AutoSize = true;
+            this.lblCam02.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam02.Location = new System.Drawing.Point(3, 48);
+            this.lblCam02.Name = "lblCam02";
+            this.lblCam02.Size = new System.Drawing.Size(21, 13);
+            this.lblCam02.TabIndex = 3;
+            this.lblCam02.Text = "02";
+            // 
+            // pBar02
+            // 
+            this.pBar02.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar02.Location = new System.Drawing.Point(36, 54);
+            this.pBar02.Maximum = 200;
+            this.pBar02.Name = "pBar02";
+            this.pBar02.Size = new System.Drawing.Size(39, 3);
+            this.pBar02.TabIndex = 2;
+            // 
+            // lblCam01
+            // 
+            this.lblCam01.AutoSize = true;
+            this.lblCam01.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCam01.Location = new System.Drawing.Point(3, 35);
+            this.lblCam01.Name = "lblCam01";
+            this.lblCam01.Size = new System.Drawing.Size(21, 13);
+            this.lblCam01.TabIndex = 1;
+            this.lblCam01.Text = "01";
+            // 
+            // pBar01
+            // 
+            this.pBar01.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pBar01.Location = new System.Drawing.Point(36, 41);
+            this.pBar01.Maximum = 200;
+            this.pBar01.Name = "pBar01";
+            this.pBar01.Size = new System.Drawing.Size(39, 3);
+            this.pBar01.TabIndex = 0;
+            // 
+            // btnCerrarPanel
+            // 
+            this.btnCerrarPanel.Location = new System.Drawing.Point(412, 301);
+            this.btnCerrarPanel.Name = "btnCerrarPanel";
+            this.btnCerrarPanel.Size = new System.Drawing.Size(17, 63);
+            this.btnCerrarPanel.TabIndex = 95;
+            this.btnCerrarPanel.Text = ">>";
+            this.btnCerrarPanel.UseVisualStyleBackColor = true;
+            this.btnCerrarPanel.Visible = false;
             // 
             // frmMapa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1202, 488);
+            this.ClientSize = new System.Drawing.Size(1202, 511);
+            this.Controls.Add(this.btnCerrarPanel);
+            this.Controls.Add(this.panelLeyenda);
+            this.Controls.Add(this.panelLeyendas);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.panelCamion);
+            this.Controls.Add(this.chart4);
+            this.Controls.Add(this.chart3);
             this.Controls.Add(this.panelDetalles);
             this.Controls.Add(this.panelCamiones);
-            this.Controls.Add(this.panelLeyendas);
             this.Controls.Add(this.btnRotarIzq);
             this.Controls.Add(this.btnRotarDer);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.chart2);
             this.Controls.Add(this.panelFecha);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panelTrack);
-            this.Controls.Add(this.panelLeyenda);
             this.Controls.Add(this.webBClima);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.splitContainerMapa);
             this.Controls.Add(this.toolStrip2);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.gMapControl1);
             this.MinimizeBox = false;
             this.Name = "frmMapa";
             this.Text = "Form1";
@@ -2352,6 +4556,22 @@
             this.panelLeyendas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVista)).EndInit();
             this.panelCamiones.ResumeLayout(false);
+            this.panelCamiones.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam09)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam08)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam07)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam06)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam05)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam04)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam03)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam02)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsCam01)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRepCam15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRepCam14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRepCam13)).EndInit();
@@ -2384,6 +4604,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.picCam01)).EndInit();
             this.panelDetalles.ResumeLayout(false);
             this.panelDetalles.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart4)).EndInit();
+            this.splitContainerMapa.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMapa)).EndInit();
+            this.splitContainerMapa.ResumeLayout(false);
+            this.panelCamion.ResumeLayout(false);
+            this.panelCamion.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs09)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs08)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs07)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs06)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs05)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs04)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs03)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs02)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBs01)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2592,6 +4834,180 @@
         private System.Windows.Forms.PictureBox picRepCam10;
         private System.Windows.Forms.PictureBox picRepCam09;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.ToolStripMenuItem servidaToolStripMenuItem;
+        private System.Windows.Forms.Button btnOcultarCuadro;
+        private System.Windows.Forms.ToolStripButton toolStripButton17;
+        private System.Windows.Forms.ToolStripButton toolStripButton18;
+        private System.Windows.Forms.ToolStripButton toolStripButton19;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator26;
+        private System.Windows.Forms.ToolStripLabel lblMsg;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl01;
+        private System.Windows.Forms.PictureBox picGpsCam01;
+        private System.Windows.Forms.Label lbl04;
+        private System.Windows.Forms.Label lbl03;
+        private System.Windows.Forms.Label lbl02;
+        private System.Windows.Forms.PictureBox picGpsCam04;
+        private System.Windows.Forms.PictureBox picGpsCam03;
+        private System.Windows.Forms.PictureBox picGpsCam02;
+        private System.Windows.Forms.Label lbl15;
+        private System.Windows.Forms.Label lbl14;
+        private System.Windows.Forms.Label lbl13;
+        private System.Windows.Forms.Label lbl12;
+        private System.Windows.Forms.Label lbl11;
+        private System.Windows.Forms.Label lbl10;
+        private System.Windows.Forms.Label lbl09;
+        private System.Windows.Forms.Label lbl08;
+        private System.Windows.Forms.Label lbl07;
+        private System.Windows.Forms.Label lbl06;
+        private System.Windows.Forms.Label lbl05;
+        private System.Windows.Forms.PictureBox picGpsCam08;
+        private System.Windows.Forms.PictureBox picGpsCam07;
+        private System.Windows.Forms.PictureBox picGpsCam06;
+        private System.Windows.Forms.PictureBox picGpsCam05;
+        private System.Windows.Forms.PictureBox picGpsCam15;
+        private System.Windows.Forms.PictureBox picGpsCam14;
+        private System.Windows.Forms.PictureBox picGpsCam13;
+        private System.Windows.Forms.PictureBox picGpsCam12;
+        private System.Windows.Forms.PictureBox picGpsCam11;
+        private System.Windows.Forms.PictureBox picGpsCam10;
+        private System.Windows.Forms.PictureBox picGpsCam09;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label lblCamPorc;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator27;
+        private System.Windows.Forms.SplitContainer splitContainerMapa;
+        private System.Windows.Forms.ToolStripButton toolStripButton21;
+        private System.Windows.Forms.Panel panelCamion;
+        private System.Windows.Forms.ProgressBar pBar01;
+        private System.Windows.Forms.Label lblCam01;
+        private System.Windows.Forms.Label lblCam02;
+        private System.Windows.Forms.ProgressBar pBar02;
+        private System.Windows.Forms.Label lblCam04;
+        private System.Windows.Forms.ProgressBar pBar04;
+        private System.Windows.Forms.Label lblCam03;
+        private System.Windows.Forms.ProgressBar pBar03;
+        private System.Windows.Forms.Label lblCam08;
+        private System.Windows.Forms.ProgressBar pBar08;
+        private System.Windows.Forms.Label lblCam07;
+        private System.Windows.Forms.ProgressBar pBar07;
+        private System.Windows.Forms.Label lblCam06;
+        private System.Windows.Forms.ProgressBar pBar06;
+        private System.Windows.Forms.Label lblCam05;
+        private System.Windows.Forms.ProgressBar pBar05;
+        private System.Windows.Forms.Label lblCam15;
+        private System.Windows.Forms.ProgressBar pBar15;
+        private System.Windows.Forms.Label lblCam14;
+        private System.Windows.Forms.ProgressBar pBar14;
+        private System.Windows.Forms.Label lblCam13;
+        private System.Windows.Forms.ProgressBar pBar13;
+        private System.Windows.Forms.Label lblCam12;
+        private System.Windows.Forms.ProgressBar pBar12;
+        private System.Windows.Forms.Label lblCam11;
+        private System.Windows.Forms.ProgressBar pBar11;
+        private System.Windows.Forms.Label lblCam10;
+        private System.Windows.Forms.ProgressBar pBar10;
+        private System.Windows.Forms.Label lblCam09;
+        private System.Windows.Forms.ProgressBar pBar09;
+        private System.Windows.Forms.Label lblpB15;
+        private System.Windows.Forms.Label lblpB14;
+        private System.Windows.Forms.Label lblpB13;
+        private System.Windows.Forms.Label lblpB12;
+        private System.Windows.Forms.Label lblpB11;
+        private System.Windows.Forms.Label lblpB10;
+        private System.Windows.Forms.Label lblpB09;
+        private System.Windows.Forms.Label lblpB08;
+        private System.Windows.Forms.Label lblpB07;
+        private System.Windows.Forms.Label lblpB06;
+        private System.Windows.Forms.Label lblpB05;
+        private System.Windows.Forms.Label lblpB04;
+        private System.Windows.Forms.Label lblpB03;
+        private System.Windows.Forms.Label lblpB02;
+        private System.Windows.Forms.Label lblpB01;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label lblpBc15;
+        private System.Windows.Forms.Label lblpBc14;
+        private System.Windows.Forms.Label lblpBc13;
+        private System.Windows.Forms.Label lblpBc12;
+        private System.Windows.Forms.Label lblpBc11;
+        private System.Windows.Forms.Label lblpBc10;
+        private System.Windows.Forms.Label lblpBc09;
+        private System.Windows.Forms.Label lblpBc08;
+        private System.Windows.Forms.Label lblpBc07;
+        private System.Windows.Forms.Label lblpBc06;
+        private System.Windows.Forms.Label lblpBc05;
+        private System.Windows.Forms.Label lblpBc04;
+        private System.Windows.Forms.Label lblpBc03;
+        private System.Windows.Forms.Label lblpBc02;
+        private System.Windows.Forms.Label lblpBc01;
+        private System.Windows.Forms.Label lblpBr15;
+        private System.Windows.Forms.Label lblpBr14;
+        private System.Windows.Forms.Label lblpBr13;
+        private System.Windows.Forms.Label lblpBr12;
+        private System.Windows.Forms.Label lblpBr11;
+        private System.Windows.Forms.Label lblpBr10;
+        private System.Windows.Forms.Label lblpBr09;
+        private System.Windows.Forms.Label lblpBr08;
+        private System.Windows.Forms.Label lblpBr07;
+        private System.Windows.Forms.Label lblpBr06;
+        private System.Windows.Forms.Label lblpBr05;
+        private System.Windows.Forms.Label lblpBr04;
+        private System.Windows.Forms.Label lblpBr03;
+        private System.Windows.Forms.Label lblpBr02;
+        private System.Windows.Forms.Label lblpBr01;
+        private System.Windows.Forms.Label lblpBs15;
+        private System.Windows.Forms.Label lblpBs14;
+        private System.Windows.Forms.Label lblpBs13;
+        private System.Windows.Forms.Label lblpBs12;
+        private System.Windows.Forms.Label lblpBs11;
+        private System.Windows.Forms.Label lblpBs10;
+        private System.Windows.Forms.Label lblpBs09;
+        private System.Windows.Forms.Label lblpBs08;
+        private System.Windows.Forms.Label lblpBs07;
+        private System.Windows.Forms.Label lblpBs06;
+        private System.Windows.Forms.Label lblpBs05;
+        private System.Windows.Forms.Label lblpBs04;
+        private System.Windows.Forms.Label lblpBs03;
+        private System.Windows.Forms.Label lblpBs02;
+        private System.Windows.Forms.Label lblpBs01;
+        private System.Windows.Forms.PictureBox picBs01;
+        private System.Windows.Forms.PictureBox picBs02;
+        private System.Windows.Forms.PictureBox picBs04;
+        private System.Windows.Forms.PictureBox picBs03;
+        private System.Windows.Forms.PictureBox picBs13;
+        private System.Windows.Forms.PictureBox picBs12;
+        private System.Windows.Forms.PictureBox picBs11;
+        private System.Windows.Forms.PictureBox picBs10;
+        private System.Windows.Forms.PictureBox picBs09;
+        private System.Windows.Forms.PictureBox picBs08;
+        private System.Windows.Forms.PictureBox picBs07;
+        private System.Windows.Forms.PictureBox picBs06;
+        private System.Windows.Forms.PictureBox picBs05;
+        private System.Windows.Forms.PictureBox picBs15;
+        private System.Windows.Forms.PictureBox picBs14;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Button btnCerrarPanel;
+        private System.Windows.Forms.Label lblpBb15;
+        private System.Windows.Forms.Label lblpBb14;
+        private System.Windows.Forms.Label lblpBb13;
+        private System.Windows.Forms.Label lblpBb12;
+        private System.Windows.Forms.Label lblpBb11;
+        private System.Windows.Forms.Label lblpBb10;
+        private System.Windows.Forms.Label lblpBb09;
+        private System.Windows.Forms.Label lblpBb08;
+        private System.Windows.Forms.Label lblpBb07;
+        private System.Windows.Forms.Label lblpBb06;
+        private System.Windows.Forms.Label lblpBb05;
+        private System.Windows.Forms.Label lblpBb04;
+        private System.Windows.Forms.Label lblpBb03;
+        private System.Windows.Forms.Label lblpBb02;
+        private System.Windows.Forms.Label lblpBb01;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
     }
 }
 

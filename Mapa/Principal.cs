@@ -24,6 +24,7 @@ namespace Mapa
         {
             this.Text = Application.ProductName + " - Sistema Reparto Gusi - v" + Application.ProductVersion + " - " + bitModo();
             //abrirMapa(1);
+            cargarConfigDB();
         }
 
         private void cerrarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -173,6 +174,40 @@ namespace Mapa
                 if (Application.OpenForms[i].Name != "Principal")
                     Application.OpenForms[i].Close();
             }
+
+        }
+
+        private void cargarConfigDB()
+        {
+
+            try
+            {
+
+                Datos datos = new Datos();
+                DataTable dt = new DataTable();
+
+                datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+                if (!datos.consultaSQL(ref dt, true))
+                {
+                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                else
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        toolStripMenuItem1.Visible = (Boolean)row["Servidas"];
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+                        
+
+            
 
         }
 
