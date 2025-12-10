@@ -12,7 +12,7 @@ namespace Mapa.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,8 +26,8 @@ namespace Mapa.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://TAMGGSAPDEV.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/200/zwsdl_m" +
-            "ap/zwsdl_map")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://TAMGGSAPPROD.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/400/zwsdl_" +
+            "map/zwsdl_map")]
         public string Mapa_getSAPData_zwsdl_map {
             get {
                 return ((string)(this["Mapa_getSAPData_zwsdl_map"]));

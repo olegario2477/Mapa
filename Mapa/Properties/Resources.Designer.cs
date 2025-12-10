@@ -61,7 +61,14 @@ namespace Mapa.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a .
+        ///   Busca una cadena traducida similar a --SQL;
+        ///CREATE TABLE Configuracion ( Id AUTOINCREMENT(1,1) PRIMARY KEY, Usuario TEXT(20), Contrasena TEXT(20), RutaRed TEXT(100), Latencia LONG DEFAULT 10, Instancia LONG DEFAULT 2, Inactividad LONG DEFAULT 5);
+        ///INSERT INTO Configuracion (USUARIO) VALUES (&apos;usuario&apos;);
+        ///UPDATE Configuracion SET RutaRed = &apos;\\tamggerpsig\senga&apos;;
+        ///CREATE TABLE Actividad ( Corral TEXT(10), ColorArete TEXT, IdD AUTOINCREMENT(1,1) PRIMARY KEY);
+        ///--SQL;
+        ///ALTER TABLE Configuracion ADD COLUMN Servidas YESNO DEFAULT NO;
+        ///.
         /// </summary>
         internal static string SQL {
             get {

@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Configuration;
 using System.Diagnostics;
+using Microsoft.Win32;
+using System.Web;
 
 namespace Mapa
 {
@@ -44,8 +46,39 @@ namespace Mapa
             //cargarConfigTxt();
             cargarConfigDB();
 
-            usuario = obtenerConfig(3);
-            contrasena = obtenerConfig(4);
+            DataRow row = obtenerConfigDB();
+
+            if (row != null)
+            {
+                usuario = row["Usuario"].ToString(); //obtenerConfig(3);
+                contrasena = row["contrasena"].ToString(); //obtenerConfig(4);
+            }
+
+
+            verConfig();
+
+            //usuario = obtenerConfig(3);
+            //contrasena = obtenerConfig(4);
+
+        }
+
+        private void verConfig()
+        {
+            try
+            {
+
+                Mapa.Properties.Settings setting = Mapa.Properties.Settings.Default;
+
+                string[] cadena = setting.Mapa_getSAPData_zwsdl_map.Split('/');
+                string[] cadena2 = cadena[2].ToString().Split('.');
+
+                txtMandante.Text = cadena[9].ToString();
+                txtServer.Text = cadena2[0].ToString();
+
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
+            }
+            catch { }
 
         }
 
@@ -338,7 +371,7 @@ namespace Mapa
             //{
             //    MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             //}
-
+            msgerr = errormsg;
 
             try
             {
@@ -448,16 +481,35 @@ namespace Mapa
 
             try
             {
-                valor = Properties.Settings.Default.Mapa_getSAPData_zwsdl_map;
-                MessageBox.Show(valor);
 
-                //Properties.Settings.Default.Mapa_getSAPData_zwsdl_map = "http://TAMGGSAPPROD.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/200/zwsdl_map/zwsdl_map";
-                //Properties.Settings.Default.Save();
+                string s200 = "http://TAMGGSADEV.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/200/zwsdl_map/zwsdl_map";
+                string s400 = "http://TAMGGSAPPROD.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/400/zwsdl_map/zwsdl_map";
 
-                
 
-                //SetSetting("Mapa_getSAPData_zwsdl_map", "http://TAMGGSAPDEV.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/200/zwsdl_map/zwsdl_map");
-                SetSetting("Mapa_getSAPData_zwsdl_map", "http://TAMGGSAPPROD.grupogusi.com.mx:8000/sap/bc/srt/rfc/sap/zwsdl_map/400/zwsdl_map/zwsdl_map");
+
+                //Mapa.Properties.Settings setting = Mapa.Properties.Settings.Default;
+
+                //setting
+                //string cadena = setting.Mapa_getSAPData_zwsdl_map;
+
+
+                //// Retrieve the configuration for the application settings
+                //var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                //// Get the setting by name
+                //var setting = config.AppSettings.Settings["Mapa_getSAPData_zwsdl_map"];
+
+                //// Update the value
+                //setting.Value = s400;
+
+                //// Save the updated configuration
+                //config.Save(ConfigurationSaveMode.Modified);
+
+                //// Refresh the configuration to reflect the updated value
+                //ConfigurationManager.RefreshSection("appSettings");
+
+
+
 
             }
             catch (Exception em) 
@@ -731,5 +783,59 @@ namespace Mapa
         {
 
         }
+
+        private void btnVerifica_Click(object sender, EventArgs e)
+        {
+
+            txtVerifica.Text = Environment.Version.ToString() + ", " +
+            Environment.OSVersion.ToString();
+
+            //using (RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(@"SOFTWARE\Microsoft\Updates"))
+            //{
+            //    foreach (string baseKeyName in baseKey.GetSubKeyNames())
+            //    {
+            //        if (baseKeyName.Contains(".NET Framework"))
+            //        {
+            //            using (RegistryKey updateKey = baseKey.OpenSubKey(baseKeyName))
+            //            {
+            //                Console.WriteLine(baseKeyName);
+            //                foreach (string kbKeyName in updateKey.GetSubKeyNames())
+            //                {
+            //                    using (RegistryKey kbKey = updateKey.OpenSubKey(kbKeyName))
+            //                    {
+            //                        //Console.WriteLine("  " + kbKeyName);
+            //                        txtVerifica.Text = txtVerifica.Text + '\n' + '\r' + kbKeyName;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+        }
+
+        private DataRow obtenerConfigDB()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    return row;
+                }
+            }
+
+            return null;
+
+        }
+
     }
 }
