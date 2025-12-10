@@ -11,8 +11,6 @@ namespace Mapa
     {
 
 
-
-
         public static DialogResult InputBox(string title, string promptText, ref string value)
         {
             Form form = new Form();
@@ -50,11 +48,56 @@ namespace Mapa
             form.AcceptButton = buttonOk;
             form.CancelButton = buttonCancel;
 
+            form.ShowInTaskbar = false;
+
             DialogResult dialogResult = form.ShowDialog();
             value = textBox.Text;
             return dialogResult;
         }
 
+        public static string valorBoton(PictureBox control, PaintEventArgs e, string valor, Color numero)
+        {
+
+            //using (Font fuente = new Font("Arial", 27, FontStyle.Bold))
+            using (Brush pincel = new SolidBrush(numero))
+            {
+                float emSize = 12;
+                Point posicion = new Point(12, 3);
+
+                //switch (valor.Length)
+                //{
+                //    case 1:
+                //        posicion = new Point(18, 12);
+                //        break;
+                //    case 2:
+                //        posicion = new Point(8, 12);
+                //        break;
+                //    case 3:
+                //        posicion = new Point(0, 14);
+                //        emSize = 24;
+                //        break;
+                //    case 4:
+                //        posicion = new Point(0, 18);
+                //        emSize = 19;
+                //        break;
+                //    case 5:
+                //        posicion = new Point(0, 22);
+                //        emSize = 15;
+                //        break;
+                //    case 6:
+                //        posicion = new Point(0, 23);
+                //        emSize = 13;
+                //        break;
+
+                //}
+
+                Font fuente = new Font("Courier", emSize, FontStyle.Regular);
+                e.Graphics.DrawString(valor, fuente, pincel, posicion);
+            }
+
+            return valor;
+
+        }
 
 
 
