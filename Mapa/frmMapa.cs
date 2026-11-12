@@ -1,12 +1,10 @@
-﻿using GMap.NET;
+using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -19,15 +17,11 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Forms.VisualStyles;
-using System.Xml;
 using System.Xml.Linq;
 
 
@@ -196,11 +190,15 @@ namespace Mapa
         string cambiopantalla = "20";
         string instancia = "0";
         string inactividad = "0";
+        double kilosTolerancia = 0;
         string rutared = "";
         bool gMostrarRepartos = true;
         bool gTimerActivo1 = false;
 
         Color colorCamion = Color.FromArgb(30, 144, 255);
+        Color colorNaranja = Color.FromArgb(255, Color.Orange);
+
+        bool mostrarDosPuntos = true;
 
         string iniFecha = "";
         string finFecha = "";
@@ -265,12 +263,36 @@ namespace Mapa
         public frmMapa(int opc, string nombre)
         {
             instance = this;
-            InitializeComponent();                
+            InitializeComponent();
             _points = new List<PointLatLng>();
             _pointsc = new List<PointLatLng>();
             _pointslc = new List<PointLatLng>();
             gopc = opc;
             gnombre = nombre;
+        }
+
+        private bool estadoTimerCamion = false;
+        private bool estadoTimerPing = false;
+        private bool estadoTimerReloj = false;
+        private bool estadoTimerClockMin = false;
+        private bool estadoTimerRepartos = false;
+
+        public void PausarTimers()
+        {
+            if (timerCamion != null) { estadoTimerCamion = timerCamion.Enabled; timerCamion.Enabled = false; }
+            if (timerPing != null) { estadoTimerPing = timerPing.Enabled; timerPing.Enabled = false; }
+            if (timerReloj != null) { estadoTimerReloj = timerReloj.Enabled; timerReloj.Enabled = false; }
+            if (timerClockMin != null) { estadoTimerClockMin = timerClockMin.Enabled; timerClockMin.Enabled = false; }
+            if (timerRepartos != null) { estadoTimerRepartos = timerRepartos.Enabled; timerRepartos.Enabled = false; }
+        }
+
+        public void ReanudarTimers()
+        {
+            if (estadoTimerCamion && timerCamion != null) timerCamion.Enabled = true;
+            if (estadoTimerPing && timerPing != null) timerPing.Enabled = true;
+            if (estadoTimerReloj && timerReloj != null) timerReloj.Enabled = true;
+            if (estadoTimerClockMin && timerClockMin != null) timerClockMin.Enabled = true;
+            if (estadoTimerRepartos && timerRepartos != null) timerRepartos.Enabled = true;
         }
 
         private void frmMapa_Shown(object sender, EventArgs e)
@@ -286,7 +308,7 @@ namespace Mapa
         {
 
             this.Cursor = Cursors.WaitCursor;
-            
+
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
@@ -338,6 +360,10 @@ namespace Mapa
                 inactividad = row["Inactividad"].ToString(); //obtenerConfig(5);
                 rutared = row["RutaRed"].ToString(); //obtenerConfig(6);
                 instancia = row["Instancia"].ToString(); //obtenerConfig(2);                                 //
+                if (row.Table.Columns.Contains("kilostolerancia") && !Convert.IsDBNull(row["kilostolerancia"]))
+                {
+                    double.TryParse(row["kilostolerancia"].ToString(), out kilosTolerancia);
+                }
             }
 
             lblTimer.Text = latencia;
@@ -356,7 +382,7 @@ namespace Mapa
 
             posPanelCam();
             //posicionBTN();
-            
+
 
 
             cargaMapa(gMapControl1);
@@ -379,7 +405,7 @@ namespace Mapa
             tablaUbicTemp();
 
             listaCamiones();
-            
+
             //Thread t = new Thread(() => { listaCamiones(); });
             //t.Name = "flistaCamiones";
             //t.IsBackground = true;
@@ -501,7 +527,7 @@ namespace Mapa
                     break;
             }
 
-            
+
             //mostrarDatosWs();
 
             cmbServidas.SelectedIndex = 0;
@@ -586,7 +612,7 @@ namespace Mapa
 
             panelTrack.Visible = true;
 
-            Principal.instance.toolStripMenuItem8_Click(sender,e);
+            Principal.instance.toolStripMenuItem8_Click(sender, e);
             //////////////////////////////////////////////////////////////////////////////////////////
 
             //picCamion04.Image = imageListCamiones.Images[5];
@@ -612,7 +638,7 @@ namespace Mapa
             //DibujarRelojAnalogico(panelReloj);
 
 
-           
+
 
 
 
@@ -859,7 +885,7 @@ namespace Mapa
                 }
 
             }
-            
+
 
 
         }
@@ -1012,7 +1038,7 @@ namespace Mapa
         }
 
         private void prensaActividad(string nombre, List<PointLatLng> points, Color color, bool visible)
-        {            
+        {
 
             polygonPrensas = new GMapPolygon(points, nombre)
             {
@@ -1023,7 +1049,7 @@ namespace Mapa
             };
 
             overlayPrensas.Polygons.Add(polygonPrensas);
-            
+
         }
 
         private void zonaActividad(string nombre, List<PointLatLng> points, Color color)
@@ -1207,9 +1233,9 @@ namespace Mapa
         private void corralActividadNombres(GMapPolygon polygon, string valor, Color color, GMarkerGoogle vmarkerlabelCelda, GMapOverlay voverlaylabelCeldas)
         {
 
-            int tamano = 8+3;
+            int tamano = 8 + 3;
             int ancho = 40;
-            int alto = 22+2; //11;
+            int alto = 22 + 2; //11;
 
             int tmin = trackBar1.Minimum;
             int ttam = trackBar1.Value - tmin;
@@ -1228,7 +1254,7 @@ namespace Mapa
             Brush textBrush = new SolidBrush(color);
             //texto nombre corrales
             graphicImage.DrawString(valor, new Font("Calibri", tamano, FontStyle.Regular), SystemBrushes.WindowText, new Point(3, 0));
-            graphicImage.DrawString(polygon.Name, new Font("Calibri", tamano, FontStyle.Regular), textBrush, new Point(0+3, 10));
+            graphicImage.DrawString(polygon.Name, new Font("Calibri", tamano, FontStyle.Regular), textBrush, new Point(0 + 3, 10));
             graphicImage.Dispose();
 
 
@@ -1402,10 +1428,11 @@ namespace Mapa
             //gMapControl1.Manager.Mode = modoAcceso(instancia);
             gmap.CacheLocation = @"mapa";
 
-
             gmap.Position = new PointLatLng(LatInicial, LngInicial);
             //gMapControl1.MaspProvider = GMapProviders.GoogleMap;
-            gmap.MapProvider = GMapProviders.GoogleChinaSatelliteMap;
+            //gmap.MapProvider = GMapProviders.GoogleChinaSatelliteMap;
+            //gmap.MapProvider = GMapProviders.GoogleKoreaSatelliteMap;
+            gmap.MapProvider = GMapProviders.GoogleSatelliteMap;
             //gMapControl1.MapProvider = GMapProviders.GoogleChinaHybridMap;
 
             gmap.DragButton = MouseButtons.Left;
@@ -1423,7 +1450,7 @@ namespace Mapa
             lblCoordenadas.Text = Convert.ToString(LatInicial) + "," + Convert.ToString(LngInicial);
 
             Principal.instance.toolStripTextBox1.Text = lblCoordenadas.Text;
-         
+
         }
 
         private void tablaCamionTemp()
@@ -1442,7 +1469,8 @@ namespace Mapa
 
             dtTallertmp = new DataTable();
 
-            dtTallertmp.Columns.Add("id");
+            dtTallertmp.Columns.Add("numcamion");
+            //dtTallertmp.Columns.Add("id");
             dtTallertmp.Columns.Add("name");
             dtTallertmp.Columns.Add("fecha");
             dtTallertmp.Columns.Add("mtto");
@@ -1458,7 +1486,7 @@ namespace Mapa
             dtListaCamiontmp.Columns.Add("id");
             dtListaCamiontmp.Columns.Add("name");
 
-            dtListaCamiontmp.Columns.Add("zona");            
+            dtListaCamiontmp.Columns.Add("zona");
             dtListaCamiontmp.Columns.Add("centroam");
             dtListaCamiontmp.Columns.Add("centropm");
             dtListaCamiontmp.Columns.Add("recepcion");
@@ -1488,15 +1516,15 @@ namespace Mapa
             dtPlanestmp.Columns.Add("corral");
         }
 
-        private void listaCamiones()
+        private async Task listaCamiones()
         {
 
             DataTable dt = new DataTable();
 
-            leerWsdlListaCamion(ref dt);
+            dt = await leerWsdlListaCamion();
             //leerWsListaCamion(ref dt);
 
-            if(dt==null) { return; }
+            if (dt == null) { return; }
             if (dt.Rows.Count == 0) { return; }
 
             dt.DefaultView.Sort = "id" + " asc";
@@ -1530,7 +1558,8 @@ namespace Mapa
 
             }
 
-            if (cmbCamionRuta.Items.Count > 0) {
+            if (cmbCamionRuta.Items.Count > 0)
+            {
                 cmbCamionRuta.SelectedIndex = 0;
             }
 
@@ -1589,7 +1618,7 @@ namespace Mapa
 
         private void agregaractualizarMarcadorLocalizaCamion(string id, string name, string fecha, string hora, double lat, double lng, string racion, string servida, string total_corral, string faltan_serv, int carga_actual, string pila, string velocidad)
         {
-            
+
             string horaAct = DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss");
             DateTime hora1 = Convert.ToDateTime(hora);
             DateTime hora2 = Convert.ToDateTime(horaAct);
@@ -1601,7 +1630,7 @@ namespace Mapa
 
             if (id == "14")
             {
-                var a = 1;
+                //var a = 1;
             }
 
             //////////////////////////
@@ -1624,9 +1653,9 @@ namespace Mapa
                 mostrarCamionActivo(id, true);
             }
             else
-               //if (demora.TotalMinutes > Convert.ToDouble(inactividad)
-               // && demora.TotalMinutes <= Convert.ToDouble(inactividad) + 120
-               // )
+            //if (demora.TotalMinutes > Convert.ToDouble(inactividad)
+            // && demora.TotalMinutes <= Convert.ToDouble(inactividad) + 120
+            // )
             {
                 //inactivo
                 vimg = CamionInAct;
@@ -1644,8 +1673,8 @@ namespace Mapa
                 return;
             }
 
-            if (vimg != null) 
-            { 
+            if (vimg != null)
+            {
 
                 Bitmap bmpmarker = new Bitmap(vimg); //imagen camion
 
@@ -1677,20 +1706,22 @@ namespace Mapa
                     //    //graphicImage = drawEtiqueta(graphicImage, vel1.ToString(), 9, Color.White, 28, 22-10);
 
                     //}
-   
+
                     graphicImage = drawPie(graphicImage, bmpmarker, servida, satc, safs, 6, 20 - 0);
                     graphicImage = drawStop(graphicImage, bmpmarker, velocidad, 8, 22 - 0);
 
                     if (safs[0] != "0")
                     {
+                        //pogressLimpiaCamionNum(id);
                         pogressCamionNum(id, servida, satc, safs);
                     }
                     else
                     {
                         string[] sa1a = { "100", "0" };
                         string[] sa2a = { "0", "0" };
-                        pogressCamionNum(id, servida, sa1a, sa2a);
                         //pogressLimpiaCamionNum(id);
+                        pogressCamionNum(id, servida, sa1a, sa2a);
+                  
                     }
                 }
                 else
@@ -1701,7 +1732,7 @@ namespace Mapa
                     //}
                     //else
                     //{
-                        pogressLimpiaCamionNum(id);
+                    pogressLimpiaCamionNum(id);
                     //}
                 }
 
@@ -1709,13 +1740,13 @@ namespace Mapa
                 {
                     string formatoH = $"{(int)demora.TotalHours}h {demora.Minutes}min";
                     graphicImage = drawEtiqueta(graphicImage, formatoH, 9, Color.White, 3, 3);
-                }                    
+                }
 
-                graphicImage = drawEtiqueta(graphicImage, id.PadLeft(2, '0'), 15, Color.White, 6, 24-0);
+                graphicImage = drawEtiqueta(graphicImage, id.PadLeft(2, '0'), 15, Color.White, 6, 24 - 0);
                 string vracion = racion.Length >= 4 ? racion.Substring(0, 4) : racion;
                 graphicImage = drawEtiqueta(graphicImage, (vracion /*+ " " + Math.Round((double)carga_actual / 1000.0, 1) + "t"*/), 7, Color.White, -2 + 34, -2 + 44);
                 var p = Math.Round((double)carga_actual / 1000.0, 0);
-                
+
                 graphicImage = drawPila(graphicImage, bmpmarker, pila);
 
                 Color colorLetra = Color.White;
@@ -1730,7 +1761,18 @@ namespace Mapa
                 graphicImage.Dispose();
                 markerCamion = new GMarkerGoogle(new PointLatLng(lat, lng), bmpmarker);
                 markerCamion.ToolTipMode = MarkerTooltipMode.OnMouseOver;//.Always;
-                markerCamion.ToolTipText = string.Format("S{3}, {2}, {1}, Carga {5} kg", name, hora, racion, servida, id, carga_actual);
+                markerCamion.ToolTipText = string.Format("{0}{1}{2}{3}{6}",
+
+                    "Hora " + hora + "\r\n",
+                    "Racion " + racion + "\r\n",
+                    "Servida " + servida + "\r\n",
+                    "Carga " + carga_actual + " kg" + "\r\n",
+
+                    "Total " + total_corral + "\r\n",
+                    "Falta " + faltan_serv + "\r\n",
+                    "Pila " + pila + "\r\n",
+                    "Velocidad " + velocidad);
+
                 overlayCamiones.Markers.Add(markerCamion);
 
             }
@@ -1768,7 +1810,7 @@ namespace Mapa
             switch (servida)
             {
                 case "1":
-                    vColor = Color.Orange;
+                    vColor = colorNaranja;// Color.Orange;
                     break;
                 case "2":
                     vColor = Color.Lime;
@@ -1829,7 +1871,7 @@ namespace Mapa
             //60km = 32.42 nudos
             //50km = 27.02 nudos
             //40km = 21.61 nudos
-            
+
             //33km = 18.00 nudos
 
             //30km = 16.20 nudos
@@ -1842,7 +1884,7 @@ namespace Mapa
 
             graphicImage.FillPie(
                 new SolidBrush(colorVel), // Pen to draw the pie
-                new Rectangle(x + v, y + v, 27 - v*2, 27 - v*2), // Rectangle defining the bounds of the pie
+                new Rectangle(x + v, y + v, 27 - v * 2, 27 - v * 2), // Rectangle defining the bounds of the pie
                 anguloIni, // Start angle in degrees
                 360 // Sweep angle in degrees
             );
@@ -1942,12 +1984,12 @@ namespace Mapa
 
         Graphics drawPila(Graphics graphicImage, Bitmap bmpmarker, string pila)
         {
-            Rectangle rect2 = new Rectangle(40 + 5, bmpmarker.Height - 19 + 6, 11-5, 5);
+            Rectangle rect2 = new Rectangle(40 + 5, bmpmarker.Height - 19 + 6, 11 - 5, 5);
             if (!pila.Contains("~"))
             {
                 graphicImage.FillRectangle(new SolidBrush(Color.FromArgb(150 + 100, Color.Yellow)), rect2);
             }
-            return graphicImage;                
+            return graphicImage;
         }
 
         Graphics drawEtiqueta(Graphics graphicImage, string texto, float emsize, Color color, int x, int y)
@@ -2018,7 +2060,7 @@ namespace Mapa
 
             if (id == "19")
             {
-                var a = 1;
+                //var a = 1;
             }
 
             var vColorSinColor = Color.White;
@@ -2030,7 +2072,7 @@ namespace Mapa
             switch (servida)
             {
                 case "1":
-                    vColor = Color.Orange;
+                    vColor = colorNaranja; // Color.Orange;
                     break;
                 case "2":
                     vColor = Color.Lime;
@@ -2372,7 +2414,7 @@ namespace Mapa
         }
 
         private void agregarPrensas()
-        {            
+        {
 
             Color colorprensa = Color.Brown;
 
@@ -2392,7 +2434,7 @@ namespace Mapa
 
             _pointsc.Clear();
 
-            _pointsc.Add(new PointLatLng(21.8937815955,-98.7365421653));
+            _pointsc.Add(new PointLatLng(21.8937815955, -98.7365421653));
             _pointsc.Add(new PointLatLng(21.894244504, -98.7371402979));
             _pointsc.Add(new PointLatLng(21.8944112502, -98.7369954586));
             _pointsc.Add(new PointLatLng(21.8939433648, -98.7363919616));
@@ -2682,7 +2724,7 @@ namespace Mapa
         {
             //Bitmap bmpmarker = new Bitmap(this.imageList1.Images[1]);
 
-            markerBuscarUbicacion = new GMarkerGoogle(new PointLatLng(lat-.0001, lng), GMarkerGoogleType.yellow_small);// .yellow);// bmpmarker);
+            markerBuscarUbicacion = new GMarkerGoogle(new PointLatLng(lat - .0001, lng), GMarkerGoogleType.yellow_small);// .yellow);// bmpmarker);
             markerBuscarUbicacion.ToolTipMode = MarkerTooltipMode.OnMouseOver;// .Always;
             markerBuscarUbicacion.ToolTipText = string.Format("{0}, {1}, {2}", id, lat, lng);
             overlayBuscarUbicaciones.Markers.Add(markerBuscarUbicacion);
@@ -2950,7 +2992,7 @@ namespace Mapa
             panelActCamiones.Controls.Add(panelDescrip);
             panelActCamiones.Controls.Add(lblClasicConn);
             panelActCamiones.Controls.Add(lblEcoConn);
-           
+
             //panelActCamiones.Controls.Add(lblHoraMapa);
             panelActCamiones.Dock = DockStyle.Bottom;
             panelActCamiones.Height = 230;
@@ -3089,7 +3131,7 @@ namespace Mapa
             chart3.Height = chart4.Height;
             chart3.Width = chart4.Width;
             chart3.Top = chart4.Top;
-            chart3.Left = this.Width - chart4.Width - 50; 
+            chart3.Left = this.Width - chart4.Width - 50;
 
             //chart4.BringToFront();
 
@@ -3144,8 +3186,8 @@ namespace Mapa
 
             posPanelesCam();
 
-            
-            lblDetalleStatus.BackColor = Color.FromArgb(100, Color.Black);
+
+            lblDetalleStatus.BackColor = Color.FromArgb(150, Color.Black);
             lblDetalleStatus.Parent = gMapControl1;
             //lblDetalleStatus.Width = 240;
             //lblDetalleStatus.Top = 20;
@@ -3162,6 +3204,14 @@ namespace Mapa
             lblHoraMapa.Left = this.Width - lblHoraMapa.Width - 70;  //this.Width / 2 - lblHoraMapa.Width / 2;
             //lblHoraMapa.Visible = !panelActCamiones.Visible;       
 
+            int radioEsquinas = 30;
+            System.Drawing.Drawing2D.GraphicsPath pathReloj = new System.Drawing.Drawing2D.GraphicsPath();
+            pathReloj.AddArc(0, 0, radioEsquinas, radioEsquinas, 180, 90);
+            pathReloj.AddArc(lblHoraMapa.Width - radioEsquinas, 0, radioEsquinas, radioEsquinas, 270, 90);
+            pathReloj.AddArc(lblHoraMapa.Width - radioEsquinas, lblHoraMapa.Height - radioEsquinas, radioEsquinas, radioEsquinas, 0, 90);
+            pathReloj.AddArc(0, lblHoraMapa.Height - radioEsquinas, radioEsquinas, radioEsquinas, 90, 90);
+            pathReloj.CloseFigure();
+            lblHoraMapa.Region = new Region(pathReloj);
             posLblStatus();
 
         }
@@ -3187,7 +3237,7 @@ namespace Mapa
                     vIzquierda = 10;
                     break;
                 case 2://derecha
-                     vIzquierda = this.Width - pb.Width - 30;
+                    vIzquierda = this.Width - pb.Width - 30;
                     break;
             }
             switch (posVertical)
@@ -3229,6 +3279,11 @@ namespace Mapa
 
         void posPanelesCam()
         {
+            Panel[] panelesParaCuadrar = { panelCam01, panelCam02, panelCam03, panelCam12, panelCam13, panelCam14, panelCam15, panelCam16, panelCam17, panelCam18, panelCam19, panelCam20, panelCam21, panelCam22, panelCam23, panelCam24, panelCam25, panelCam26, panelCam27, panelCam28, panelCam29, panelCam30, panelCam31, panelCam32, panelCam33, panelCam34, panelCam35, panelCam36 };
+            foreach (Panel p in panelesParaCuadrar)
+            {
+                if (p != null) p.Height = p.Width;
+            }
 
             panelCam01.Parent = gMapControl1;
             panelCam02.Parent = gMapControl1;
@@ -3323,47 +3378,12 @@ namespace Mapa
 
 
 
-            posControl(panelCam01, panelCam01.Height, panelCam01.Width, this.Height - panelCam01.Height - 60, 10);
-            posControl(panelCam02, panelCam02.Height, panelCam02.Width, panelCam01.Top, panelCam01.Left + panelCam01.Width + 5);
-            posControl(panelCam03, panelCam03.Height, panelCam03.Width, panelCam01.Top, panelCam02.Left + panelCam02.Width + 5);
-
-            //posControl(panelCam04,panelCam04.Height,panelCam04.Width, panelCam01.Top, panelCam03.Left + panelCam03.Width + 5);
-            //posControl(panelCam05,panelCam05.Height,panelCam05.Width, panelCam01.Top, panelCam04.Left + panelCam04.Width + 5);
-            //posControl(panelCam06,panelCam06.Height,panelCam06.Width, panelCam01.Top, panelCam05.Left + panelCam05.Width + 5);
-            //posControl(panelCam07,panelCam07.Height,panelCam07.Width, panelCam01.Top, panelCam06.Left + panelCam06.Width + 5);
-            //posControl(panelCam08,panelCam08.Height,panelCam08.Width, panelCam01.Top, panelCam07.Left + panelCam07.Width + 5);
-            //posControl(panelCam09,panelCam09.Height,panelCam09.Width, panelCam01.Top, panelCam08.Left + panelCam08.Width + 5);
-            //posControl(panelCam10,panelCam10.Height,panelCam10.Width, panelCam01.Top, panelCam09.Left + panelCam09.Width + 5);
-            //posControl(panelCam11,panelCam11.Height,panelCam11.Width, panelCam01.Top, panelCam10.Left + panelCam10.Width + 5);
-
-            posControl(panelCam12, panelCam12.Height, panelCam12.Width, panelCam01.Top, panelCam03.Left + panelCam03.Width + 5);
-            posControl(panelCam13, panelCam13.Height, panelCam13.Width, panelCam01.Top, panelCam12.Left + panelCam12.Width + 5);
-            posControl(panelCam14, panelCam14.Height, panelCam14.Width, panelCam01.Top, panelCam13.Left + panelCam13.Width + 5);
-            posControl(panelCam15, panelCam15.Height, panelCam15.Width, panelCam01.Top, panelCam14.Left + panelCam14.Width + 5);
-            posControl(panelCam16, panelCam16.Height, panelCam16.Width, panelCam01.Top, panelCam15.Left + panelCam15.Width + 5);
-            posControl(panelCam17, panelCam17.Height, panelCam17.Width, panelCam01.Top, panelCam16.Left + panelCam16.Width + 5);
-            posControl(panelCam18, panelCam18.Height, panelCam18.Width, panelCam01.Top, panelCam17.Left + panelCam17.Width + 5);
-            posControl(panelCam19, panelCam19.Height, panelCam19.Width, panelCam01.Top, panelCam18.Left + panelCam18.Width + 5);
-            posControl(panelCam20, panelCam20.Height, panelCam20.Width, panelCam01.Top, panelCam19.Left + panelCam19.Width + 5);
-            posControl(panelCam21, panelCam21.Height, panelCam21.Width, panelCam01.Top, panelCam20.Left + panelCam20.Width + 5);
-            posControl(panelCam22, panelCam22.Height, panelCam22.Width, panelCam01.Top, panelCam21.Left + panelCam21.Width + 5);
-            posControl(panelCam23, panelCam23.Height, panelCam23.Width, panelCam01.Top, panelCam22.Left + panelCam22.Width + 5);
-            posControl(panelCam24, panelCam24.Height, panelCam24.Width, panelCam01.Top, panelCam23.Left + panelCam23.Width + 5);
-            posControl(panelCam25, panelCam25.Height, panelCam25.Width, panelCam01.Top, panelCam24.Left + panelCam24.Width + 5);
-            posControl(panelCam26, panelCam26.Height, panelCam26.Width, panelCam01.Top, panelCam25.Left + panelCam25.Width + 5);
-            posControl(panelCam27, panelCam27.Height, panelCam27.Width, panelCam01.Top, panelCam26.Left + panelCam26.Width + 5);
-            posControl(panelCam28, panelCam28.Height, panelCam28.Width, panelCam01.Top, panelCam27.Left + panelCam27.Width + 5);
-            posControl(panelCam29, panelCam29.Height, panelCam29.Width, panelCam01.Top, panelCam28.Left + panelCam28.Width + 5);
-            posControl(panelCam30, panelCam30.Height, panelCam30.Width, panelCam01.Top, panelCam29.Left + panelCam29.Width + 5);
-            posControl(panelCam31, panelCam31.Height, panelCam31.Width, panelCam01.Top, panelCam30.Left + panelCam30.Width + 5);
-            posControl(panelCam32, panelCam32.Height, panelCam32.Width, panelCam01.Top, panelCam31.Left + panelCam31.Width + 5);
-            posControl(panelCam33, panelCam33.Height, panelCam33.Width, panelCam01.Top, panelCam32.Left + panelCam32.Width + 5);
-            posControl(panelCam34, panelCam34.Height, panelCam34.Width, panelCam01.Top, panelCam33.Left + panelCam33.Width + 5);
-            posControl(panelCam35, panelCam35.Height, panelCam35.Width, panelCam01.Top, panelCam34.Left + panelCam34.Width + 5);
-            posControl(panelCam36, panelCam36.Height, panelCam36.Width, panelCam01.Top, panelCam35.Left + panelCam35.Width + 5);
+            // Las posiciones horizontales se calcularán dinámicamente en ReordenarPanelesPorEstado()
+            // que se llamará al final de timer()
 
 
-                    
+
+
 
 
             //return;
@@ -3537,8 +3557,104 @@ namespace Mapa
                 panelCam36.Left);
 
 
+            Panel[] panelesCam = { panelCam01, panelCam02, panelCam03, panelCam12, panelCam13, panelCam14, panelCam15, panelCam16, panelCam17, panelCam18, panelCam19, panelCam20, panelCam21, panelCam22, panelCam23, panelCam24, panelCam25, panelCam26, panelCam27, panelCam28, panelCam29, panelCam30, panelCam31, panelCam32, panelCam33, panelCam34, panelCam35, panelCam36 };
+            Control[] barrasCam = { progressBarCam01, progressBarCam02, progressBarCam03, progressBarCam12, progressBarCam13, progressBarCam14, progressBarCam15, progressBarCam16, progressBarCam17, progressBarCam18, progressBarCam19, progressBarCam20, progressBarCam21, progressBarCam22, progressBarCam23, progressBarCam24, progressBarCam25, progressBarCam26, progressBarCam27, progressBarCam28, progressBarCam29, progressBarCam30, progressBarCam31, progressBarCam32, progressBarCam33, progressBarCam34, progressBarCam35, progressBarCam36 };
+            int radioEsquinas = 10;
+            
+            for (int i = 0; i < panelesCam.Length; i++)
+            {
+                Panel p = panelesCam[i];
+                if (p != null && p.Width > 0 && p.Height > 0)
+                {
+                    System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
+                    path.AddArc(0, 0, radioEsquinas, radioEsquinas, 180, 90);
+                    path.AddArc(p.Width - radioEsquinas, 0, radioEsquinas, radioEsquinas, 270, 90);
+                    path.AddArc(p.Width - radioEsquinas, p.Height - radioEsquinas, radioEsquinas, radioEsquinas, 0, 90);
+                    path.AddArc(0, p.Height - radioEsquinas, radioEsquinas, radioEsquinas, 90, 90);
+                    path.CloseFigure();
+                    p.Region = new System.Drawing.Region(path);
 
+                    if (i < barrasCam.Length && barrasCam[i] != null)
+                    {
+                        barrasCam[i].Parent = p;
+                        barrasCam[i].Top = 0;
+                        barrasCam[i].Left = 0;
+                        barrasCam[i].Width = p.Width;
+                        barrasCam[i].BringToFront();
 
+                        foreach (Control c in p.Controls)
+                        {
+                            if (c is Label)
+                            {
+                                if (c.Name.StartsWith("lblCam"))
+                                {
+                                    ((Label)c).TextAlign = ContentAlignment.MiddleCenter;
+                                    c.Padding = new Padding(0, 0, 0, 0);
+                                }
+                                else if (c.Name.StartsWith("lblpBc"))
+                                {
+                                    c.Dock = DockStyle.None;
+                                    c.Width = p.Width;
+                                    c.Left = 0;
+                                    c.Top = p.Height - c.Height - 3;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void ReordenarPanelesPorEstado()
+        {
+            Panel[] panelesCam = { panelCam01, panelCam02, panelCam03, panelCam12, panelCam13, panelCam14, panelCam15, panelCam16, panelCam17, panelCam18, panelCam19, panelCam20, panelCam21, panelCam22, panelCam23, panelCam24, panelCam25, panelCam26, panelCam27, panelCam28, panelCam29, panelCam30, panelCam31, panelCam32, panelCam33, panelCam34, panelCam35, panelCam36 };
+
+            var panelesVisibles = panelesCam.Where(p => p != null && p.Visible).ToList();
+
+            Color vColorConGps = Color.FromArgb(180, colorCamion);
+            Color vColorSinGps = Color.FromArgb(160, colorCamion);
+            Color vColorTaller = Color.FromArgb(180, 46, 50, 51);
+            Color vColorAusenteBaja = Color.FromArgb(53, 57, 58);
+            Color vColorInactivo = Color.FromArgb(10, 0, 255, 0);
+
+            int ObtenerPrioridad(Panel p)
+            {
+                if (p.BackColor.ToArgb() == vColorConGps.ToArgb()) return 1;
+                if (p.BackColor.ToArgb() == vColorSinGps.ToArgb()) return 2;
+                
+                string textoEstado = "";
+                foreach(Control c in p.Controls)
+                {
+                    if (c.Name.StartsWith("lblpBc"))
+                    {
+                        textoEstado = c.Text;
+                        break;
+                    }
+                }
+                
+                if (textoEstado == "SIN SEÑAL") return 3;
+                
+                if (p.BackColor.ToArgb() == vColorTaller.ToArgb() || p.BackColor.ToArgb() == vColorAusenteBaja.ToArgb() || textoEstado == "TALLER") return 4;
+                
+                return 5;
+            }
+
+            var panelesOrdenados = panelesVisibles
+                .OrderBy(p => ObtenerPrioridad(p))
+                .ThenBy(p => p.Name)
+                .ToList();
+
+            int top = this.Height - panelCam01.Height - 60;
+            int left = 10;
+            int margin = 5;
+
+            foreach (var p in panelesOrdenados)
+            {
+                p.Top = top;
+                p.Left = left;
+                left += p.Width + margin;
+            }
         }
 
         void posControl(Control control, int alto, int ancho, int arriba, int izquierda)
@@ -3549,7 +3665,7 @@ namespace Mapa
                 control.Width = ancho;
                 control.Top = arriba;
                 control.Left = izquierda;
-            }        
+            }
         }
 
         public void visPanelCamiones(bool visible)
@@ -3613,7 +3729,8 @@ namespace Mapa
             panel1.BorderStyle = panelCam01.BorderStyle;
             panel1.Size = panelCam01.Size;
 
-            if (pic1!=null) {
+            if (pic1 != null)
+            {
                 //pic1.Visible = picMov01.Visible;
                 pic1.Top = picMov01.Top;
                 pic1.Left = picMov01.Left;
@@ -3715,9 +3832,9 @@ namespace Mapa
                 etiqueta5.Font = lblTablet01.Font;
                 etiqueta5.Dock = lblTablet01.Dock;
                 etiqueta5.TextAlign = lblTablet01.TextAlign;
-                etiqueta5.BackColor = Color.Transparent; 
+                etiqueta5.BackColor = Color.Transparent;
                 etiqueta5.ForeColor = lblTablet01.ForeColor;
-                etiqueta5.Visible = true; 
+                etiqueta5.Visible = true;
                 etiqueta5.BringToFront();
                 etiqueta5.Text = "";
             }
@@ -3884,7 +4001,7 @@ namespace Mapa
 
         }
 
-        private void timer()
+        private async Task timer()
         {
 
             if (indiceBotonFecha == 1)
@@ -3902,8 +4019,8 @@ namespace Mapa
 
             mostrarTallerCamiones();
 
-            obtenerWsdlCabezasSap(ref dtCabezastmp);
-            obtenerWsdlPlanesSap(ref dtPlanestmp);
+            dtCabezastmp = await obtenerWsdlCabezasSap();
+            dtPlanestmp = await obtenerWsdlPlanesSap();
 
             mostrarLocalizaCamiones();
             mostrarDatosWs();
@@ -3929,6 +4046,7 @@ namespace Mapa
             msgCamiones();
             msgCamionesTaller();
 
+            ReordenarPanelesPorEstado();
         }
 
         private void refrescaGraficos()
@@ -3965,17 +4083,17 @@ namespace Mapa
             //if (!panelActCamiones.Visible)
             //if (!panelCam01.Visible)
             //{
-                //if (ubicE(gMapControl1.Position.Lat, gMapControl1.Position.Lng) == clasico || gMapControl1.Zoom == gMapControl1.MinZoom)
-                //{
-                    //chart3.Visible = true;
-                    //chart3.Parent = gMapControl1;
-                    grafico2(chart3, clasico);
-                //}
-                //if (ubicE(gMapControl1.Position.Lat, gMapControl1.Position.Lng) == ecologico || gMapControl1.Zoom == gMapControl1.MinZoom)
-                //{
-                    //chart4.Visible = true;
-                    //chart4.Parent = gMapControl1;
-                    grafico2(chart4, ecologico);
+            //if (ubicE(gMapControl1.Position.Lat, gMapControl1.Position.Lng) == clasico || gMapControl1.Zoom == gMapControl1.MinZoom)
+            //{
+            //chart3.Visible = true;
+            //chart3.Parent = gMapControl1;
+            grafico2(chart3, clasico);
+            //}
+            //if (ubicE(gMapControl1.Position.Lat, gMapControl1.Position.Lng) == ecologico || gMapControl1.Zoom == gMapControl1.MinZoom)
+            //{
+            //chart4.Visible = true;
+            //chart4.Parent = gMapControl1;
+            grafico2(chart4, ecologico);
             //}
 
             if (ubicE(gMapControl1.Position.Lat, gMapControl1.Position.Lng) == clasico || gMapControl1.Zoom == gMapControl1.MinZoom)
@@ -4000,7 +4118,7 @@ namespace Mapa
 
                 case 1:
                     mostrarRepartoCorral();
-                    
+
                     //Thread t = new Thread(() => { mostrarRepartoCorral(); });
                     //t.Name = "frepartos";
                     //t.IsBackground = true;
@@ -4037,8 +4155,10 @@ namespace Mapa
                     break;
             }
 
-            gMapControl1.Refresh();
-            gMapControl2.Refresh();
+            ////////////////////////////////////////////
+            //gMapControl1.Refresh();
+            //gMapControl2.Refresh();
+            /////////////////////////////////////////////
 
         }
 
@@ -4089,9 +4209,12 @@ namespace Mapa
 
             /////
             //mostrarRepartoCorral(1);
-            gMapControl1.Refresh();
-            gMapControl2.Refresh();
 
+            ///////////////////////////////////////////////
+            //gMapControl1.Refresh();
+            //gMapControl2.Refresh();
+            ////////////////////////////////////////////////
+            
             //grafico1(chart1);
             //grafico2(chart2);
 
@@ -4184,7 +4307,7 @@ namespace Mapa
 
         }
 
-        private void mostrarTallerCamiones()
+        private async Task mostrarTallerCamiones()
         {
 
             try
@@ -4194,11 +4317,11 @@ namespace Mapa
                 DateTime fecha;
                 DateTime hoy = DateTime.Today;
 
-                leerWsdlTallerCamion(ref dt);
+                dt = await leerWsdlTallerCamion();
 
                 if (dt.Rows.Count > 0)
                 {
-                    
+
                     dtTallertmp.Clear();
 
                     foreach (DataRow row in dt.Rows)
@@ -4209,14 +4332,14 @@ namespace Mapa
                         //if (fecha == hoy)
                         //{
 
-                            DataRow newRow = dtTallertmp.NewRow();
+                        DataRow newRow = dtTallertmp.NewRow();
 
-                            newRow["numcamion"] = row["numcamion"].ToString();
-                            newRow["name"] = row["name"].ToString();
-                            newRow["fecha"] = row["fecha"].ToString();
-                            newRow["mtto"] = row["mtto"].ToString();
+                        newRow["numcamion"] = row["numcamion"].ToString();
+                        newRow["name"] = row["name"].ToString();
+                        newRow["fecha"] = row["fecha"].ToString();
+                        newRow["mtto"] = row["mtto"].ToString();
 
-                            dtTallertmp.Rows.Add(newRow);
+                        dtTallertmp.Rows.Add(newRow);
 
                         //}
 
@@ -4239,17 +4362,18 @@ namespace Mapa
 
         }
 
-        private void mostrarLocalizaCamiones()
+        private async Task mostrarLocalizaCamiones()
         {
 
-            try {
+            try
+            {
 
                 DataTable dt = new DataTable();
                 DateTime fecha;
                 DateTime hoy = DateTime.Today;
 
                 //leerWsLocalizaCamion(ref dt);
-                leerWsdlLocalizaCamion(ref dt);
+                dt = await leerWsdlLocalizaCamion();
 
 
                 if (dt.Rows.Count > 0)
@@ -4281,8 +4405,8 @@ namespace Mapa
                             agregaractualizarMarcadorLocalizaCamion(
                                 row["numcamion"].ToString(),
                                 row["name"].ToString(),
-                                row["fecha"].ToString(), 
-                                row["hora"].ToString(), 
+                                row["fecha"].ToString(),
+                                row["hora"].ToString(),
                                 Convert.ToDouble(row["lat"]),
                                 Convert.ToDouble(row["lng"]), //* -1,
                                 row["racion"].ToString(),
@@ -4745,7 +4869,7 @@ namespace Mapa
 
         }
 
-        private void repartosBoton()
+        private async Task repartosBoton()
         {
             //if (txtCantP.Text.Equals("")) {
             //    txtCantP.Text = "0";
@@ -4768,7 +4892,7 @@ namespace Mapa
 
             //leerWsRecorrido(ref dt);
             //leerWsdlRecorrido(ref dt);
-            leerWsdlRepartos(ref dt);
+            dt = await leerWsdlRepartos();
 
 
             dt.DefaultView.Sort = "hora asc";
@@ -5154,7 +5278,7 @@ namespace Mapa
                 dt = dttmp;
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
             }
@@ -5167,41 +5291,54 @@ namespace Mapa
 
         }
 
-        private void leerWsdlTallerCamion(ref DataTable dt)
+        private async Task<DataTable> leerWsdlTallerCamion()
         {
+
+            DataTable dt = new DataTable();
 
             //Cursor = Cursors.WaitCursor;
 
             seleccion = "TALLER";
 
-            Thread t = new Thread(() => { cargarWSDLSel(seleccion, DateTime.Today, DateTime.Today); });
-            t.Name = seleccion;
-            t.IsBackground = true;
+            ConnectedWs tempConnect = new ConnectedWs(
+                Constants.OPERACION_CATALOGO,
+                seleccion,
+                usuario,
+                contrasena,
+                DateTime.Today.ToString("yyyy-MM-dd"),
+                DateTime.Today.ToString("yyyy-MM-dd")
+            );
 
-            DateTime inicio = DateTime.UtcNow;
+            await tempConnect.getDataWsAsync();
 
-            t.Start();
+            //Thread t = new Thread(() => { cargarWSDLSel(seleccion, DateTime.Today, DateTime.Today); });
+            //t.Name = seleccion;
+            //t.IsBackground = true;
 
-            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
-            //while (t.IsAlive)
-            //{
-            //    Thread.Sleep(50);//50
-            //    Application.DoEvents();
-            //}
+            //DateTime inicio = DateTime.UtcNow;
+
+            //t.Start();
+
+            ////Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
+            ////while (t.IsAlive)
+            ////{
+            ////    Thread.Sleep(50);//50
+            ////    Application.DoEvents();
+            ////}
 
 
-            t.Join();
+            //t.Join();
 
-            TimeSpan dur = DateTime.UtcNow - inicio;
-            Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString() + " tiempo: " + dur);
+            //TimeSpan dur = DateTime.UtcNow - inicio;
+            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString() + " tiempo: " + dur);
 
 
-            lista = connectar.getList();
-            String errormsg = connectar.getError();
-            String emsg = connectar.getEmsg();
-            String url = connectar.getUrl();
+            lista = tempConnect.getList();
+            String errormsg = tempConnect.getError();
+            String emsg = tempConnect.getEmsg();
+            String url = tempConnect.getUrl();
 
-            if (lista.Count == 0) { return; }
+            if (lista.Count == 0) { return dt; }
 
             //string[] lurl = url.Split('/');
             //string[] serverl = lurl[2].Trim().Split('.');
@@ -5228,7 +5365,7 @@ namespace Mapa
                 lines[6] = lines[6].Insert(4, "-");
                 lines[6] = lines[6].Insert(7, "-");
                 newRow["fecha"] = lines[6].Trim();
-                
+
                 newRow["mtto"] = lines[5].Trim();
 
                 dttmp.Rows.Add(newRow);
@@ -5241,43 +5378,50 @@ namespace Mapa
 
             if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
 
+            return dt;
+
         }
 
-        private void leerWsdlLocalizaCamion(ref DataTable dt)
+        private async Task<DataTable> leerWsdlLocalizaCamion()
         {
+
+            DataTable dt = new DataTable();
 
             //Cursor = Cursors.WaitCursor;
 
             seleccion = "LOCALIZA";
 
-            Thread t = new Thread(() => { cargarWSDLSel(seleccion, DateTime.Today, DateTime.Today); });
-            t.Name = seleccion;
-            t.IsBackground = true;
+            ConnectedWs tempConnect = new ConnectedWs(
+                Constants.OPERACION_CATALOGO,
+                seleccion,
+                usuario,
+                contrasena,
+                DateTime.Today.ToString("yyyy-MM-dd"),
+                DateTime.Today.ToString("yyyy-MM-dd")
+            );
+
+            await tempConnect.getDataWsAsync();
             
-            DateTime inicio = DateTime.UtcNow;
 
-            t.Start();
+            //Thread t = new Thread(() => { cargarWSDLSel(seleccion, DateTime.Today, DateTime.Today); });
+            //t.Name = seleccion;
+            //t.IsBackground = true;
 
-            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
-            //while (t.IsAlive)
-            //{
-            //    Thread.Sleep(50);//50
-            //    Application.DoEvents();
-            //}
+            //DateTime inicio = DateTime.UtcNow;
 
-            
-            t.Join();
+            //t.Start();
+            //t.Join();
 
-            TimeSpan dur = DateTime.UtcNow - inicio;
-            Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString() + " tiempo: " + dur);
+            //TimeSpan dur = DateTime.UtcNow - inicio;
+            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString() + " tiempo: " + dur);
 
 
-            lista = connectar.getList();
-            String errormsg = connectar.getError();
-            String emsg = connectar.getEmsg();
-            String url = connectar.getUrl();
+            lista = tempConnect.getList();
+            String errormsg = tempConnect.getError();
+            String emsg = tempConnect.getEmsg();
+            String url = tempConnect.getUrl();
 
-            if (lista.Count == 0) { return; }
+            if (lista.Count == 0) { return dt; }
 
             string[] lurl = url.Split('/');
             string[] serverl = lurl[2].Trim().Split('.');
@@ -5364,22 +5508,31 @@ namespace Mapa
 
             }
 
+          
+
             dt = dttmp;
             dtLocalizatmp.Clear();
-            dtLocalizatmp = dttmp;
+            dtLocalizatmp = dttmp.Copy(); 
 
             //Cursor = Cursors.Default;
 
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
 
+            return dt;
 
         }
 
         private void cargarWSDLSel(String catalogo, DateTime fechai, DateTime fechaf)
         {
 
-            connectar = new ConnectedWs(Constants.OPERACION_CATALOGO, catalogo, usuario, contrasena, fechai.ToString("yyyy-MM-dd"), fechaf.ToString("yyyy-MM-dd"));
+            connectar = new ConnectedWs(
+                       Constants.OPERACION_CATALOGO,
+                       catalogo,
+                       usuario,
+                       contrasena,
+                       fechai.ToString("yyyy-MM-dd"),
+                       fechaf.ToString("yyyy-MM-dd"));
             connectar.getDataWs();
 
         }
@@ -5599,7 +5752,8 @@ namespace Mapa
 
                     string[] lines = listar.Split('|');
 
-                    if (lines[2].Trim().Equals(cmbCamionRuta.Text) || cmbCamionRuta.Text.Equals(""))
+                    //if (lines[2].Trim().Equals(cmbCamionRuta.Text) || cmbCamionRuta.Text.Equals(""))
+                    if (lines[2].Trim().Equals(cmbCamion.Text) || cmbCamion.Text.Equals(""))
                     {
                         DataRow newRow = dttmp.NewRow();
 
@@ -5623,7 +5777,7 @@ namespace Mapa
                 dt = dttmp;
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 dt.Clear();
             }
@@ -5636,9 +5790,10 @@ namespace Mapa
 
         }
 
-        private void leerWsdlRepartos(ref DataTable dt)
+        private async Task<DataTable> leerWsdlRepartos()
         {
 
+            DataTable dt = new DataTable();
             //DataTable dttmp1 = new DataTable();
             //DataTable dttmp2 = new DataTable();
             //DataRow[] foundRows1;
@@ -5648,25 +5803,36 @@ namespace Mapa
 
             seleccion = "REPARTOS";
 
-            Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
-            t.Name = seleccion;
-            t.IsBackground = true;
-            t.Start();
+            ConnectedWs tempConnect = new ConnectedWs(
+                Constants.OPERACION_CATALOGO,
+                seleccion,
+                usuario,
+                contrasena,
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd"),
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd")
+            );
 
-            Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
+            await tempConnect.getDataWsAsync();
+
+            //Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
+            //t.Name = seleccion;
+            //t.IsBackground = true;
+            //t.Start();
+
+            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
             //while (t.IsAlive)
             //{
             //    Thread.Sleep(50);
             //    Application.DoEvents();
             //}
 
-            t.Join();
+            //t.Join();
 
-            lista = connectar.getList();
-            String errormsg = connectar.getError();
-            String emsg = connectar.getEmsg();
+            lista = tempConnect.getList();
+            String errormsg = tempConnect.getError();
+            String emsg = tempConnect.getEmsg();
 
-            if (lista.Count == 0) { return; }
+            if (lista.Count == 0) { return dt; }
 
             try
             {
@@ -5733,7 +5899,7 @@ namespace Mapa
                 dt = dttmp;
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 dt.Clear();
             }
@@ -5742,7 +5908,7 @@ namespace Mapa
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             //if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
 
-
+            return dt;
 
         }
 
@@ -5752,7 +5918,7 @@ namespace Mapa
             //DataTable dttmp1 = new DataTable();
             //DataTable dttmp2 = new DataTable();
             //DataRow[] foundRows1;
-            DataRow[] foundRows2;
+            //DataRow[] foundRows2;
 
             //Cursor = Cursors.WaitCursor;
 
@@ -5775,7 +5941,7 @@ namespace Mapa
             lista = connectar.getList();
             String errormsg = connectar.getError();
             String emsg = connectar.getEmsg();
-            
+
             if (lista.Count == 0) { return; }
 
             try
@@ -5826,7 +5992,7 @@ namespace Mapa
                 dt = dttmp;
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 dt.Clear();
             }
@@ -5839,74 +6005,75 @@ namespace Mapa
 
         }
 
-        private void leerWsdlSelRecorrido(ref DataTable dt)
-        {
+        //private async Task leerWsdlSelRecorrido(ref DataTable dt)
+        //{
 
-            DataTable dttmp1 = new DataTable();
-            DataTable dttmp2 = new DataTable();
-            DataRow[] foundRows1;
-            DataRow[] foundRows2;
-
-
-            try
-            {
-
-                //leerWsdlUbicacion(ref dttmp2);
-                consultaUbicaciones(ref dttmp2);
-
-            }
-            finally {
-
-                obtenerWsdlServidasSap(ref dttmp1);
-                dttmp1.DefaultView.Sort = "numcamion, servida, hora ASC";
-                foundRows1 = dttmp1.Select("numcamion='" + cmbCamionRuta.Text.Trim() + "'");
-
-            }
+        //    DataTable dttmp1 = new DataTable();
+        //    DataTable dttmp2 = new DataTable();
+        //    DataRow[] foundRows1;
+        //    DataRow[] foundRows2;
 
 
-            try
-            {
+        //    try
+        //    {
 
-                DataTable dttmp = new DataTable();
-                dttmp.Columns.Add("corral");
-                dttmp.Columns.Add("fecha");
-                dttmp.Columns.Add("hora");
-                dttmp.Columns.Add("lat");
-                dttmp.Columns.Add("lng");
+        //        //leerWsdlUbicacion(ref dttmp2);
+        //        consultaUbicaciones(ref dttmp2);
 
+        //    }
+        //    finally
+        //    {
 
-                foreach (DataRow item in foundRows1)
-                {
+        //        dttmp1 = await obtenerWsdlServidasSap();
+        //        dttmp1.DefaultView.Sort = "numcamion, servida, hora ASC";
+        //        foundRows1 = dttmp1.Select("numcamion='" + cmbCamionRuta.Text.Trim() + "'");
 
-                    DataRow newRow = dttmp.NewRow();
-                    newRow["corral"] = item["corral"].ToString();
-                    newRow["fecha"] = item["fecha"].ToString();
-                    newRow["hora"] = item["hora"].ToString();
-
-                    foundRows2 = dttmp2.Select("corral='" + item["corral"].ToString() + "'");
-
-                    if (foundRows2.Length > 0)
-                    {
-                        DataRow item1 = foundRows2[0];
-                        newRow["lat"] = item1["lat"];
-                        newRow["lng"] = item1["lng"];
-                        dttmp.Rows.Add(newRow);
-                    }
-
-                }
+        //    }
 
 
-                dt = dttmp;
+        //    try
+        //    {
 
-            }
-            catch (Exception e)
-            {
-                dt.Clear();
+        //        DataTable dttmp = new DataTable();
+        //        dttmp.Columns.Add("corral");
+        //        dttmp.Columns.Add("fecha");
+        //        dttmp.Columns.Add("hora");
+        //        dttmp.Columns.Add("lat");
+        //        dttmp.Columns.Add("lng");
 
-            }
+
+        //        foreach (DataRow item in foundRows1)
+        //        {
+
+        //            DataRow newRow = dttmp.NewRow();
+        //            newRow["corral"] = item["corral"].ToString();
+        //            newRow["fecha"] = item["fecha"].ToString();
+        //            newRow["hora"] = item["hora"].ToString();
+
+        //            foundRows2 = dttmp2.Select("corral='" + item["corral"].ToString() + "'");
+
+        //            if (foundRows2.Length > 0)
+        //            {
+        //                DataRow item1 = foundRows2[0];
+        //                newRow["lat"] = item1["lat"];
+        //                newRow["lng"] = item1["lng"];
+        //                dttmp.Rows.Add(newRow);
+        //            }
+
+        //        }
 
 
-        }
+        //        dt = dttmp;
+
+        //    }
+        //    catch (Exception )
+        //    {
+        //        dt.Clear();
+
+        //    }
+
+
+        //}
 
         private void leerWsRecorrido(ref DataTable dt)
         {
@@ -6122,32 +6289,45 @@ namespace Mapa
 
         }
 
-        private void leerWsdlListaCamion(ref DataTable dtsalida)
+        private async Task<DataTable> leerWsdlListaCamion()
         {
+
+            DataTable dtsalida = new DataTable();
 
             //Cursor = Cursors.WaitCursor;
 
             seleccion = "CAMIONES";
 
-            Thread t = new Thread(() => { cargarWSDLSel(seleccion, DateTime.Today, DateTime.Today); });
-            t.Name = seleccion;
-            t.IsBackground = true;
-            t.Start();
+            ConnectedWs tempConnect = new ConnectedWs(
+                Constants.OPERACION_CATALOGO,
+                seleccion,
+                usuario,
+                contrasena,
+                DateTime.Today.ToString("yyyy-MM-dd"),
+                DateTime.Today.ToString("yyyy-MM-dd")
+            );
 
-            Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
-            //while (t.IsAlive)
-            //{
-            //    Thread.Sleep(50);
-            //    Application.DoEvents();
-            //}
+            await tempConnect.getDataWsAsync();
 
-            t.Join();
+            //Thread t = new Thread(() => { cargarWSDLSel(seleccion, DateTime.Today, DateTime.Today); });
+            //t.Name = seleccion;
+            //t.IsBackground = true;
+            //t.Start();
 
-            lista = connectar.getList();
-            String errormsg = connectar.getError();
-            String emsg = connectar.getEmsg();
+            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
+            ////while (t.IsAlive)
+            ////{
+            ////    Thread.Sleep(50);
+            ////    Application.DoEvents();
+            ////}
 
-            if (lista.Count == 0) { return; }
+            //t.Join();
+
+            lista = tempConnect.getList();
+            String errormsg = tempConnect.getError();
+            String emsg = tempConnect.getEmsg();
+
+            if (lista.Count == 0) { return dtsalida; }
 
             lista.Remove("  |");
             //lista.RemoveAt(0);
@@ -6170,10 +6350,10 @@ namespace Mapa
                 newRow["id"] = lines[0].Trim().PadLeft(2, '0');
                 newRow["name"] = lines[1].Trim();
 
-                newRow["zona"] = lines[2].Trim(); 
-                newRow["centroam"] = lines[3].Trim(); 
-                newRow["centropm"] = lines[4].Trim(); 
-                newRow["recepcion"] = lines[5].Trim(); 
+                newRow["zona"] = lines[2].Trim();
+                newRow["centroam"] = lines[3].Trim();
+                newRow["centropm"] = lines[4].Trim();
+                newRow["recepcion"] = lines[5].Trim();
 
                 dttmp.Rows.Add(newRow);
 
@@ -6186,6 +6366,7 @@ namespace Mapa
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
 
+            return dtsalida;
 
         }
 
@@ -6409,7 +6590,7 @@ namespace Mapa
                             if (Convert.ToDouble(row["lat"]) > 0)
                             {
                                 gMapControl1.Position = new PointLatLng(Convert.ToDouble(row["lat"]), Convert.ToDouble(row["lng"]));
-                                zoomBuscar(18);                            
+                                zoomBuscar(18);
                             }
                         }
                     }
@@ -6433,11 +6614,13 @@ namespace Mapa
 
         }
 
-        private string cerosIzq(string valor) {
+        private string cerosIzq(string valor)
+        {
 
             int len = 2 - valor.Length;
 
-            for (int i = 1; i <= len; i++) {
+            for (int i = 1; i <= len; i++)
+            {
                 valor = "0" + valor;
             }
 
@@ -6797,7 +6980,7 @@ namespace Mapa
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            buscarUbicacionBoton(txtBuscarUbicacion.Text,true);
+            buscarUbicacionBoton(txtBuscarUbicacion.Text, true);
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -7127,7 +7310,7 @@ namespace Mapa
         //    e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         //}
 
-        private void mostrarRepartoCorral()
+        private async Task mostrarRepartoCorral()
         {
 
             string[] valores = { "VACIO", "0 - 20%", "20 - 40%", "40 - 75%", "75 - 95%", "95 - 105%", "EXCEDIO" };//, "ERROR" };
@@ -7148,7 +7331,7 @@ namespace Mapa
 
                 DataTable dt = new DataTable();
 
-                obtenerWsdlServidasSap(ref dt);
+                dt = await obtenerWsdlServidasSap();
 
                 if (dt.Rows.Count > 0)
                 {
@@ -7195,12 +7378,12 @@ namespace Mapa
 
         }
 
-        private void mostrarRepartoCorralServida()
+        private async Task mostrarRepartoCorralServida()
         {
 
             Boolean vfiltro = false;
 
-            string[] valores = { "VACIO", "AM", "PM" };
+            string[] valores = { "VACIO", "AM", "PM", "+- " + kilosTolerancia.ToString() + " KG" };
 
             listBoxLeyendas.Items.Clear();
 
@@ -7214,8 +7397,11 @@ namespace Mapa
 
             colores.Clear();
             colores.Add(Color.White);
-            colores.Add(Color.Orange);
+            colores.Add(colorNaranja);// Color.Orange);
             colores.Add(Color.LimeGreen);
+            //colores.Add(Color.Red);
+            colores.Add(Color.Red);
+
 
             llenaGridValores(true);
 
@@ -7224,7 +7410,7 @@ namespace Mapa
 
                 DataTable dt = new DataTable();
 
-                obtenerWsdlServidasSap(ref dt);
+                dt = await obtenerWsdlServidasSap();
 
                 if (dt.Rows.Count > 0)
                 {
@@ -7246,20 +7432,37 @@ namespace Mapa
                     foreach (DataRow row in dt.Rows)
                     {
 
-                        switch (Int32.Parse(row["servida"].ToString()))
+                        int servidaEstado = Int32.Parse(row["servida"].ToString());
+
+                        double planKilos = 0;
+                        double servidoKilos = 0;
+                        double.TryParse(row["plan"].ToString(), out planKilos);
+                        double.TryParse(row["servido"].ToString(), out servidoKilos);
+
+                        string corralNombre = row["corral"] != null ? row["corral"].ToString().Trim() : "";
+                        bool empiezaConNumero = !string.IsNullOrEmpty(corralNombre) && char.IsDigit(corralNombre[0]);
+
+                        if (kilosTolerancia > 0 && empiezaConNumero && planKilos > 0 && servidoKilos > 0 && Math.Abs(servidoKilos - planKilos) > kilosTolerancia)
                         {
-                            case 1:
-                                //if( Color.White == corralColor(row["corral"].ToString()))
-                                //{
-                                corralActividadMod(row["corral"].ToString(), Color.Orange);
-                                // }
-                                break;
-                            case 3:
-                                corralActividadMod(row["corral"].ToString(), Color.Orange);
-                                break;
-                            case 2:
-                                corralActividadMod(row["corral"].ToString(), Color.LimeGreen);
-                                break;
+                            corralActividadMod(row["corral"].ToString(), Color.Red);
+                        }
+                        else
+                        {
+                            switch (servidaEstado)
+                            {
+                                case 1:
+                                    //if( Color.White == corralColor(row["corral"].ToString()))
+                                    //{
+                                    corralActividadMod(row["corral"].ToString(), colorNaranja);// Color.Orange);
+                                    // }
+                                    break;
+                                case 3:
+                                    corralActividadMod(row["corral"].ToString(), colorNaranja);// Color.Orange);
+                                    break;
+                                case 2:
+                                    corralActividadMod(row["corral"].ToString(), Color.LimeGreen);
+                                    break;
+                            }
                         }
 
                         /////////////////////
@@ -7308,8 +7511,8 @@ namespace Mapa
                     {
 
                         corralActividadMod(row["corral"].ToString(), Color.Blue);
-       
-                        
+
+
 
                     }
 
@@ -7374,7 +7577,7 @@ namespace Mapa
             DateTime hora1 = Convert.ToDateTime(hora);
             DateTime hora2 = Convert.ToDateTime(horaAct);
             TimeSpan demora = hora2.Subtract(hora1);
-            Image vimg;
+            //Image vimg;
 
             if (demora.TotalMinutes <= Convert.ToDouble(inactividad))
             {
@@ -7389,16 +7592,15 @@ namespace Mapa
 
         }
 
-        private void llenarCabezasCorral()
+        private async Task llenarCabezasCorral()
         {
 
             dtCabezastmp.Rows.Clear();
-            obtenerWsdlCabezasSap(ref dtCabezastmp);
-
+            dtCabezastmp = await obtenerWsdlCabezasSap();
 
         }
 
-        private void mostrarCabezasCorral()
+        private async Task mostrarCabezasCorral()
         {
 
             //this.Cursor = Cursors.WaitCursor;
@@ -7408,7 +7610,7 @@ namespace Mapa
 
                 //DataTable dt = new DataTable();
 
-                obtenerWsdlCabezasSap(ref dtCabezastmp);
+                dtCabezastmp = await obtenerWsdlCabezasSap();
 
                 corralActividadLimpia();
 
@@ -7448,7 +7650,7 @@ namespace Mapa
         }
 
 
-        private void mostrarCabezasDimensionesCorral()
+        private async Task mostrarCabezasDimensionesCorral()
         {
 
             //this.Cursor = Cursors.WaitCursor;
@@ -7458,7 +7660,7 @@ namespace Mapa
 
                 //DataTable dt = new DataTable();
 
-                obtenerWsdlCabezasSap(ref dtCabezastmp);
+                dtCabezastmp = await obtenerWsdlCabezasSap();
 
                 corralActividadLimpia();
 
@@ -7469,7 +7671,7 @@ namespace Mapa
 
                 obtenerWsdlDimensionesSap(ref dt);
                 dtRepartotmp.Clear();
-                
+
 
                 if (dt.Rows.Count > 0)
                 {
@@ -7497,16 +7699,16 @@ namespace Mapa
                             double resultado3 = 0;
                             double resultado4 = 0;
 
-                            if (cabezas!=0) 
+                            if (cabezas != 0)
                             {
                                 resultado1 = msombra / cabezas;
                                 resultado2 = mcorral / cabezas;
                                 resultado3 = mcomedero / cabezas;
                                 resultado4 = mbebedero / cabezas;
                             }
-                  
-                            corralActividadMod(row["corral"].ToString(), Color.Blue);                            
-                           
+
+                            corralActividadMod(row["corral"].ToString(), Color.Blue);
+
                         }
 
                     }
@@ -8216,7 +8418,7 @@ namespace Mapa
             }
 
             //picRep2Cam.BackColor = picRepCam.BackColor;
-            if(picGps2Cam != null) picGps2Cam.BackColor = picGpsCam.BackColor;
+            if (picGps2Cam != null) picGps2Cam.BackColor = picGpsCam.BackColor;
 
             //if (picRepCam.BackColor != Color.Transparent && picGpsCam.BackColor == Color.Transparent)
             //{
@@ -8442,7 +8644,7 @@ namespace Mapa
 
         }
 
-        private void mostrarCamionesActivos()
+        private async Task mostrarCamionesActivos()
         {
 
             try
@@ -8483,7 +8685,7 @@ namespace Mapa
 
 
 
-                camiones = camionesActivos("numcamion");
+                camiones = await CamionesActivos("numcamion");
 
                 if (camiones != null)
                 {
@@ -8612,7 +8814,7 @@ namespace Mapa
 
         }
 
-        private ArrayList camionesActivos(String columna)
+        private async Task<ArrayList> CamionesActivos(String columna)
         {
 
 
@@ -8627,7 +8829,7 @@ namespace Mapa
 
                 DataTable dt = new DataTable();
 
-                obtenerWsdlServidasSap(ref dt);
+                dt = await obtenerWsdlServidasSap();
 
 
                 if (dt.Rows.Count > 0)
@@ -8685,7 +8887,7 @@ namespace Mapa
 
         }
 
-        private void mostrarReparto(String columna)
+        private async Task mostrarReparto(String columna)
         {
 
             Boolean vfiltro = false;
@@ -8708,7 +8910,7 @@ namespace Mapa
 
                 //dataGridVista.Rows.Clear();
 
-                obtenerWsdlServidasSap(ref dt);
+                dt = await obtenerWsdlServidasSap();
 
                 if (dt.Rows.Count > 0)
                 {
@@ -8859,7 +9061,7 @@ namespace Mapa
             if (valor == -1) { color = Color.Transparent; }
             if (valor == 0) { color = Color.White; }
             if (valor > 0 && valor <= 20) { color = Color.Silver; }
-            if (valor > 20 && valor <= 40) { color = Color.Orange; }
+            if (valor > 20 && valor <= 40) { color = colorNaranja; }// Color.Orange; }
             if (valor > 40 && valor <= 75) { color = Color.Yellow; }
             if (valor > 75 && valor <= 95) { color = Color.Cyan; }
             if (valor > 95 && valor <= 105) { color = Color.LimeGreen; }
@@ -8993,8 +9195,11 @@ namespace Mapa
 
         }
 
-        private void obtenerWsdlServidasSap(ref DataTable dtsalida)
+        private async Task<DataTable> obtenerWsdlServidasSap()
         {
+
+            DataTable dtsalida = new DataTable();
+
 
             if (gTimerActivo1)
             {
@@ -9004,7 +9209,7 @@ namespace Mapa
                 }
                 else
                 {
-                    return;
+                    return dtsalida;
                 }
             }
 
@@ -9020,12 +9225,23 @@ namespace Mapa
                 seleccion = "SERVIDAS"; //subido archivo en sap AYER
             }
 
-            Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
-            t.Name = seleccion;
-            t.IsBackground = true;
+            ConnectedWs tempConnect = new ConnectedWs(
+                Constants.OPERACION_CATALOGO,
+                seleccion,
+                usuario,
+                contrasena,
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd"),
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd")
+            );
 
-            DateTime inicio = DateTime.UtcNow;
-            t.Start();
+            await tempConnect.getDataWsAsync();
+
+            //Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
+            //t.Name = seleccion;
+            //t.IsBackground = true;
+
+            //DateTime inicio = DateTime.UtcNow;
+            //t.Start();
 
             //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
 
@@ -9035,16 +9251,16 @@ namespace Mapa
             //    Application.DoEvents();
             //}
 
-            t.Join();
-            TimeSpan dur = DateTime.UtcNow - inicio;
-            Console.WriteLine(t.Name + "(x) " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString() + " tiempo: " + dur);
+            //t.Join();
+            //TimeSpan dur = DateTime.UtcNow - inicio;
+            //Console.WriteLine(t.Name + "(x) " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString() + " tiempo: " + dur);
 
 
-            lista = connectar.getList();
-            String errormsg = connectar.getError();
-            String emsg = connectar.getEmsg();
+            lista = tempConnect.getList();
+            String errormsg = tempConnect.getError();
+            String emsg = tempConnect.getEmsg();
 
-            if (lista.Count == 0) { return; }
+            if (lista.Count == 0) { return dtsalida; }
 
 
             DataTable dttmp = new DataTable();
@@ -9119,6 +9335,8 @@ namespace Mapa
                 if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
             }
 
+            return dtsalida;
+
         }
 
         private void obtenerWsdlDimensionesSap(ref DataTable dtsalida)
@@ -9126,7 +9344,7 @@ namespace Mapa
 
             //Cursor = Cursors.WaitCursor;
 
-            seleccion = "DIMENSIONES"; 
+            seleccion = "DIMENSIONES";
 
 
             Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
@@ -9197,6 +9415,8 @@ namespace Mapa
             //Cursor = Cursors.Default;
 
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+
 
             if (errormsg != null)
             {
@@ -9296,34 +9516,46 @@ namespace Mapa
 
         }
 
-        private void obtenerWsdlCabezasSap(ref DataTable dtsalida)
+        private async Task<DataTable> obtenerWsdlCabezasSap()
         {
+
+            DataTable dtsalida = new DataTable();
 
             //Cursor = Cursors.WaitCursor;
 
             seleccion = "CABEZAS";
 
+            ConnectedWs tempConnect = new ConnectedWs(
+                Constants.OPERACION_CATALOGO,
+                seleccion,
+                usuario,
+                contrasena,
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd"),
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd")
+            );
 
-            Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); }); //Convert.ToDateTime(txtFecha.Text).AddDays(-1)
-            t.Name = seleccion;
-            t.IsBackground = true;
-            t.Start();
+            await tempConnect.getDataWsAsync();
 
-            Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
+            //Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); }); //Convert.ToDateTime(txtFecha.Text).AddDays(-1)
+            //t.Name = seleccion;
+            //t.IsBackground = true;
+            //t.Start();
 
-            //while (t.IsAlive)
-            //{
-            //    Thread.Sleep(50);
-            //    Application.DoEvents();
-            //}
+            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
 
-            t.Join();
+            ////while (t.IsAlive)
+            ////{
+            ////    Thread.Sleep(50);
+            ////    Application.DoEvents();
+            ////}
 
-            lista = connectar.getList();
-            String errormsg = connectar.getError();
-            String emsg = connectar.getEmsg();
+            //t.Join();
 
-            if (lista.Count == 0) { return; }
+            lista = tempConnect.getList();
+            String errormsg = tempConnect.getError();
+            String emsg = tempConnect.getEmsg();
+
+            if (lista.Count == 0) { return dtsalida; }
 
             DataTable dttmp = new DataTable();
             dttmp.Columns.Add("centro");
@@ -9368,37 +9600,49 @@ namespace Mapa
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
 
+            return dtsalida;
 
         }
 
-        private void obtenerWsdlPlanesSap(ref DataTable dtsalida)
+        private async Task<DataTable> obtenerWsdlPlanesSap()
         {
 
+            DataTable dtsalida = new DataTable();
             //Cursor = Cursors.WaitCursor;
 
             seleccion = "PLANES";
 
+            ConnectedWs tempConnect = new ConnectedWs(
+                Constants.OPERACION_CATALOGO,
+                seleccion,
+                usuario,
+                contrasena,
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd"),
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd")
+            );
 
-            Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); }); //Convert.ToDateTime(txtFecha.Text).AddDays(-1)
-            t.Name = seleccion;
-            t.IsBackground = true;
-            t.Start();
+            await tempConnect.getDataWsAsync();
 
-            Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
+            //Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); }); //Convert.ToDateTime(txtFecha.Text).AddDays(-1)
+            //t.Name = seleccion;
+            //t.IsBackground = true;
+            //t.Start();
 
-            //while (t.IsAlive)
-            //{
-            //    Thread.Sleep(50);
-            //    Application.DoEvents();
-            //}
+            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
 
-            t.Join();
+            ////while (t.IsAlive)
+            ////{
+            ////    Thread.Sleep(50);
+            ////    Application.DoEvents();
+            ////}
 
-            lista = connectar.getList();
-            String errormsg = connectar.getError();
-            String emsg = connectar.getEmsg();
+            //t.Join();
 
-            if (lista.Count == 0) { return; }
+            lista = tempConnect.getList();
+            String errormsg = tempConnect.getError();
+            String emsg = tempConnect.getEmsg();
+
+            if (lista.Count == 0) { return dtsalida; }
 
             DataTable dttmp = new DataTable();
 
@@ -9412,7 +9656,7 @@ namespace Mapa
                 string[] lines = listar.Split('|');
 
                 if (lines[3].Trim() == "1") { continue; }
-                
+
                 DataRow newRow = dttmp.NewRow();
 
                 newRow["corral"] = lines[3].Trim();
@@ -9428,36 +9672,50 @@ namespace Mapa
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
 
+            return dtsalida;
 
         }
 
-        private void obtenerWsdlHorariosSap(ref DataTable dtsalida)
+        private async Task<DataTable> obtenerWsdlHorariosSap()
         {
+
+            DataTable dtsalida = new DataTable();
 
             //Cursor = Cursors.WaitCursor;
 
             seleccion = "HORARIOS";
 
-            Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
-            t.Name = seleccion;
-            t.IsBackground = true;
-            t.Start();
+            ConnectedWs tempConnect = new ConnectedWs(
+                Constants.OPERACION_CATALOGO,
+                seleccion,
+                usuario,
+                contrasena,
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd"),
+                Convert.ToDateTime(txtFecha.Text).ToString("yyyy-MM-dd")
+            );
 
-            Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
+            await tempConnect.getDataWsAsync();
 
-            //while (t.IsAlive)
-            //{
-            //    Thread.Sleep(50);
-            //    Application.DoEvents();
-            //}
+            //Thread t = new Thread(() => { cargarWSDLSel(seleccion, Convert.ToDateTime(txtFecha.Text), Convert.ToDateTime(txtFecha.Text)); });
+            //t.Name = seleccion;
+            //t.IsBackground = true;
+            //t.Start();
 
-            t.Join();
+            //Console.WriteLine(t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
 
-            lista = connectar.getList();
-            String errormsg = connectar.getError();
-            String emsg = connectar.getEmsg();
+            ////while (t.IsAlive)
+            ////{
+            ////    Thread.Sleep(50);
+            ////    Application.DoEvents();
+            ////}
 
-            if (lista.Count == 0) { return; }
+            //t.Join();            
+
+            lista = tempConnect.getList();
+            String errormsg = tempConnect.getError();
+            String emsg = tempConnect.getEmsg();
+
+            if (lista.Count == 0) { return dtsalida; }
 
             DataTable dttmp = new DataTable();
             dttmp.Columns.Add("corral");
@@ -9515,6 +9773,7 @@ namespace Mapa
             //if (!errormsg.Equals("")) { MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
 
+            return dtsalida;
 
         }
 
@@ -9889,7 +10148,7 @@ namespace Mapa
 
                     double vplandia = 0;
                     double vservido = 0;
-                    double vvalor = 0;
+                    //double vvalor = 0;
                     int vcont = 0;
                     int vporc = 0;
 
@@ -9901,6 +10160,7 @@ namespace Mapa
                     string pila = "_";
                     string velocidad = "_";
                     string nomtablet = "_";
+                    string varios02 = "_";
                     string total_corral = "0";
                     string faltan_serv = "0";
                     int carga_actual = 0;
@@ -9912,6 +10172,7 @@ namespace Mapa
                         pila = row2["pila"].ToString();
                         velocidad = row2["velocidad"].ToString();
                         nomtablet = row2["varios01"].ToString();
+                        varios02 = row2["varios02"].ToString();
 
                         total_corral = row2["total_corral"].ToString();
                         faltan_serv = row2["faltan_serv"].ToString();
@@ -9951,19 +10212,20 @@ namespace Mapa
                     //if (vporc > 100) { vporc = 100; }
 
                     vporc = vcont;
-                    camBar(camion, 
-                        vporc, 
-                        vcont, 
-                        0, 
-                        racion, 
-                        servida.TrimStart('0'), 
-                        pila, 
-                        velocidad, 
+                    camBar(camion,
+                        vporc,
+                        vcont,
+                        0,
+                        racion,
+                        servida.TrimStart('0'),
+                        pila,
+                        velocidad,
                         nomtablet,
-                        
+
                         total_corral,
                         faltan_serv,
-                        carga_actual
+                        carga_actual,
+                        varios02
                         );
 
                 }
@@ -9974,7 +10236,7 @@ namespace Mapa
 
         }
 
-        private void camBar(string camion, int valor, int cont, int total, string racion, string servida, string pila, string velocidad, string nomtablet, string total_corral, string faltan_serv, int carga_actual)
+        private void camBar(string camion, int valor, int cont, int total, string racion, string servida, string pila, string velocidad, string nomtablet, string total_corral, string faltan_serv, int carga_actual, string varios02)
         {
 
             //if (valor >= pBar01.Minimum && valor <= pBar01.Maximum)//100)
@@ -9986,7 +10248,7 @@ namespace Mapa
                 switch (servida)
                 {
                     case "1":
-                        colorServ = Color.Orange;
+                        colorServ = colorNaranja;// Color.Orange;
                         break;
                     case "2":
                         colorServ = Color.LimeGreen;
@@ -10029,7 +10291,8 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual,
+                         varios02
                         );
                         break;
                     case "02":
@@ -10063,7 +10326,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "03":
@@ -10097,7 +10360,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "04":
@@ -10131,7 +10394,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "05":
@@ -10165,7 +10428,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "06":
@@ -10199,7 +10462,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "07":
@@ -10233,7 +10496,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "08":
@@ -10267,7 +10530,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "09":
@@ -10301,7 +10564,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "10":
@@ -10335,7 +10598,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "11":
@@ -10369,7 +10632,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "12":
@@ -10403,7 +10666,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "13":
@@ -10437,7 +10700,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "14":
@@ -10471,7 +10734,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "15":
@@ -10505,7 +10768,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10540,7 +10803,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10575,7 +10838,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10610,7 +10873,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10645,7 +10908,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10680,7 +10943,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10715,7 +10978,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10750,7 +11013,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10785,7 +11048,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10820,7 +11083,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10855,7 +11118,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "26":
@@ -10889,7 +11152,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "27":
@@ -10923,7 +11186,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
                     case "28":
@@ -10957,7 +11220,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -10993,7 +11256,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -11028,7 +11291,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -11063,7 +11326,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -11098,7 +11361,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -11133,7 +11396,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -11168,7 +11431,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -11203,7 +11466,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -11238,7 +11501,7 @@ namespace Mapa
                          nomtablet,
                          total_corral,
                          faltan_serv,
-                         carga_actual
+                         carga_actual, varios02
                         );
                         break;
 
@@ -12303,7 +12566,7 @@ namespace Mapa
 
 
         //        /////////////////////
-                
+
 
         //        if (lblpBc != null) { lblpBc.Text = "OK";  }//pBar.Value.ToString() + "/" + pBar.Maximum.ToString(); } //("000");//+ "/" + total.ToString(); 
         //        if (pBar.Maximum == 0) { lblpBc.Text = ""; }
@@ -12601,7 +12864,7 @@ namespace Mapa
         //        //    picCamion.Image = imageListEstado.Images[0];
 
         //        //}
-                
+
         //        //if(camionTaller(lblCam.Text))
         //        //{ 
         //        //    picCamion.Image = imageListEstado.Images[0];
@@ -12621,7 +12884,7 @@ namespace Mapa
         //            //panelcam.BackColor = Color.YellowGreen;
         //            //picCamion.Image = imageListEstado.Images[0];
         //        }
-                
+
         //        //}catch{}
 
         //        /////////////////////////////////////////////////////
@@ -12701,7 +12964,7 @@ namespace Mapa
         //           )
         //        {
         //            lblCam.ForeColor = vColorAusenteInactivo;
-                
+
         //        }                
 
         //        lblTablet.ForeColor = lblCam.ForeColor;
@@ -12809,7 +13072,7 @@ namespace Mapa
             PictureBox picCamion, PictureBox picWifi, Label lblpBb, Label lblpBv, Label lblCam,
             Label lblpAct, Label lblTablet, PictureBox picPila, int pvalor, int pcont,
             string pracion, string pservida, Color pcolorServ, string ppila, string pvelocidad,
-            string pcamion, string nomtablet, string total_corral, string faltan_serv, int carga_actual)
+            string pcamion, string nomtablet, string total_corral, string faltan_serv, int carga_actual, string varios02)
         {
             try
             {
@@ -12822,7 +13085,7 @@ namespace Mapa
                 Color vColorTaller = Color.FromArgb(180, 46, 50, 51);
 
                 // Configurar barra de progreso
-                ConfigurarBarraProgreso(pBar, lblpBc, total_corral, faltan_serv);
+                //ConfigurarBarraProgreso(pBar, lblpBc, total_corral, faltan_serv);
 
                 // Asignar valores básicos a etiquetas
                 AsignarValoresBasicos(lblpB, lblpBr, lblpBs, lblpBb, lblpBv, picBs,
@@ -12831,14 +13094,17 @@ namespace Mapa
                 // Configurar estado inicial
                 ConfigurarEstadoInicial(panelcam, lblpBc, picMov, picCamion, picWifi, vColorConGps);
 
+
+                //panelcam.Refresh();
+
                 // Procesar velocidad
-                ProcesarVelocidad(lblpBv, picMov, picCamion, picGpsCam);
+                //ProcesarVelocidad(lblpBv, picMov, picCamion, picGpsCam);
 
                 // Procesar pila
-                ProcesarPila(lblpBb, picPila, ppila);
+                //ProcesarPila(lblpBb, picPila, ppila);
 
                 // Procesar ración
-                ProcesarRacion(lblpBr);
+                //ProcesarRacion(lblpBr);
 
                 // Determinar estado del camión
                 bool esActivo = picRepCam.BackColor != Color.Transparent || picGpsCam.BackColor != Color.Transparent;
@@ -12846,11 +13112,21 @@ namespace Mapa
                 if (esActivo)
                 {
                     ConfigurarCamionActivo(lblCam, lblpBc, lblpBr, picWifi, picPila, ppila, pcamion);
+                    //if (panelcam.BackColor != vColorConGps) {
+                    //    panelcam.BackColor = vColorConGps;
+                    //    panelcam.Refresh();
+                    //}
                 }
                 else
                 {
                     ConfigurarCamionInactivo(panelcam, pBar, lblCam, lblpBc, lblpBr, lblpBb, lblpBv,
                                              picBs, picMov, picCamion, picPila, pcamion);
+                    //if (panelcam.BackColor != Color.Transparent)
+                    //{
+                    //    panelcam.BackColor = Color.Transparent;
+                    //    panelcam.Refresh();
+                    //}
+
                 }
 
                 // Estado sin GPS
@@ -12867,11 +13143,14 @@ namespace Mapa
                 AjustarColoresPorEstado(lblCam, panelcam, lblTablet, lblpBr, lblpBc,
                                         vColorSinGps, vColorConGps, vColorInactivo, vColorAusenteInactivo);
 
+
+                //panelcam.Refresh();
+
                 // Configurar tablet
-                ConfigurarTablet(lblTablet, lblCam, nomtablet, vActivoHoy);
+                //ConfigurarTablet(lblTablet, lblCam, nomtablet, vActivoHoy);
 
                 // Limpiar texto de ración si es placeholder
-                if (lblpBr.Text == "_") lblpBr.Text = "";
+                //if (lblpBr.Text == "_") lblpBr.Text = "";
 
                 // Verificar si está en taller
                 if (camionTaller(lblCam.Text))
@@ -12885,17 +13164,27 @@ namespace Mapa
                 }
 
                 // Estado sin señal
-                if (lblpBc.Text == "SIN SEÑAL")
+                //if (lblpBc.Text == "SIN SEÑAL")
+                //{
+                    //panelcam.BackColor = vColorInactivo;
+                    //lblpBc.Text = "";
+                //}
+
+                if (panelcam.BackColor == Color.Transparent && string.IsNullOrWhiteSpace(lblpBc.Text))
                 {
-                    panelcam.BackColor = vColorInactivo;
-                    lblpBc.Text = "";
+                    panelcam.BackColor = Color.FromArgb(180, 160, 164, 165); // Mucho más claro
                 }
 
                 // Limpiar texto OK si está conectado
-                if (panelcam.BackColor == vColorConGps) lblpBc.Text = "";
+                //if (panelcam.BackColor == vColorConGps) lblpBc.Text = "";
 
                 // Actualizar contadores
-                ActualizarContadores(panelcam, vColorInactivo, vColorSinGps, vColorConGps);
+                //ActualizarContadores(panelcam, vColorInactivo, vColorSinGps, vColorConGps);
+
+
+                //panelcam.Refresh();
+
+
             }
             catch { }
         }
@@ -12939,6 +13228,7 @@ namespace Mapa
             if (picMov != null) picMov.Image = null;
             picCamion.Image = imageListCamiones.Images[1];
             if (picWifi != null) picWifi.Image = null;
+            lblpBc.Text = "";
         }
 
         private void ProcesarVelocidad(Label lblpBv, PictureBox picMov, PictureBox picCamion, PictureBox picGpsCam)
@@ -13115,6 +13405,12 @@ namespace Mapa
             {
                 lblpBc.Text = "SIN SEÑAL";
                 lblpBr.Text = "";
+                
+                if (panelcam.BackColor == Color.Transparent)
+                {
+                    panelcam.BackColor = Color.FromArgb(180, 100, 104, 105);
+                }
+                
                 return true;
             }
 
@@ -13139,8 +13435,8 @@ namespace Mapa
 
             if (lblpBc.Text == "SIN GPS")
             {
-                lblpBc.ForeColor = Color.Black;
-                lblpBc.BackColor = Color.FromArgb(180, Color.Yellow);
+                lblpBc.ForeColor = Color.White;
+                lblpBc.BackColor = Color.Transparent;
             }
         }
 
@@ -13190,9 +13486,73 @@ namespace Mapa
             pictureBox24.Refresh();
             pictureBox20.Refresh();
             pictureBox16.Refresh();
+            //ordenarCamionesPorColor();
         }
+        
+/*
+        private void ordenarCamionesPorColor()
+        {
+            if (panelCamion2.InvokeRequired)
+            {
+                panelCamion2.BeginInvoke(new Action(ordenarCamionesPorColor));
+                return;
+            }
 
-        private void grafico1(Chart chart)
+            try
+            {
+                List<Panel> camiones = new List<Panel>();
+                List<System.Drawing.Point> posiciones = new List<System.Drawing.Point>();
+
+                foreach (Control c in panelCamion2.Controls)
+                {
+                    if (c is Panel p && p.Name.StartsWith("panelCam") && p.Name.Length == 10)
+                    {
+                        camiones.Add(p);
+                        posiciones.Add(p.Location);
+                    }
+                }
+
+                if (camiones.Count == 0) return;
+
+                // Ordenar las posiciones (de izquierda a derecha, arriba a abajo simulando las 2 filas)
+                posiciones.Sort((pos1, pos2) =>
+                {
+                    int cmpX = pos1.X.CompareTo(pos2.X);
+                    if (cmpX == 0)
+                    {
+                        return pos1.Y.CompareTo(pos2.Y);
+                    }
+                    return cmpX;
+                });
+
+                // Ordenamos por color (ToArgb agrupa los colores) y luego por nombre
+                camiones.Sort((p1, p2) =>
+                {
+                    int cmpColor = p1.BackColor.ToArgb().CompareTo(p2.BackColor.ToArgb());
+                    if (cmpColor == 0)
+                    {
+                        return p1.Name.CompareTo(p2.Name);
+                    }
+                    return cmpColor;
+                });
+
+                panelCamion2.SuspendLayout();
+                
+                // Reasignar posiciones
+                for (int i = 0; i < camiones.Count; i++)
+                {
+                    camiones[i].Left = posiciones[i].X;
+                    camiones[i].Top = posiciones[i].Y;
+                    camiones[i].BringToFront();
+                }
+
+                panelCamion2.ResumeLayout();
+                panelCamion2.Refresh();
+            }
+            catch { }
+        }*/
+
+        private async Task grafico1(Chart chart)
         {
 
             if (panelActCamiones.Visible)
@@ -13222,7 +13582,7 @@ namespace Mapa
                 chart.ChartAreas[0].AxisX.Interval = 1;
                 chart.ChartAreas[0].AxisY.Interval = 50;
 
-                obtenerWsdlServidasSap(ref dtRepartotmp);
+                dtRepartotmp = await obtenerWsdlServidasSap();
 
                 foreach (String camion in cmbCamion.Items)
                 {
@@ -13271,7 +13631,7 @@ namespace Mapa
                 chart.Series[i].LabelBackColor = Color.Transparent;
                 chart.Series[i].LabelBorderColor = Color.Transparent;
                 chart.Series[i].LabelForeColor = Color.FromArgb(46, 50, 51);//Color.White;//Black;
-                chart.Series[i].Font = new Font("Courier", 12f); 
+                chart.Series[i].Font = new Font("Courier", 12f);
                 chart.Series[i].Points.Clear();
 
                 //chart.Series[i].ChartType = SeriesChartType.StackedColumn100;
@@ -13298,199 +13658,200 @@ namespace Mapa
             //if (!splitContainerMapa.Panel2Collapsed)
             //{
 
-                int totalcapas = overlayCeldas.Polygons.Count;
-                int totalGrid = dataGridVista.RowCount; //valores.Count();
-                double totalcapasubic = 0;
-                bool salir = false;
+            int totalcapas = overlayCeldas.Polygons.Count;
+            int totalGrid = dataGridVista.RowCount; //valores.Count();
+            double totalcapasubic = 0;
+            bool salir = false;
 
-                Color[] colores = new Color[totalGrid];
-                double[] valores = new double[totalGrid];//{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-                double[] valores2 = new double[totalGrid];//{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            Color[] colores = new Color[totalGrid];
+            double[] valores = new double[totalGrid];//{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            double[] valores2 = new double[totalGrid];//{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-                for (int j = 0; j < totalGrid; j++)
+            for (int j = 0; j < totalGrid; j++)
+            {
+                colores[j] = dataGridVista[1, j].Style.BackColor;
+                valores[j] = 0;
+            }
+
+
+            for (int i = 0; i < totalcapas; i++) //corrales
+            {
+                salir = false;
+
+                ///////////////////////
+
+                //if (overlayCeldas.Polygons.ElementAt(i).Name.Equals("6045"))
+                //{
+                if (indiceBotonVistaSel == 6)
                 {
-                    colores[j] = dataGridVista[1, j].Style.BackColor;
-                    valores[j] = 0;
-                }
-
-
-                for (int i = 0; i < totalcapas; i++) //corrales
-                {
-                    salir = false;
-
-                    ///////////////////////
-
-                    //if (overlayCeldas.Polygons.ElementAt(i).Name.Equals("6045"))
-                    //{
-                    if (indiceBotonVistaSel == 6)
+                    DataRow[] rows = dtPlanestmp.Select("corral = '" + overlayCeldas.Polygons.ElementAt(i).Name + "'");
+                    //DataRow[] rows = dtCabezastmp.Select("corral = '" + overlayCeldas.Polygons.ElementAt(i).Name + "'");
+                    if (rows.Length > 0)
                     {
-                        DataRow[] rows = dtPlanestmp.Select("corral = '" + overlayCeldas.Polygons.ElementAt(i).Name + "'");
-                        //DataRow[] rows = dtCabezastmp.Select("corral = '" + overlayCeldas.Polygons.ElementAt(i).Name + "'");
-                        if (rows.Length > 0)
-                        {
-                            //DataRow row = rows[0];
-                            //string cab = row["cabezas"].ToString().Replace(".000", "");
-                            //if (cab == "0")
-                            //{
-                            //    continue;
-                            //}
-                        }
-                        else
-                        {
-                            string corral = overlayCeldas.Polygons.ElementAt(i).Name;
-                            continue;
-                        }
-                    }
-                    //}
-
-                    ///////////////////////
-
-                    for (int j = 0; j < totalGrid; j++) //colores grid
-                    {
-
-                        //if (j==0) 
+                        //DataRow row = rows[0];
+                        //string cab = row["cabezas"].ToString().Replace(".000", "");
+                        //if (cab == "0")
                         //{
-                        //string corral = overlayCeldas.Polygons.ElementAt(i).Name;
+                        //    continue;
                         //}
-                        //string numero1 = overlayCeldas.Polygons.ElementAt(i).Name.ToString();
-                        //string numero = overlayCeldas.Polygons.ElementAt(i).Name.ToString().Substring(0, 1);
+                    }
+                    else
+                    {
+                        string corral = overlayCeldas.Polygons.ElementAt(i).Name;
+                        continue;
+                    }
+                }
+                //}
 
-                        //if (!numero.Equals("2")) //quitar recep
-                        //{
-                        switch (ubic)
-                        {
-                            case clasico:
-                                if (ubicE(overlayCeldas.Polygons.ElementAt(i).Points[0].Lat, overlayCeldas.Polygons.ElementAt(i).Points[0].Lng) == ubic)
-                                {
-                                    if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name))
-                                    {
+                ///////////////////////
 
-                                        if (verSinServir)//lblDetalleCabSinServir.Visible)
-                                        {
-                                            if (j == 0)
-                                            {
-                                                string corral = overlayCeldas.Polygons.ElementAt(i).Name;
-                                                //mensajeSinServir += corral.Replace("\r\n","") + ", ";
-                                                buscarUbicacionBoton(corral, false);
-                                            }
-                                        }
+                for (int j = 0; j < totalGrid; j++) //colores grid
+                {
 
-                                        valores[j]++;
-                                        salir = true;
-                                    }
-                                }
-                                break;
-                            case ecologico:
-                                if (ubicE(overlayCeldas.Polygons.ElementAt(i).Points[0].Lat, overlayCeldas.Polygons.ElementAt(i).Points[0].Lng) == ubic)
-                                {
-                                    if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name))
-                                    {
+                    //if (j==0) 
+                    //{
+                    //string corral = overlayCeldas.Polygons.ElementAt(i).Name;
+                    //}
+                    //string numero1 = overlayCeldas.Polygons.ElementAt(i).Name.ToString();
+                    //string numero = overlayCeldas.Polygons.ElementAt(i).Name.ToString().Substring(0, 1);
 
-                                        if (verSinServir)//lblDetalleCabSinServir.Visible)
-                                        {
-                                            if (j == 0)
-                                            {
-                                                string corral = overlayCeldas.Polygons.ElementAt(i).Name;
-                                                buscarUbicacionBoton(corral, false);
-                                            }
-                                        }
-
-                                        valores[j]++;
-                                        salir = true;
-                                    }
-                                }
-                                break;
-                            default:
+                    //if (!numero.Equals("2")) //quitar recep
+                    //{
+                    switch (ubic)
+                    {
+                        case clasico:
+                            if (ubicE(overlayCeldas.Polygons.ElementAt(i).Points[0].Lat, overlayCeldas.Polygons.ElementAt(i).Points[0].Lng) == ubic)
+                            {
                                 if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name))
                                 {
+
+                                    if (verSinServir)//lblDetalleCabSinServir.Visible)
+                                    {
+                                        if (j == 0)
+                                        {
+                                            string corral = overlayCeldas.Polygons.ElementAt(i).Name;
+                                            //mensajeSinServir += corral.Replace("\r\n","") + ", ";
+                                            buscarUbicacionBoton(corral, false);
+                                        }
+                                    }
+
                                     valores[j]++;
                                     salir = true;
                                 }
-                                break;
-                        }
-
-                        //}
-
-                        if (salir)
+                            }
                             break;
+                        case ecologico:
+                            if (ubicE(overlayCeldas.Polygons.ElementAt(i).Points[0].Lat, overlayCeldas.Polygons.ElementAt(i).Points[0].Lng) == ubic)
+                            {
+                                if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name))
+                                {
 
+                                    if (verSinServir)//lblDetalleCabSinServir.Visible)
+                                    {
+                                        if (j == 0)
+                                        {
+                                            string corral = overlayCeldas.Polygons.ElementAt(i).Name;
+                                            buscarUbicacionBoton(corral, false);
+                                        }
+                                    }
+
+                                    valores[j]++;
+                                    salir = true;
+                                }
+                            }
+                            break;
+                        default:
+                            if (overlayCeldas.Polygons.ElementAt(i).Tag.Equals(colores[j].Name))
+                            {
+                                valores[j]++;
+                                salir = true;
+                            }
+                            break;
                     }
 
-                }
+                    //}
 
-                for (int i = 0; i < totalGrid; i++)
-                {
-                    totalcapasubic = totalcapasubic + valores[i];
-                }
-
-                for (int i = 0; i < totalGrid; i++)
-                {
-                    valores2[i] = Math.Round(valores[i] / totalcapasubic * 100, 1);
-                }
-
-
-                formatChart(chart, 1);// totalGrid);
-
-                chart.Titles.Clear();
-
-                string ubicn = "";
-
-                switch (ubic)
-                {
-                    case clasico:
-                        ubicn = "Clasicos".ToUpper() + " plan";
+                    if (salir)
                         break;
 
-                    case ecologico:
-                        ubicn = "Ecologicos".ToUpper() + " plan";
-                    break;
                 }
 
-                //descripcion graficos
-                string vtitulo = ubicn.ToString() + " " + string.Format("{0:N0}", totalcapasubic).ToString() + " corr.";
-                if (indiceBotonVistaSel == 6)
-                {
-                    vtitulo += "";
-                }
-                chart.Titles.Add(vtitulo);
-                chart.Titles[0].ForeColor = Color.White;
-                chart.Titles[0].Font = new Font("Courier", 14f, FontStyle.Bold);
+            }
+
+            for (int i = 0; i < totalGrid; i++)
+            {
+                totalcapasubic = totalcapasubic + valores[i];
+            }
+
+            for (int i = 0; i < totalGrid; i++)
+            {
+                valores2[i] = Math.Round(valores[i] / totalcapasubic * 100, 1);
+            }
+
+
+            formatChart(chart, 1);// totalGrid);
+
+            chart.Titles.Clear();
+
+            string ubicn = "";
+
+            switch (ubic)
+            {
+                case clasico:
+                    ubicn = "Clasicos".ToUpper() + " plan";
+                    break;
+
+                case ecologico:
+                    ubicn = "Ecologicos".ToUpper() + " plan";
+                    break;
+            }
+
+            //descripcion graficos
+            string vtitulo = ubicn.ToString() + " " + string.Format("{0:N0}", totalcapasubic).ToString() + " corr.";
+            if (indiceBotonVistaSel == 6)
+            {
+                vtitulo += "";
+            }
+            chart.Titles.Add(vtitulo);
+            chart.Titles[0].ForeColor = Color.White;
+            chart.Titles[0].Font = new Font("Courier", 14f, FontStyle.Bold);
 
 
             for (int i = 0; i < totalGrid; i++)
             {
-                    //dona
-                    //valores[i] = Math.Round(valores[i] / totalcapasubic * 100, 1);
-                    chart.Series[0].Points.AddXY(i.ToString(), valores[i].ToString());
-                    vColor = colores[i];
-                    if (i == 0)
-                    {
-                        vColor = Color.White; //FromArgb(150, Color.White);
-                        //vColor = Color.Transparent;
-                    }                    
-                    chart.Series[0].Points[i].Color = vColor; //colores[i];
-                    if (valores[i].ToString() != "0") 
-                    {
-                        chart.Series[0].Points[i].Label =  valores2[i].ToString() + "%\n\r" + string.Format("{0:N0}",valores[i]).ToString();
-                    }
-                    else
-                    {
-                        chart.Series[0].Points[i].Label = ".";
-                    }
+                //dona
+                //valores[i] = Math.Round(valores[i] / totalcapasubic * 100, 1);
+                chart.Series[0].Points.AddXY(i.ToString(), valores[i].ToString());
+                vColor = colores[i];
+                if (i == 0)
+                {
+                    vColor = Color.White; //FromArgb(150, Color.White);
+                                          //vColor = Color.Transparent;
+                }
+                chart.Series[0].Points[i].Color = vColor; //colores[i];
+                if (valores[i].ToString() != "0")
+                {
+                    chart.Series[0].Points[i].Label = valores2[i].ToString() + "%\n\r" + string.Format("{0:N0}", valores[i]).ToString();
+                }
+                else
+                {
+                    chart.Series[0].Points[i].Label = ".";
+                }
 
-                    //var descrip = string.Format("{0:N0}", valores[i]).ToString();
-                    //if (ubic == ecologico)
-                    //{
-                    //    lblEcologicosCorrrales.Text = vtitulo;
-                    //    lblEcologicosCorrrales.Visible = true;
-                    //    progressBar01.AddSegment(descrip, Convert.ToDouble(valores2[i].ToString()), vColor);
-                    //}
-                    //if (ubic == clasico)
-                    //{
-                    //    lblClasicosCorrrales.Text = vtitulo;
-                    //    lblClasicosCorrrales.Visible = true;
-                    //    progressBar02.AddSegment(descrip, Convert.ToDouble(valores2[i].ToString()), vColor);
-                    //}
+
+                //var descrip = string.Format("{0:N0}", valores[i]).ToString();
+                //if (ubic == ecologico)
+                //{
+                //    lblEcologicosCorrrales.Text = vtitulo;
+                //    lblEcologicosCorrrales.Visible = true;
+                //    progressBar01.AddSegment(descrip, Convert.ToDouble(valores2[i].ToString()), vColor);
+                //}
+                //if (ubic == clasico)
+                //{
+                //    lblClasicosCorrrales.Text = vtitulo;
+                //    lblClasicosCorrrales.Visible = true;
+                //    progressBar02.AddSegment(descrip, Convert.ToDouble(valores2[i].ToString()), vColor);
+                //}
 
                 //column        
                 //chart.Series[i].Points.AddXY("", valores2[i]);
@@ -13507,7 +13868,7 @@ namespace Mapa
                 vColor = colores[i];
                 if (i == 0)
                 {
-                    vColor = Color.White;                                          
+                    vColor = Color.White;
                 }
 
                 var descrip = string.Format("{0:N0}", valores[i]).ToString();
@@ -13536,13 +13897,12 @@ namespace Mapa
 
         }
 
-
         private int ubicE(double lat, double lng)
         {
 
             int ubic;
 
-            if (lat > 21.911475576 )//|| polygonEcoSec01.IsInside(new PointLatLng(lat, lng)))
+            if (lat > 21.911475576)//|| polygonEcoSec01.IsInside(new PointLatLng(lat, lng)))
             {
                 ubic = clasico;
             }
@@ -13584,8 +13944,8 @@ namespace Mapa
                 indiceBoton2 = 0;
             }
 
-
         }
+
         void posPanelCam()
         {
 
@@ -13646,7 +14006,7 @@ namespace Mapa
             //panelCam07.Left = panelCam05.Left + panelCam05.Width + 5;
             //panelCam09.Left = panelCam07.Left + panelCam07.Width + 5;
             //panelCam11.Left = panelCam09.Left + panelCam09.Width + 5;
-            
+
             panelCam13.Left = panelCam03.Left + panelCam03.Width + 5;
             panelCam15.Left = panelCam13.Left + panelCam13.Width + 5;
             panelCam17.Left = panelCam15.Left + panelCam15.Width + 5;
@@ -13663,7 +14023,7 @@ namespace Mapa
 
 
             panelCam02.Left = panelCam01.Left;
-            
+
             //panelCam04.Left = panelCam02.Left + panelCam02.Width + 5;
             //panelCam06.Left = panelCam04.Left + panelCam04.Width + 5;
             //panelCam08.Left = panelCam06.Left + panelCam06.Width + 5;
@@ -13951,7 +14311,7 @@ namespace Mapa
             refrescaGraficos();
         }
 
-        private void dimensionesToolStripMenuItem_Click(object sender, EventArgs e) 
+        private void dimensionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             toolStripSplitButton3.Text = dimensionesToolStripMenuItem.Text;
@@ -14061,7 +14421,7 @@ namespace Mapa
             }
 
             colores.Add(Color.Silver);
-            colores.Add(Color.Orange);
+            colores.Add(colorNaranja);// Color.Orange);
             colores.Add(Color.Yellow);
             colores.Add(Color.Cyan);
             colores.Add(Color.LimeGreen);
@@ -14196,33 +14556,33 @@ namespace Mapa
             double clng0 = 0;
             double clat1 = 0;
             double clng1 = 0;
-            double clat2 = 0;
-            double clng2 = 0;
-            double clat3 = 0;
-            double clng3 = 0;
+            //double clat2 = 0;
+            //double clng2 = 0;
+            //double clat3 = 0;
+            //double clng3 = 0;
 
             double clatmin0 = 0;
             double clngmin0 = 0;
-            double clatmin1 = 0;
-            double clngmin1 = 0;
-            double clatmin2 = 0;
-            double clngmin2 = 0;
-            double clatmin3 = 0;
-            double clngmin3 = 0;
+            //double clatmin1 = 0;
+            //double clngmin1 = 0;
+            //double clatmin2 = 0;
+            //double clngmin2 = 0;
+            //double clatmin3 = 0;
+            //double clngmin3 = 0;
 
             double dist0 = 0;
-            double dist1 = 0;
-            double dist2 = 0;
-            double dist3 = 0;
+            //double dist1 = 0;
+            //double dist2 = 0;
+            //double dist3 = 0;
 
             double distmin = 9999999;
 
             string corral = "0000";
 
             string corralmin0 = "0";
-            string corralmin1 = "0";
-            string corralmin2 = "0";
-            string corralmin3 = "0";
+            //string corralmin1 = "0";
+            //string corralmin2 = "0";
+            //string corralmin3 = "0";
 
             DataTable vdt = new DataTable();
             vdt = dt.Copy();
@@ -14368,7 +14728,7 @@ namespace Mapa
                 }
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
 
             }
@@ -14523,7 +14883,7 @@ namespace Mapa
                 }
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
 
             }
@@ -14566,7 +14926,7 @@ namespace Mapa
                 //lblDistancia.Visible = true;
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
 
             }
@@ -14877,7 +15237,7 @@ namespace Mapa
             //item.Name, item.Tag));
         }
 
-        private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        private async void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
             if (gopc == 3)
             {
@@ -14891,37 +15251,108 @@ namespace Mapa
 
                     String cadena = item.Tag.ToString().Trim();
 
-                    obtenerWsdlCabezasSap(ref dtCabezastmp);
+                    if (dtCabezastmp == null || dtCabezastmp.Rows.Count == 0)
+                    {
+                        dtCabezastmp = await obtenerWsdlCabezasSap();
+                    }
 
-                    dtCabezastmp.DefaultView.RowFilter = "corral = '" + cadena + "'";
-                    dtCabezastmp = dtCabezastmp.DefaultView.ToTable();
+                    DataRow[] filasCab = (dtCabezastmp != null && dtCabezastmp.Rows.Count > 0) ? dtCabezastmp.Select("corral = '" + cadena + "'") : new DataRow[0];
                     String cab = "0";
                     String vDetalles = "";
 
-                    if (dtCabezastmp.Rows.Count > 0)
-                    {
-                        cab = dtCabezastmp.Rows[0][7].ToString().Replace(".000", "");
-                        
-                        vDetalles = "\n\r" + 
-                                    //dtCabezastmp.Rows[0][0].ToString() +"\n\r" +
-                                    //dtCabezastmp.Rows[0][1].ToString() + "\n\r" +
-                                    //dtCabezastmp.Rows[0][2].ToString() + "\n\r" +
-                                    dtCabezastmp.Rows[0][3].ToString() + "\n\r" +
-                                    dtCabezastmp.Rows[0][4].ToString() + ", " +
-                                    dtCabezastmp.Rows[0][5].ToString() + "\n\r" +
-                                    dtCabezastmp.Rows[0][6].ToString() + " Kgs" + "\n\r" +
-                                    dtCabezastmp.Rows[0][7].ToString().Replace(".000", "")+" Cab";
+                    gMostrarRepartos = true;
+                    dtRepartotmp = await obtenerWsdlServidasSap();
 
-                          MessageBox.Show("Corral " + cadena + "" + vDetalles, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                                            
+                    double servidoTotal = 0;
+                    double planTotal = 0;
+                    string detallesServidas = "";
+
+                    if (dtRepartotmp != null && dtRepartotmp.Rows.Count > 0)
+                    {
+                        string cadenaClean = cadena.TrimStart('0');
+                        List<DataRow> filasReparto = new List<DataRow>();
+
+                        foreach (DataRow r in dtRepartotmp.Rows)
+                        {
+                            if (r["corral"] != DBNull.Value)
+                            {
+                                string cVal = r["corral"].ToString().Trim();
+                                if (cVal.Equals(cadena, StringComparison.OrdinalIgnoreCase) ||
+                                    (!string.IsNullOrEmpty(cadenaClean) && cVal.TrimStart('0').Equals(cadenaClean, StringComparison.OrdinalIgnoreCase)))
+                                {
+                                    filasReparto.Add(r);
+                                }
+                            }
+                        }
+
+                        filasReparto.Sort((x, y) =>
+                        {
+                            int numX = 0, numY = 0;
+                            string sX = x["servida"] != DBNull.Value ? x["servida"].ToString().Trim() : "";
+                            string sY = y["servida"] != DBNull.Value ? y["servida"].ToString().Trim() : "";
+                            int.TryParse(sX, out numX);
+                            int.TryParse(sY, out numY);
+                            if (numX != 0 || numY != 0)
+                                return numX.CompareTo(numY);
+                            return sX.CompareTo(sY);
+                        });
+
+                        if (filasReparto.Count > 0)
+                        {
+                            foreach (DataRow r in filasReparto)
+                            {
+                                string nServidaRaw = r["servida"] != DBNull.Value ? r["servida"].ToString().Trim() : "";
+                                string nServida = nServidaRaw.TrimStart('0');
+                                if (string.IsNullOrEmpty(nServida)) nServida = "0";
+
+                                string numCamion = r["numcamion"] != DBNull.Value ? r["numcamion"].ToString().Trim() : "";
+
+                                double p = 0, s = 0;
+                                if (r["servido"] != DBNull.Value) double.TryParse(r["servido"].ToString(), out s);
+                                if (r["plan"] != DBNull.Value) double.TryParse(r["plan"].ToString(), out p);
+
+                                servidoTotal += s;
+                                planTotal += p;
+
+                                double difServida = s - p;
+                                string signServida = difServida > 0 ? "+" : "";
+
+                                string camStr = !string.IsNullOrEmpty(numCamion) ? string.Format(" (Camión {0})", numCamion) : "";
+
+                                detallesServidas += string.Format("\n\rServida {0}{5}: Servido: {1:N0} Kg / Plan: {2:N0} Kg | Dif: {3}{4:N0} Kg",
+                                    nServida, s, p, signServida, difServida, camStr);
+                            }
+                        }
+                    }
+
+                    if (filasCab.Length > 0)
+                    {
+                        cab = filasCab[0][7].ToString().Replace(".000", "");
+
+                        vDetalles = "\n\r" +
+                                    filasCab[0][3].ToString() + "\n\r" +
+                                    filasCab[0][4].ToString() + ", " +
+                                    filasCab[0][5].ToString() + "\n\r" +
+                                    filasCab[0][6].ToString() + " Kgs" + "\n\r" +
+                                    filasCab[0][7].ToString().Replace(".000", "") + " Cab" + "\n\r" +
+                                    "Tolerancia: +-" + kilosTolerancia.ToString("N0") + " Kg";
+
+                        if (!string.IsNullOrEmpty(detallesServidas))
+                        {
+                            vDetalles += detallesServidas;
+                        }
+
+                        MessageBox.Show("Corral " + cadena + "" + vDetalles, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
                     }
                     else
                     {
-                        MessageBox.Show(cadena + ", Cab: " + cab, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                        string tolStr = "\n\rTolerancia: +-" + kilosTolerancia.ToString("N0") + " Kg";
+                        MessageBox.Show(cadena + ", Cab: " + cab + tolStr + detallesServidas, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                     }
-                                    
+
                     lblMsg.Text = cadena + ", Cab: " + cab;
-                                  
+
                 }
 
             }
@@ -15194,7 +15625,7 @@ namespace Mapa
 
         }
 
-        private void recorridoCamionBoton(Boolean textos)
+        private async Task recorridoCamionBoton(Boolean textos)
         {
 
             DataRow[] foundRows2;
@@ -15207,7 +15638,7 @@ namespace Mapa
                 DataTable dt = new DataTable();
                 DataTable dt2 = new DataTable();
 
-                obtenerWsdlHorariosSap(ref dt);
+                dt = await obtenerWsdlHorariosSap();
                 consultaUbicaciones(ref dt2);
 
                 quitarMarcadorRecorridos();
@@ -15275,7 +15706,7 @@ namespace Mapa
                 }
 
             }
-            catch (Exception e)
+            catch (Exception )
             {
 
             }
@@ -15358,7 +15789,7 @@ namespace Mapa
 
         }
 
-        private void llenaRaciones()
+        private async Task llenaRaciones()
         {
 
             DataTable dt = new DataTable();
@@ -15369,7 +15800,7 @@ namespace Mapa
 
                 cmbRaciones.Items.Clear();
 
-                obtenerWsdlHorariosSap(ref dt);
+                dt = await obtenerWsdlHorariosSap();
                 string expression = "numcamion='" + cmbCamion.Text.Trim() + "' and servida = '" + cmbServidas.Text.Trim() + "'";
                 string sortOrder = "numcamion, servida, hora ASC";
                 foundRows2 = dt.Select(expression, sortOrder);
@@ -15390,7 +15821,7 @@ namespace Mapa
                 }
 
             }
-            catch (Exception e) { }
+            catch (Exception ) { }
 
 
 
@@ -15897,14 +16328,16 @@ namespace Mapa
 
         private void timerReloj_Tick(object sender, EventArgs e)
         {
-            lblHora.Text = DateTime.Now.ToString("hh:mm");
+            lblHora.Text = DateTime.Now.ToString("hh:mm tt");
             var vHora = DateTime.Now.ToString("hh");
             var vMinuto = DateTime.Now.ToString("mm");
             var vAmPm = DateTime.Now.ToString("tt").Replace(" ", "").Replace(".", "");
 
 
             Principal.instance.toolStripTextBox2.Text = lblHora.Text;
-            lblHoraMapa.Text = vHora +":"+ vMinuto + " " + vAmPm;//lblHora.Text;
+            string separador = mostrarDosPuntos ? ":" : " ";
+            lblHoraMapa.Text = vHora + separador + vMinuto + " " + vAmPm;
+            mostrarDosPuntos = !mostrarDosPuntos;
 
             if (gopc != 2 && gopc != 3)
             {
@@ -16133,7 +16566,7 @@ namespace Mapa
             if (picRepCam26.BackColor != Color.Transparent || picGpsCam26.BackColor != Color.Transparent) { cant++; }
             if (picRepCam27.BackColor != Color.Transparent || picGpsCam27.BackColor != Color.Transparent) { cant++; }
             if (picRepCam28.BackColor != Color.Transparent || picGpsCam28.BackColor != Color.Transparent) { cant++; }
-            
+
             if (picRepCam29.BackColor != Color.Transparent || picGpsCam29.BackColor != Color.Transparent) { cant++; }
             if (picRepCam30.BackColor != Color.Transparent || picGpsCam30.BackColor != Color.Transparent) { cant++; }
             if (picRepCam31.BackColor != Color.Transparent || picGpsCam31.BackColor != Color.Transparent) { cant++; }
@@ -16573,7 +17006,7 @@ namespace Mapa
             //splitContainerMapa.Panel2Collapsed = !splitContainerMapa.Panel2Collapsed;            
             //panelActCamiones.Visible = !panelActCamiones.Visible;
             lblHoraMapa.Visible = !panelActCamiones.Visible;
-            
+
             panelCam01.Visible = !panelCam01.Visible;
             visPanelCamiones(panelCam01.Visible);
 
@@ -16791,7 +17224,7 @@ namespace Mapa
         {
             string resultado = "1";
 
-            if (label.BackColor == Color.Orange)
+            if (label.BackColor == colorNaranja)//Color.Orange)
             {
                 resultado = "1";
             }
@@ -17398,7 +17831,7 @@ namespace Mapa
 
         public void toolStripButton22_Click(object sender, EventArgs e)
         {
-            
+
             Thread t = new Thread(() => { fPingEquipos(); });
             t.Name = "fping";
             t.IsBackground = true;
@@ -17435,7 +17868,7 @@ namespace Mapa
             pBar09.Visible = false;
             pBar10.Visible = false;
             pBar11.Visible = false;
-            
+
 
         }
 
@@ -17577,35 +18010,66 @@ namespace Mapa
         }
 
         void msgCamiones()
-        {               
+        {
 
 
             if (!lblDetalleStatus.Visible) return;
 
             //leer esta varioable dtLocalizatmp y mostrarla en un msgbox
-            string mensaje = "Status Tablets:\n";
+            string mensaje = "Status Tablets:\n\n";
             //sort dtLocalizatmp
             dtLocalizatmp.DefaultView.Sort = "numcamion asc";
             dtLocalizatmp = dtLocalizatmp.DefaultView.ToTable();
-            
+
             int i = 0;
 
             foreach (DataRow row in dtLocalizatmp.Rows)
             {
                 if (row["fechareg"].ToString() == DateTime.Now.ToString("yyyy-MM-dd"))
                 {
+
+
+                    DataRow[] resultTaller = dtTallertmp.Select("numcamion = '" + row["numcamion"].ToString().TrimStart('0') + "'");
+                    //DataRow[] resultTaller = dtTallertmp.Select("numcamion = '" + row["numcamion"].ToString().TrimStart('0') + "'");
+                    string nombre = "";//"------";
+                    string mtto = "";
+                    if (resultTaller.Length > 0)
+                    {
+                        DataRow fila = resultTaller[0];
+                        //nombre = "TALLER";// fila[0].ToString();
+                        //mtto = fila[3].ToString();
+                    }
+
                     //if primer letra de sea row["varios02"] == E
 
                     //if (!row["varios02"].ToString().StartsWith("E"))
                     //{
-                        mensaje += $"[{row["numcamion"].ToString().PadLeft(2, '0')}], {row["varios01"].ToString().Replace("TAMGGCAMR", "T")}, {row["horareg"]}, {row["pila"]}, {row["varios02"]}\n";
-                        i++;
+                    mensaje += $"{nombre}{voa(row["varios02"].ToString())}, [{row["numcamion"].ToString().PadLeft(2, '0')}], {row["varios01"].ToString().Replace("TAMGGCAMR", "T")}, {row["horareg"]}, {row["pila"]}, {row["varios02"]}, {mtto}\n";
+                    i++;
                     //}
                 }
             }
-            lblDetalleStatus.Text = mensaje + "\r\n"+i.ToString() + " cam";//.Replace("\n"," ");
+
+
+
+
+
+            lblDetalleStatus.Text = mensaje + "\r\n" + i.ToString() + " cam";//.Replace("\n"," ");
+
+            //lblDetalleStatus.Text = lblDetalleStatus.Text + "\r\n" + "\r\n" + "[x cerrar]";
+
             //MessageBox.Show(mensaje, "Gps", MessageBoxButtons.OK, MessageBoxIcon.Information);
             posLblStatus();
+        }
+
+        string voa(string valor)
+        {
+            if (valor.Contains(",A,"))
+                return "LOCALIZADO";
+            else if (valor.Contains(",V,"))
+                return "----------";
+            else
+                return "----------";
         }
 
         public void lblEtiquetaRutas_Click(object sender, EventArgs e)
@@ -17621,7 +18085,7 @@ namespace Mapa
 
         void DibujarBarraProgreso(ProgressStackBar progressBar)
         {
-            if(progressBar==null) { return; }
+            if (progressBar == null) { return; }
             //panelControl.Controls.Clear();
 
             //progressBar = new ProgressStackBar
@@ -17630,7 +18094,7 @@ namespace Mapa
             //    Height = panelControl.Height,
             //    Width = panelControl.Width
             //};
-            
+
             //panelControl.Controls.Add(progressBar);
             //progressBar.BringToFront();
             //panelControl.BringToFront();
@@ -17648,7 +18112,8 @@ namespace Mapa
         public void DibujarRelojAnalogico(Panel panelControl)
         {
             // Suscribirse al evento Paint del panel
-            panelControl.Paint += (sender, e) => {
+            panelControl.Paint += (sender, e) =>
+            {
                 Graphics g = e.Graphics;
                 g.SmoothingMode = SmoothingMode.AntiAlias;
 
@@ -17664,10 +18129,26 @@ namespace Mapa
                 int radio = Math.Min(ancho, alto) / 2 - 10; // Radio del reloj
                 Point centro = new Point(ancho / 2, alto / 2);
 
-                // Dibujar círculo del reloj 
-                using (Pen penBorde = new Pen(Color.Black, 1))
+                // Dibujar rectángulo redondeado del reloj
+                int cornerRadius = 15;
+                Rectangle rect = new Rectangle(0, 0, ancho - 1, alto - 1);
+                using (System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath())
                 {
-                    //g.DrawEllipse(penBorde, centro.X - radio, centro.Y - radio, radio * 2, radio * 2);
+                    path.AddArc(rect.X, rect.Y, cornerRadius, cornerRadius, 180, 90);
+                    path.AddArc(rect.Right - cornerRadius, rect.Y, cornerRadius, cornerRadius, 270, 90);
+                    path.AddArc(rect.Right - cornerRadius, rect.Bottom - cornerRadius, cornerRadius, cornerRadius, 0, 90);
+                    path.AddArc(rect.X, rect.Bottom - cornerRadius, cornerRadius, cornerRadius, 90, 90);
+                    path.CloseFigure();
+                    
+                    using (SolidBrush brushFondo = new SolidBrush(Color.FromArgb(40, 40, 40)))
+                    {
+                        g.FillPath(brushFondo, path);
+                    }
+
+                    using (Pen penBorde = new Pen(Color.Silver, 1))
+                    {
+                        g.DrawPath(penBorde, path);
+                    }
                 }
 
                 // Dibujar marcas de horas
@@ -17816,7 +18297,7 @@ namespace Mapa
         bool camionTaller(string nombre)
         {
             string ad = nombre.Trim('0');
-            DataRow[] rows = dtTallertmp.Select("id = '" + nombre.TrimStart('0') + "'");
+            DataRow[] rows = dtTallertmp.Select("numcamion = '" + nombre.TrimStart('0') + "'");
             return rows.Count() > 0;
         }
 
@@ -17827,9 +18308,9 @@ namespace Mapa
             if (!lblDetalleStatusTaller.Visible) return;
 
             //leer esta varioable dtLocalizatmp y mostrarla en un msgbox
-            string mensaje = "Status Taller:\n";
+            string mensaje = "\n\nStatus Taller:\n\n";
             //sort dtLocalizatmp
-            dtTallertmp.DefaultView.Sort = "id";
+            dtTallertmp.DefaultView.Sort = "numcamion";
             dtTallertmp = dtTallertmp.DefaultView.ToTable();
 
             int i = 0;
@@ -17838,19 +18319,23 @@ namespace Mapa
             {
                 //if (row["fecha"].ToString() == DateTime.Now.ToString("yyyy-MM-dd"))
                 //{
-                    //if primer letra de sea row["varios02"] == E
+                //if primer letra de sea row["varios02"] == E
 
-                    //if (!row["varios02"].ToString().StartsWith("E"))
-                    //{
-                        //mensaje += $"[{row["numcamion"].ToString().PadLeft(2, '0')}], {row["varios01"].ToString().Replace("TAMGGCAMR", "T")}, {row["horareg"]}, {row["pila"]}, {row["varios02"]}\n";
-                        mensaje += $"[{row["numcamion"].ToString().PadLeft(2, '0')}], {row["name"].ToString()}, {row["fecha"].ToString()}, {row["mtto"].ToString()}\n";
-                        i++;
-                    //}
+                //if (!row["varios02"].ToString().StartsWith("E"))
+                //{
+                //mensaje += $"[{row["numcamion"].ToString().PadLeft(2, '0')}], {row["varios01"].ToString().Replace("TAMGGCAMR", "T")}, {row["horareg"]}, {row["pila"]}, {row["varios02"]}\n";
+                mensaje += $"TALLER [{row["numcamion"].ToString().PadLeft(2, '0')}], {row["name"].ToString()}, {row["fecha"].ToString()}, {row["mtto"].ToString()}\n";
+                i++;
+                //}
                 //}
             }
+            lblDetalleStatusTaller.Text = "";
+            //lblDetalleStatusTaller.Text = mensaje + "\r\n"; //+ i.ToString() + " cam";//.Replace("\n"," ");
+            lblDetalleStatus.Text += mensaje + "\r\n" + i.ToString() + " cam";//.Replace("\n"," ");
+                                                                              //MessageBox.Show(mensaje, "Gps", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            lblDetalleStatusTaller.Text = mensaje + "\r\n"; //+ i.ToString() + " cam";//.Replace("\n"," ");
-            //MessageBox.Show(mensaje, "Gps", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            lblDetalleStatus.Text = lblDetalleStatus.Text + "\r\n" + "\r\n" + "[x cerrar]";
+
             posLblStatus();
 
         }
@@ -17869,8 +18354,8 @@ namespace Mapa
         private void picIndicador01_Click(object sender, EventArgs e)
         {
             verSinServir = !verSinServir;
-            if (verSinServir) 
-            { lblEtiquetaConCabSinServir.Text = "CAB ***"; } 
+            if (verSinServir)
+            { lblEtiquetaConCabSinServir.Text = "CAB ***"; }
             else
             { lblEtiquetaConCabSinServir.Text = "CAB"; }
 
@@ -17990,6 +18475,10 @@ namespace Mapa
 
         }
 
+        private void lblDetalleStatus_Click(object sender, EventArgs e)
+        {
+            verStatusTablets();
+        }
     }
 
     internal class Graphic
